@@ -2,7 +2,7 @@ import createGrid from '../elements/grid'
 import text from '../elements/text'
 import board from '../elements/board'
 
-export default class GameScreen {
+export default class GameStep {
   ctx: CanvasRenderingContext2D
   canvas: HTMLCanvasElement
 
@@ -14,7 +14,7 @@ export default class GameScreen {
   render() {
     createGrid(this.ctx)
 
-    text(this.ctx, 'Игра', 10, 50)
+    text(this.ctx, 'Игра', this.canvas.width / 2 - 30, 50)
 
     board(this.ctx, 80, 120)
 

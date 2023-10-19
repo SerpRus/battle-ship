@@ -1,16 +1,16 @@
 import { useRef, useEffect, useState } from 'react'
 
 // import startScreen, {startScreenClickHandler} from '../game/screens/start-screen';
-import StartScreen from '../game/screens/start-screen'
-import GameScreen from '../game/screens/game-screen'
-import EndScreen from '../game/screens/end-screen'
+import StartStep from '../../widgets/game/steps/start-step'
+import GameStep from '../../widgets/game/steps/game-step'
+import EndStep from '../../widgets/game/steps/end-step'
 
 // type ScreenRenderType = (ctx: CanvasRenderingContext2D, canvasElement: HTMLCanvasElement) => void
 
 type GameStepsType = {
-  start: typeof StartScreen
-  game: typeof GameScreen
-  end: typeof EndScreen
+  start: typeof StartStep
+  game: typeof GameStep
+  end: typeof EndStep
 }
 
 export default function Canvas() {
@@ -19,9 +19,9 @@ export default function Canvas() {
   const [gameStep, setGameStep] = useState('start')
 
   const gameSteps: GameStepsType = {
-    start: StartScreen,
-    game: GameScreen,
-    end: EndScreen,
+    start: StartStep,
+    game: GameStep,
+    end: EndStep,
   }
 
   let currentStep

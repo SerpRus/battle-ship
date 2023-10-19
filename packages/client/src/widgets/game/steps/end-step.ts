@@ -2,7 +2,7 @@ import createGrid from '../elements/grid'
 import text from '../elements/text'
 import board from '../elements/board'
 
-export default class EndScreen {
+export default class EndStep {
   ctx: CanvasRenderingContext2D
   canvas: HTMLCanvasElement
 
@@ -14,7 +14,7 @@ export default class EndScreen {
   render() {
     createGrid(this.ctx)
 
-    text(this.ctx, 'Игра окончена', 10, 50)
+    text(this.ctx, 'Игра окончена', this.canvas.width / 2 - 100, 50)
 
     board(this.ctx, 80, 120)
 
