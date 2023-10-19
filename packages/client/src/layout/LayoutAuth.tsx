@@ -1,19 +1,22 @@
 import React, { ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 
-const Layout = ({ children }: { children: ReactNode }) => {
+const LayoutAuth = ({ children }: { children: ReactNode }) => {
   return (
     <>
       <nav>
         <ul>
           <li>
-            <Link to="/">Home</Link>
+            <Link to="/profile">Профиль</Link>
           </li>
           <li>
-            <Link to="/login">Login</Link>
+            <Link to="/game">Игра</Link>
           </li>
           <li>
-            <Link to="/registration">Registration</Link>
+            <Link to="/leaderboard">Лидербоард</Link>
+          </li>
+          <li>
+            <Link to="/forum">Форум</Link>
           </li>
         </ul>
       </nav>
@@ -23,4 +26,4 @@ const Layout = ({ children }: { children: ReactNode }) => {
   )
 }
 
-export default Layout
+export default LayoutAuth
