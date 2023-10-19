@@ -1,13 +1,28 @@
-import createGrid from '../elements/grid';
-import text from '../elements/text';
+import createGrid from '../elements/grid'
+import text from '../elements/text'
 import board from '../elements/board'
 
-export default function gameScreen(ctx: CanvasRenderingContext2D) {
-  createGrid(ctx);
+export default class GameScreen {
+  ctx: CanvasRenderingContext2D
+  canvas: HTMLCanvasElement
 
-  text(ctx, 'Игра', 10, 50);
+  constructor(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement) {
+    this.ctx = ctx
+    this.canvas = canvas
+  }
 
-  board(ctx, 80, 120);
+  render() {
+    createGrid(this.ctx)
 
-  board(ctx, 560, 120);
+    text(this.ctx, 'Игра', 10, 50)
+
+    board(this.ctx, 80, 120)
+
+    board(this.ctx, 560, 120)
+  }
+
+  clickHandler = (e: React.MouseEvent<HTMLElement>) => {
+    console.log(e)
+    console.log('GameScreen')
+  }
 }
