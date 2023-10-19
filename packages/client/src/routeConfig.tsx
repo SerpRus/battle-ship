@@ -28,12 +28,12 @@ export enum AppRoutes {
 export const RoutePath: Record<AppRoutes, string> = {
   [AppRoutes.HOME]: '/',
   [AppRoutes.LOGIN]: '/login',
-  [AppRoutes.REGISTRATION]: 'registration',
-  [AppRoutes.PROFILE]: 'profile',
-  [AppRoutes.GAME]: 'game',
-  [AppRoutes.LEADERBOARD]: 'leaderboard',
-  [AppRoutes.FORUM]: 'forum',
-  [AppRoutes.TOPIC]: 'forum/:id',
+  [AppRoutes.REGISTRATION]: '/registration',
+  [AppRoutes.PROFILE]: '/profile',
+  [AppRoutes.GAME]: '/game',
+  [AppRoutes.LEADERBOARD]: '/leaderboard',
+  [AppRoutes.FORUM]: '/forum',
+  [AppRoutes.TOPIC]: '/forum/:id',
   [AppRoutes.NOT_FOUND]: '*',
 }
 
@@ -41,14 +41,17 @@ export const routeConfig: Record<AppRoutes, AppRouteProps> = {
   [AppRoutes.HOME]: {
     path: RoutePath.home,
     element: <Home />,
+    authOnly: false,
   },
   [AppRoutes.LOGIN]: {
     path: RoutePath.login,
     element: <Login />,
+    authOnly: false,
   },
   [AppRoutes.REGISTRATION]: {
     path: RoutePath.registration,
     element: <Registration />,
+    authOnly: false,
   },
   [AppRoutes.PROFILE]: {
     path: RoutePath.profile,

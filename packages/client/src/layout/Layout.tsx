@@ -1,22 +1,16 @@
 import React, { ReactNode } from 'react'
-import { Link } from 'react-router-dom'
+import Header from '../components/Header/Header'
 
-const Layout = ({ children }: { children: ReactNode }) => {
+const Layout = ({
+  authOnly = false,
+  children,
+}: {
+  authOnly?: boolean
+  children: ReactNode
+}) => {
   return (
     <>
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/login">Login</Link>
-          </li>
-          <li>
-            <Link to="/registration">Registration</Link>
-          </li>
-        </ul>
-      </nav>
+      <Header authOnly={authOnly} />
       <main className="container">{children}</main>
       <footer>подвал</footer>
     </>
