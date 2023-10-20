@@ -16,7 +16,7 @@ const Header: FC<{ authOnly?: boolean }> = ({ authOnly }) => {
           if (authOnly === routeAuthOnly) {
             return (
               <li key={key}>
-                <Link to={path!}>{element}</Link>
+                <Link to={path!}>{key}</Link>
               </li>
             )
           }
