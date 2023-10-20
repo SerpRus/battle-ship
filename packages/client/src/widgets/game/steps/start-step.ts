@@ -4,7 +4,8 @@ import button from '../elements/button'
 import board from '../elements/board'
 import React from 'react'
 import checkClickElement from '../utils/check-click-element'
-import { CELL_SIZE } from '../utils/constants'
+import { CELL_SIZE, BOARD_SIZE, SHIPS } from '../utils/constants'
+import generateShips from '../utils/generate-ships'
 
 type ButtonInfoType = {
   width: number
@@ -79,15 +80,19 @@ export default class StartStep {
     if (this.isRandomGenerateShipsButtonClick(x, y)) {
       console.log('Рандомная генерация')
 
-      button(
-        this.ctx,
-        'Играть',
-        this.startGameButtonInfo.width,
-        this.startGameButtonInfo.x,
-        this.startGameButtonInfo.y
-      )
+      generateShips(BOARD_SIZE, SHIPS)
 
-      this.isStartGameButtonVisible = true
+      console.log()
+
+      // button(
+      //   this.ctx,
+      //   'Играть',
+      //   this.startGameButtonInfo.width,
+      //   this.startGameButtonInfo.x,
+      //   this.startGameButtonInfo.y
+      // );
+      //
+      // this.isStartGameButtonVisible = true;
     }
   }
 

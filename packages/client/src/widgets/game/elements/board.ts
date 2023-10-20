@@ -1,4 +1,4 @@
-import { INC_COLOR, CELL_SIZE } from '../utils/constants'
+import { INC_COLOR, CELL_SIZE, BOARD_SIZE } from '../utils/constants'
 import text from './text'
 
 type BoardType = (
@@ -8,7 +8,7 @@ type BoardType = (
   size?: number
 ) => void
 
-const board: BoardType = function (ctx, x, y, size = 10) {
+const board: BoardType = function (ctx, x, y, size = BOARD_SIZE) {
   ctx.strokeStyle = INC_COLOR
 
   ctx.strokeRect(x, y, CELL_SIZE * size, CELL_SIZE * size)
@@ -16,7 +16,7 @@ const board: BoardType = function (ctx, x, y, size = 10) {
   const LETTER_START_CODE = 1040
 
   for (let i = 0; i < size; i++) {
-    text(ctx, String(i + 1), x + i * CELL_SIZE + 10, y - 10)
+    text(ctx, String(i + 1), x + i * CELL_SIZE + BOARD_SIZE, y - 10)
     text(
       ctx,
       String.fromCharCode(LETTER_START_CODE + i),
