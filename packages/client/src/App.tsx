@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
-import './App.css'
-import { AppRouter } from './AppRouter'
+import './app/styles/App.scss'
+import { AppRouter } from './app/providers/router/AppRouter'
 
 function App() {
   useEffect(() => {

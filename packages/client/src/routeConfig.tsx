@@ -1,5 +1,5 @@
 import { RouteProps } from 'react-router-dom'
-import Login from './pages/login'
+import Login from './pages/LoginPage'
 import Registration from './pages/registration'
 import Profile from './pages/profile'
 import Home from './pages/home'
