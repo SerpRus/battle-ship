@@ -1,28 +1,28 @@
-@import './utils/index';
+@import 'utils/index';
 
 //* paths */
 $pathFonts: '../fonts/';
 
 //* rules */
 $rulesDisplay: (
-    hidden: (
-        display: none,
-    ),
-    block: (
-        display: block,
-    ),
-    inline: (
-        display: inline,
-    ),
-    inline-block: (
-        display: inline-block,
-    ),
-    flex: (
-        display: flex,
-    ),
-    inline-flex: (
-        display: inline-flex,
-    )
+  hidden: (
+    display: none,
+  ),
+  block: (
+    display: block,
+  ),
+  inline: (
+    display: inline,
+  ),
+  inline-block: (
+    display: inline-block,
+  ),
+  flex: (
+    display: flex,
+  ),
+  inline-flex: (
+    display: inline-flex,
+  ),
 );
 
 //* colors (Имя цвета можно получить тут https://chir.ag/projects/name-that-color/#6195ED) */
@@ -37,13 +37,13 @@ $background-color-default: $white;
 
 //* media queries */
 $screen-width: (
-    mobile: 320,
-    mobileMax: 767,
-    tablet: 768,
-    desktop: 1024,
-    desktopBigMin: 1279,
-    desktopBig: 1280,
-    desktopLarge: 1366,
+  mobile: 320,
+  mobileMax: 767,
+  tablet: 768,
+  desktop: 1024,
+  desktopBigMin: 1279,
+  desktopBig: 1280,
+  desktopLarge: 1366,
 );
 $screen: (mobile, tablet, desktop, desktopBig, desktopLarge);
 
@@ -59,10 +59,8 @@ $line-height: $base-line-height;
 //* font-size */
 //$font-size-text: 20px;
 
-
 //* sizes */
 //$container-max-width: 1260px;
-
 
 //* transition */
 //$transition-duration: .3s;
@@ -72,10 +70,8 @@ $line-height: $base-line-height;
 //* border radius */
 //$border-radius-button: rem(10px);
 
-
 //* box shadows */
 //$box-shadow-card: 0 rem(30px) rem(30px) rgba($black , .15);
-
 
 //* z-index */
 //$z-index-header: 500;
