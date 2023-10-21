@@ -1,6 +1,9 @@
 import React, { FC } from 'react'
 import { Link } from 'react-router-dom'
-import { AppRoutes, routeConfig } from '../../../routeConfig'
+import {
+  AppRoutes,
+  routeConfig,
+} from '../../../app/providers/router/routeConfig'
 import cls from './Header.module.scss'
 
 const Header: FC<{ authOnly?: boolean }> = ({ authOnly }) => (
