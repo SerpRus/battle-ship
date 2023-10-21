@@ -1,19 +1,23 @@
 import React from 'react'
 import { Layout, Button, Checkbox, Form, Input } from 'antd'
 import { useNavigate } from 'react-router-dom'
-import cls from './loginPage.module.scss'
+import cls from './registrationPage.module.scss'
 
 const { Content } = Layout
 
 type FieldType = {
-  login?: string
+  email: string
+  login: string
+  first_name: string
+  second_name: string
+  phone: string
+  username?: string
   password?: string
-  remember?: string
+  confirm_password?: string
 }
 
-export const LoginPage = () => {
+export const RegistrationPage = () => {
   const navigate = useNavigate()
-
   const onFinish = (values: any) => {
     console.log('Success:', values)
   }
@@ -36,10 +40,38 @@ export const LoginPage = () => {
           onFinishFailed={onFinishFailed}
           autoComplete="off">
           <Form.Item<FieldType>
+            label="Почта"
+            name="email"
+            rules={[{ required: true, message: 'Введите вашу почту' }]}>
+            <Input />
+          </Form.Item>
+
+          <Form.Item<FieldType>
             label="Логин"
             name="login"
             rules={[{ required: true, message: 'Введите ваш логин' }]}>
             <Input />
+          </Form.Item>
+
+          <Form.Item<FieldType>
+            label="Имя"
+            name="first_name"
+            rules={[{ required: true, message: 'Введите ваше имя' }]}>
+            <Input />
+          </Form.Item>
+
+          <Form.Item<FieldType>
+            label="Фамилия"
+            name="second_name"
+            rules={[{ required: true, message: 'Введите вашу фамилию' }]}>
+            <Input />
+          </Form.Item>
+
+          <Form.Item<FieldType>
+            label="Телефон"
+            name="phone"
+            rules={[{ required: true, message: 'Введите ваш телефон' }]}>
+            <Input type="phone" />
           </Form.Item>
 
           <Form.Item<FieldType>
@@ -50,22 +82,22 @@ export const LoginPage = () => {
           </Form.Item>
 
           <Form.Item<FieldType>
-            name="remember"
-            valuePropName="checked"
-            wrapperCol={{ offset: 8, span: 16 }}>
-            <Checkbox>Remember me</Checkbox>
+            label="Повторите пароль"
+            name="confirm_password"
+            rules={[{ required: true, message: 'Повторите пароль' }]}>
+            <Input.Password />
           </Form.Item>
 
           <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
             <Button type="primary" htmlType="submit">
-              Войти
+              Зарегистрироваться
             </Button>
             <Button
               type="link"
               onClick={() => {
-                navigate('/registration')
+                navigate('/login')
               }}>
-              Зарегистрироваться
+              Войти
             </Button>
           </Form.Item>
         </Form>
