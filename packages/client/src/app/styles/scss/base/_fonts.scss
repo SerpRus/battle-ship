@@ -10,10 +10,10 @@
 }
 
 @font-face {
-    font-family: $font-family-brand;
-    font-weight: 700;
-    font-style: normal;
+  font-family: $font-family-brand;
+  font-weight: 700;
+  font-style: normal;
 
-    font-display: block;
-    src: url('#{$pathFonts}segoeprint-bold.ttf') format('truetype');
+  font-display: block;
+  src: url('#{$pathFonts}segoeprint-bold.ttf') format('truetype');
 }
