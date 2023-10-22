@@ -35,6 +35,7 @@ export const RegistrationPage = () => {
     formState: { errors },
     watch,
   } = useForm({
+    mode: 'all',
     defaultValues: {
       email: '',
       login: '',

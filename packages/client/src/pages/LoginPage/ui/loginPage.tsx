@@ -25,6 +25,7 @@ export const LoginPage = () => {
     formState: { errors },
     watch,
   } = useForm({
+    mode: 'all',
     defaultValues: {
       login: '',
       password: '',
