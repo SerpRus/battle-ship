@@ -18,7 +18,6 @@ export default function BattleShip() {
   const [gameStep, setGameStep] = useState('start')
   const [playerShips, setPlayerShips] = useState([])
 
-  // eslint-disable-next-line
   const clickRef = useRef<null | ((e: React.MouseEvent<HTMLElement>) => void)>(
     null
   )

@@ -16,13 +16,11 @@ export const createClientAndConnect = async (): Promise<Client | null> => {
     await client.connect()
 
     const res = await client.query('SELECT NOW()')
-    // eslint-disable-next-line
     console.log('  ➜ 🎸 Connected to the database at:', res?.rows?.[0].now)
     client.end()
 
     return client
   } catch (e) {
-    // eslint-disable-next-line
     console.error(e)
   }
 
