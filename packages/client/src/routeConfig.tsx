@@ -14,23 +14,14 @@ export type AppRouteProps = RouteProps & {
 }
 
 export enum AppRoutes {
-  // eslint-disable-next-line no-unused-vars
   HOME = 'home',
-  // eslint-disable-next-line no-unused-vars
   LOGIN = 'login',
-  // eslint-disable-next-line no-unused-vars
   REGISTRATION = 'registration',
-  // eslint-disable-next-line no-unused-vars
   PROFILE = 'profile',
-  // eslint-disable-next-line no-unused-vars
   GAME = 'game',
-  // eslint-disable-next-line no-unused-vars
   LEADERBOARD = 'leaderboard',
-  // eslint-disable-next-line no-unused-vars
   FORUM = 'forum',
-  // eslint-disable-next-line no-unused-vars
   TOPIC = 'topic',
-  // eslint-disable-next-line no-unused-vars
   NOT_FOUND = 'not_found',
 }
 
