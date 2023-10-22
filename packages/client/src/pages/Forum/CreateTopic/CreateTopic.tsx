@@ -1,6 +1,17 @@
 import React from 'react'
 import CreateTopicForm from './Form'
+import { Card, Flex } from 'antd'
 
-export default function CreateTopic() {
-  return <CreateTopicForm />
-}
+const CreateTopic: React.FC = () => (
+  <Flex justify="space-around">
+    <Card
+      style={{
+        maxWidth: 1000,
+        minWidth: 450,
+      }}>
+      <CreateTopicForm />
+    </Card>
+  </Flex>
+)
+
+export default CreateTopic

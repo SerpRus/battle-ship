@@ -2,10 +2,12 @@ import React from 'react'
 import { Button, Form, Input } from 'antd'
 
 const onFinish = (values: any) => {
+  // eslint-disable-line @typescript-eslint/no-explicit-any
   console.log('Success:', values)
 }
 
 const onFinishFailed = (errorInfo: any) => {
+  // eslint-disable-line @typescript-eslint/no-explicit-any
   console.log('Failed:', errorInfo)
 }
 
