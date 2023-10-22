@@ -10,7 +10,7 @@ export const AppRouter = () => {
         key={route.path}
         path={route.path}
         element={
-          <LayoutWrapper authOnly={route?.authOnly}>
+          <LayoutWrapper authOnly={route.authOnly}>
             {route.element}
           </LayoutWrapper>
         }
