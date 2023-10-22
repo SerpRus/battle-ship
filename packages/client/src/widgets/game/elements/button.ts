@@ -11,8 +11,8 @@ const button = async function buttonRender(
 ) {
   ctx.strokeStyle = INC_COLOR
 
-  ctx.strokeRect(x, y - CELL_SIZE, size, CELL_SIZE)
   await text(ctx, textButton, x + 10, y - 12, font)
+  ctx.strokeRect(x, y - CELL_SIZE, size, CELL_SIZE)
 }
 
 export default button

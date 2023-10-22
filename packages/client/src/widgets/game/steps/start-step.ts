@@ -11,6 +11,7 @@ import createGrid from '../elements/grid'
 import text from '../elements/text'
 import button from '../elements/button'
 import board from '../elements/board'
+import getClickPosition from '../utils/get-click-position'
 
 type ButtonInfoType = {
   width: number
@@ -86,14 +87,7 @@ export default class StartStep {
   }
 
   clickHandler = async (e: React.MouseEvent<HTMLElement>) => {
-    const rect = this.canvas.getBoundingClientRect()
-
-    if (!rect) {
-      return
-    }
-
-    const x = e.clientX - rect.left
-    const y = e.clientY - rect.top
+    const { x, y } = getClickPosition(this.canvas, e)
 
     if (this.isRandomGenerateShipsButtonClick(x, y)) {
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
