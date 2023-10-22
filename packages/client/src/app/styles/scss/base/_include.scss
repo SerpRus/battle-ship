@@ -1,0 +1,7 @@
+@include rulesDisplay();
+
+@each $screenWidth in $screen {
+  @include mediaQuery($screenWidth) {
+    @include rulesDisplay($screenWidth);
+  }
+}

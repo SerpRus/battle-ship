@@ -1,11 +1,10 @@
-import { useRef, useEffect, useState } from 'react'
-
-// import startScreen, {startScreenClickHandler} from '../game/screens/start-screen';
+import React, { useRef, useEffect, useState } from 'react'
 import StartStep from '../../widgets/game/steps/start-step'
 import GameStep from '../../widgets/game/steps/game-step'
 import EndStep from '../../widgets/game/steps/end-step'
-
-// type ScreenRenderType = (ctx: CanvasRenderingContext2D, canvasElement: HTMLCanvasElement) => void
+import { ShipsType } from '../../widgets/game/utils/generate-ships'
+import ships from '../../widgets/game/elements/ships'
+import { PLAYER_BOARD_POSITION } from '../../widgets/game/utils/constants'
 
 type GameStepsType = {
   start: typeof StartStep
@@ -13,23 +12,24 @@ type GameStepsType = {
   end: typeof EndStep
 }
 
-export default function Canvas() {
+export default function BattleShip() {
   const canvas = useRef<null | HTMLCanvasElement>(null)
 
   const [gameStep, setGameStep] = useState('start')
+  const [playerShips, setPlayerShips] = useState([])
 
-  const gameSteps: GameStepsType = {
-    start: StartStep,
-    game: GameStep,
-    end: EndStep,
-  }
-
-  let currentStep
+  // eslint-disable-next-line
   const clickRef = useRef<null | ((e: React.MouseEvent<HTMLElement>) => void)>(
     null
   )
 
   useEffect(() => {
+    const gameSteps: GameStepsType = {
+      start: StartStep,
+      game: GameStep,
+      end: EndStep,
+    }
+
     const canvasElement = canvas.current
     if (!canvasElement) {
       return
@@ -43,16 +43,29 @@ export default function Canvas() {
 
     ctx.clearRect(0, 0, canvasElement.width, canvasElement.height)
 
-    currentStep = new gameSteps[gameStep as keyof GameStepsType](
+    const currentStep = new gameSteps[gameStep as keyof GameStepsType](
       ctx,
       canvasElement,
-      setGameStep
+      setGameStep,
+      setPlayerShips as React.Dispatch<React.SetStateAction<ShipsType>>,
+      playerShips
     )
 
     currentStep.render()
 
-    clickRef.current = currentStep.clickHandler
-  }, [gameStep])
+    ships(
+      ctx,
+      {
+        x: PLAYER_BOARD_POSITION.x,
+        y: PLAYER_BOARD_POSITION.y,
+      },
+      playerShips
+    )
+
+    if (currentStep.clickHandler) {
+      clickRef.current = currentStep.clickHandler
+    }
+  }, [gameStep, playerShips])
 
   return (
     <canvas

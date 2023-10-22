@@ -1,14 +1,23 @@
+import React from 'react'
 import createGrid from '../elements/grid'
 import text from '../elements/text'
 import board from '../elements/board'
 
 export default class EndStep {
   ctx: CanvasRenderingContext2D
+
   canvas: HTMLCanvasElement
 
-  constructor(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement) {
+  setGameStep: React.Dispatch<React.SetStateAction<string>>
+
+  constructor(
+    ctx: CanvasRenderingContext2D,
+    canvas: HTMLCanvasElement,
+    setGameStep: React.Dispatch<React.SetStateAction<string>>
+  ) {
     this.ctx = ctx
     this.canvas = canvas
+    this.setGameStep = setGameStep
   }
 
   render() {
@@ -21,8 +30,7 @@ export default class EndStep {
     board(this.ctx, 560, 120)
   }
 
-  clickHandler = (e: React.MouseEvent<HTMLElement>) => {
-    console.log(e)
-    console.log('EndScreen')
+  clickHandler = () => {
+    this.setGameStep('end')
   }
 }

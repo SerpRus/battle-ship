@@ -1,27 +1,14 @@
 import { INC_COLOR, CELL_SIZE } from '../utils/constants'
 
-type TextType = (
+const ship = function renderShip(
   ctx: CanvasRenderingContext2D,
   boardX: number,
   boardY: number,
   x: number,
   y: number,
-  size?: number,
+  size: number,
   isHorizontal?: boolean
-) => void
-
-const ship: TextType = async function (
-  ctx,
-  boardX,
-  boardY,
-  x,
-  y,
-  size = 1,
-  isHorizontal = true
 ) {
-  x--
-  y--
-
   ctx.strokeStyle = INC_COLOR
 
   if (isHorizontal) {

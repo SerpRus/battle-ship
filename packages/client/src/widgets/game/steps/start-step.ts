@@ -1,11 +1,16 @@
+import React from 'react'
+import checkClickElement from '../utils/check-click-element'
+import {
+  BOARD_SIZE,
+  CELL_SIZE,
+  PLAYER_BOARD_POSITION,
+  SHIPS,
+} from '../utils/constants'
+import generateShipLocations, { ShipsType } from '../utils/generate-ships'
 import createGrid from '../elements/grid'
 import text from '../elements/text'
 import button from '../elements/button'
 import board from '../elements/board'
-import React from 'react'
-import checkClickElement from '../utils/check-click-element'
-import { CELL_SIZE, BOARD_SIZE, SHIPS } from '../utils/constants'
-import generateShips from '../utils/generate-ships'
 
 type ButtonInfoType = {
   width: number
@@ -16,21 +21,33 @@ type ButtonInfoType = {
 
 export default class StartStep {
   ctx: CanvasRenderingContext2D
+
   canvas: HTMLCanvasElement
+
   setGameStep: React.Dispatch<React.SetStateAction<string>>
 
+  setPlayerShips?: React.Dispatch<React.SetStateAction<ShipsType>>
+
+  playerShips: ShipsType
+
   startGameButtonInfo: ButtonInfoType
+
   isStartGameButtonVisible = false
+
   randomGenerateShipsButtonInfo: ButtonInfoType
 
   constructor(
     ctx: CanvasRenderingContext2D,
     canvas: HTMLCanvasElement,
-    setGameStep: React.Dispatch<React.SetStateAction<string>>
+    setGameStep: React.Dispatch<React.SetStateAction<string>>,
+    setPlayerShips: React.Dispatch<React.SetStateAction<ShipsType>>,
+    playerShips: ShipsType
   ) {
     this.ctx = ctx
     this.canvas = canvas
     this.setGameStep = setGameStep
+    this.setPlayerShips = setPlayerShips
+    this.playerShips = playerShips
 
     this.randomGenerateShipsButtonInfo = {
       width: 300,
@@ -47,12 +64,17 @@ export default class StartStep {
     }
   }
 
-  render() {
+  render = async () => {
     createGrid(this.ctx)
 
-    text(this.ctx, 'Расстановка кораблей', this.canvas.width / 2 - 100, 50)
+    await text(
+      this.ctx,
+      'Расстановка кораблей',
+      this.canvas.width / 2 - 100,
+      50
+    )
 
-    button(
+    await button(
       this.ctx,
       '1. Случайным образом',
       this.randomGenerateShipsButtonInfo.width,
@@ -60,10 +82,10 @@ export default class StartStep {
       this.randomGenerateShipsButtonInfo.y
     )
 
-    board(this.ctx, 80, 120)
+    board(this.ctx, PLAYER_BOARD_POSITION.x, PLAYER_BOARD_POSITION.y)
   }
 
-  clickHandler = (e: React.MouseEvent<HTMLElement>) => {
+  clickHandler = async (e: React.MouseEvent<HTMLElement>) => {
     const rect = this.canvas.getBoundingClientRect()
 
     if (!rect) {
@@ -73,26 +95,29 @@ export default class StartStep {
     const x = e.clientX - rect.left
     const y = e.clientY - rect.top
 
-    if (this.isGameStartButtonClick(x, y) && this.isStartGameButtonVisible) {
-      this.setGameStep('game')
+    if (this.isRandomGenerateShipsButtonClick(x, y)) {
+      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
+      await this.render()
+
+      const playerShips = generateShipLocations(BOARD_SIZE, SHIPS)
+
+      if (this.setPlayerShips) {
+        this.setPlayerShips(playerShips)
+      }
+
+      await button(
+        this.ctx,
+        'Играть',
+        this.startGameButtonInfo.width,
+        this.startGameButtonInfo.x,
+        this.startGameButtonInfo.y
+      )
+
+      this.isStartGameButtonVisible = true
     }
 
-    if (this.isRandomGenerateShipsButtonClick(x, y)) {
-      console.log('Рандомная генерация')
-
-      generateShips(BOARD_SIZE, SHIPS)
-
-      console.log()
-
-      // button(
-      //   this.ctx,
-      //   'Играть',
-      //   this.startGameButtonInfo.width,
-      //   this.startGameButtonInfo.x,
-      //   this.startGameButtonInfo.y
-      // );
-      //
-      // this.isStartGameButtonVisible = true;
+    if (this.isGameStartButtonClick(x, y) && this.playerShips) {
+      this.setGameStep('game')
     }
   }
 
