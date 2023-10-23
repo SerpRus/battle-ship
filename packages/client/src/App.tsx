@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-import './App.css'
 import './app/styles/App.scss'
 import { AppRouter } from './app/providers/router/AppRouter'
 

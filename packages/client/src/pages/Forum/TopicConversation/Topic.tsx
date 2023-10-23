@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, ChangeEvent, useCallback } from 'react'
 import { useParams } from 'react-router-dom'
 import { Card, Layout, Flex, Button, Form, Input } from 'antd'
 import { LikeFilled, SendOutlined } from '@ant-design/icons'
+import { v4 as makeUUID } from 'uuid'
 
 import forumData from '../data.json'
-import { CommentCard } from './CommentCard'
+import { CommentCard } from '../../../shared/ui/CommentCard/CommentCard'
 
 const { Content } = Layout
 
@@ -32,10 +33,11 @@ const Topic: React.FC = () => {
 
   const topicsData = forumData.data.topics
   const currentTopicData = topicsData.find(topic => topic.id === Number(id))
-  const [commentsData] = useState(forumData.data.comments)
+  const [commentsData, setData] = useState(forumData.data.comments)
   const [readyMadeComments, setreadyMadeItems] = useState<CommentsDataType[]>(
     []
   )
+  const [inputText, setInputText] = useState('')
 
   useEffect(() => {
     const currentTopicComments = commentsData.filter(
@@ -46,6 +48,28 @@ const Topic: React.FC = () => {
     )
     setreadyMadeItems(sortedList)
   }, [commentsData, currentTopicData?.id])
+
+  const onChange = useCallback((e: ChangeEvent) => {
+    const element = e.target as HTMLInputElement
+    setInputText(element.value)
+  }, [])
+
+  const sendData = useCallback(() => {
+    if (inputText) {
+      const dataCopy = [...commentsData]
+
+      dataCopy.push({
+        id: makeUUID(),
+        topicId: Number(id),
+        name: `User${makeUUID()}`,
+        creationDate: new Date().toISOString(),
+        likesCount: 0,
+        comment: inputText,
+      })
+      setData(dataCopy)
+      setInputText('')
+    }
+  }, [commentsData, inputText, id])
 
   return (
     <Layout>
@@ -67,14 +91,8 @@ const Topic: React.FC = () => {
               onFinishFailed={onFinishFailed}
               autoComplete="off">
               <Flex>
-                <Form.Item
-                  name="message"
-                  rules={[
-                    { required: true, message: 'Please input your message!' },
-                  ]}>
-                  <Input />
-                </Form.Item>
-                <Button>
+                <Input value={inputText} onChange={onChange} />
+                <Button onClick={sendData}>
                   <SendOutlined />
                 </Button>
               </Flex>

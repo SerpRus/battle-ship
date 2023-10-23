@@ -31,7 +31,7 @@
     ],
     "comments": [
       {
-        "id": 1,
+        "id": "1",
         "topicId": 2,
         "name": "Ivan",
         "comment": "Everything I think about it I wrote here",
@@ -39,7 +39,7 @@
         "likesCount": 0
       },
       {
-        "id": 2,
+        "id": "2",
         "topicId": 3,
         "name": "Andrew",
         "comment": "Trying to create my first topic",
@@ -47,7 +47,7 @@
         "likesCount": 0
       },
       {
-        "id": 3,
+        "id": "3",
         "topicId": 1,
         "name": "Zoya",
         "comment": "Hi, konnichiwa, pronto, privit, nihao",
