@@ -1,9 +1,9 @@
 import dotenv from 'dotenv'
 import cors from 'cors'
-dotenv.config()
-
 import express from 'express'
 import { createClientAndConnect } from './db'
+
+dotenv.config()
 
 const app = express()
 app.use(cors())
@@ -16,5 +16,6 @@ app.get('/', (_, res) => {
 })
 
 app.listen(port, () => {
+  // eslint-disable-next-line no-console
   console.log(`  ➜ 🎸 Server is listening on port: ${port}`)
 })

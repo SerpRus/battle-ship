@@ -1,6 +1,6 @@
 import React from 'react'
-import CreateTopicForm from './Form'
 import { Card, Flex } from 'antd'
+import CreateTopicForm from './Form'
 
 const CreateTopic: React.FC = () => (
   <Flex justify="space-around">

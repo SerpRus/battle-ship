@@ -5,10 +5,11 @@ import { LikeFilled, SendOutlined } from '@ant-design/icons'
 
 import forumData from '../data.json'
 import { CommentCard } from './CommentCard'
+
 const { Content } = Layout
 
 type CommentsDataType = {
-  /* types */ id: number | string
+  id: number | string
   topicId: number | string
   name: string
   comment: string
@@ -16,14 +17,14 @@ type CommentsDataType = {
   likesCount: number | string
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const onFinish = (values: any) => {
-  // eslint-disable-line @typescript-eslint/no-explicit-any
-  console.log('Success:', values)
+  console.log('Success:', values) // eslint-disable-line no-console
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const onFinishFailed = (errorInfo: any) => {
-  // eslint-disable-line @typescript-eslint/no-explicit-any
-  console.log('Failed:', errorInfo)
+  console.log('Failed:', errorInfo) // eslint-disable-line no-console
 }
 
 const Topic: React.FC = () => {
@@ -44,7 +45,7 @@ const Topic: React.FC = () => {
       b.creationDate.localeCompare(a.creationDate)
     )
     setreadyMadeItems(sortedList)
-  }, [commentsData])
+  }, [commentsData, currentTopicData?.id])
 
   return (
     <Layout>

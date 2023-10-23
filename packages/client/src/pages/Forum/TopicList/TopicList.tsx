@@ -2,14 +2,16 @@ import { Card, Layout, Flex, Button } from 'antd'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { CommentOutlined, LikeFilled } from '@ant-design/icons'
+import { v4 as makeUUID } from 'uuid'
 
-const { Content } = Layout
 import forumData from '../data.json'
 
 import { TopicCard } from './TopicCard'
 
+const { Content } = Layout
+
 type TopicType = {
-  /* types */ id: number | string
+  id: number | string
   name: string
   author: string
   creationDate: Date | string
@@ -19,7 +21,7 @@ type TopicType = {
 
 const titleItemList = ['Themes', 'Date', 'Comments', 'Likes']
 
-export const TopicList: React.FC = () => {
+const TopicList: React.FC = () => {
   const [data] = useState(forumData.data.topics)
   const [readyMadeItems, setreadyMadeItems] = useState<TopicType[]>([])
 
@@ -46,9 +48,9 @@ export const TopicList: React.FC = () => {
             <div>
               <TopicCard itemList={titleItemList} />
             </div>
-            {readyMadeItems.map((item, index) => (
+            {readyMadeItems.map(item => (
               <TopicCard
-                key={index}
+                key={makeUUID()}
                 itemList={[
                   <Flex align="center" vertical>
                     <Link to={`/forum/${item.id}`}>{item.name}</Link>
@@ -75,3 +77,5 @@ export const TopicList: React.FC = () => {
     </Layout>
   )
 }
+
+export default TopicList

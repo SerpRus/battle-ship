@@ -1,14 +1,14 @@
 import React from 'react'
 import { Button, Form, Input } from 'antd'
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const onFinish = (values: any) => {
-  // eslint-disable-line @typescript-eslint/no-explicit-any
-  console.log('Success:', values)
+  console.log('Success:', values) // eslint-disable-line no-console
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const onFinishFailed = (errorInfo: any) => {
-  // eslint-disable-line @typescript-eslint/no-explicit-any
-  console.log('Failed:', errorInfo)
+  console.log('Failed:', errorInfo) // eslint-disable-line no-console
 }
 
 const { TextArea } = Input

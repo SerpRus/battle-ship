@@ -68,7 +68,7 @@ const App: React.FC = () => {
   const [current, setCurrent] = useState('mail')
 
   const onClick: MenuProps['onClick'] = e => {
-    console.log('click ', e)
+    console.log('click ', e) // eslint-disable-line no-console
     setCurrent(e.key)
   }
 

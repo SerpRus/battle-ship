@@ -1,0 +1,27 @@
+.wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.content {
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.form {
+  width: 600px;
+}
+
+.ship {
+  width: 100px;
+  height: 100px;
+  background: url('../../../shared/assets/battleship-svgrepo-com.svg') no-repeat
+    center;
+  margin-bottom: 64px;
+}
