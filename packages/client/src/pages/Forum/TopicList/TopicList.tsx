@@ -6,7 +6,7 @@ import { v4 as makeUUID } from 'uuid'
 
 import forumData from '../data.json'
 
-import { TopicCard } from './TopicCard'
+import { TopicCard } from '../../../shared/ui/TopicCard/TopicCard'
 
 const { Content } = Layout
 
