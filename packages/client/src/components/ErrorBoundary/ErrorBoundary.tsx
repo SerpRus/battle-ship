@@ -21,6 +21,7 @@ class ErrorBoundary extends Component<Props, TState> {
 
   public render() {
     const { error } = this.state
+    const { children } = this.props
 
     if (error) {
       return (
@@ -34,7 +35,7 @@ class ErrorBoundary extends Component<Props, TState> {
       )
     }
 
-    return this.props.children
+    return children
   }
 }
 
