@@ -6,7 +6,7 @@ import { v4 as makeUUID } from 'uuid'
 
 import forumData from '../../data.json'
 import { TopicCard } from '../../../../shared/ui/TopicCard/TopicCard'
-import { dateFormat } from '../utils/dateFormatter'
+import { dateFormat } from '../../../../widgets/game/utils/date-formatter'
 
 import cls from './TopicListPage.module.scss'
 

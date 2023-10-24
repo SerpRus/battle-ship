@@ -1,5 +1,6 @@
 import React from 'react'
+import BattleShip from '../components/BattleShip'
 
 export default function Game() {
-  return <h1>Страница игры</h1>
+  return <BattleShip />
 }
