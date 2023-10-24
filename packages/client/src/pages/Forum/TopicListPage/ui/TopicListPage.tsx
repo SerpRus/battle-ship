@@ -1,12 +1,14 @@
-import { Card, Layout, Flex, Button } from 'antd'
+import { Card, Layout, Flex, Space, Button } from 'antd'
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { CommentOutlined, LikeFilled } from '@ant-design/icons'
 import { v4 as makeUUID } from 'uuid'
 
-import forumData from '../data.json'
+import forumData from '../../data.json'
+import { TopicCard } from '../../../../shared/ui/TopicCard/TopicCard'
+import { dateFormat } from '../utils/dateFormatter'
 
-import { TopicCard } from '../../../shared/ui/TopicCard/TopicCard'
+import cls from './TopicListPage.module.scss'
 
 const { Content } = Layout
 
@@ -19,9 +21,7 @@ type TopicType = {
   likesCount: number
 }
 
-const titleItemList = ['Themes', 'Date', 'Comments', 'Likes']
-
-const TopicList: React.FC = () => {
+export const TopicList: React.FC = () => {
   const [data] = useState(forumData.data.topics)
   const [readyMadeItems, setreadyMadeItems] = useState<TopicType[]>([])
 
@@ -33,9 +33,9 @@ const TopicList: React.FC = () => {
   }, [data])
 
   return (
-    <Layout>
-      <Flex justify="space-around">
-        <Card>
+    <Layout className={cls.forumPageLayout}>
+      <Flex justify="center" className={cls.wrapper}>
+        <Card className={cls.forumPageCard}>
           <Flex justify="center" vertical>
             <Button type="primary">Create new topic</Button>
           </Flex>
@@ -44,30 +44,32 @@ const TopicList: React.FC = () => {
           style={{
             maxWidth: 600,
           }}>
-          <Card>
-            <div>
-              <TopicCard itemList={titleItemList} />
-            </div>
+          <Card className={cls.forumPageCard}>
             {readyMadeItems.map(item => (
               <TopicCard
                 key={makeUUID()}
                 itemList={[
-                  <Flex align="center" vertical>
+                  <Flex
+                    align="start"
+                    justify="space-between"
+                    vertical
+                    style={{ height: '100%' }}>
                     <Link to={`/forum/${item.id}`}>{item.name}</Link>
-                    {item.author}
+                    <Space>
+                      {item.author}·{dateFormat(new Date(item.creationDate))}
+                    </Space>
                   </Flex>,
-                  <Flex>
-                    {new Date(item.creationDate).toString().substring(0, 24)}
-                    {/* dateutil */}
+                  <Flex className={cls.LikesComments}>
+                    <div>
+                      <CommentOutlined />
+                      {item.commentsCount}
+                    </div>
+                    <div>
+                      <LikeFilled />
+                      {item.likesCount}
+                    </div>
                   </Flex>,
-                  <Flex>
-                    <CommentOutlined />
-                    {item.commentsCount}
-                  </Flex>,
-                  <Flex>
-                    <LikeFilled />
-                    {item.likesCount}
-                  </Flex>,
+                  <div>info</div>,
                 ]}
               />
             ))}
@@ -77,5 +79,3 @@ const TopicList: React.FC = () => {
     </Layout>
   )
 }
-
-export default TopicList

@@ -1,0 +1,10 @@
+.textColor{
+  color: $color-brand;
+}
+.ctInput{
+  background: $gallery;
+  border: none;
+}
+[title="В двух словах опишите, о чем ваша тема"], [title="Несколько тегов могут быть разделены запятыми"] {
+  color: $color-brand !important;
+}

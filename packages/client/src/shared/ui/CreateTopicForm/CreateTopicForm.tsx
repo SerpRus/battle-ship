@@ -1,5 +1,6 @@
 import React from 'react'
 import { Button, Form, Input } from 'antd'
+import cls from './CreateTopicForm.module.scss'
 
 const { TextArea } = Input
 
@@ -17,16 +18,11 @@ const CreateTopicForm: React.FC = () => {
   return (
     <Form
       name="basic"
-      labelCol={{
-        span: 16,
-        offset: 4,
-      }}
       wrapperCol={{
-        span: 16,
-        offset: 4,
+        span: 24,
       }}
       style={{
-        maxWidth: 600,
+        maxWidth: 1000,
       }}
       initialValues={{
         remember: true,
@@ -34,7 +30,9 @@ const CreateTopicForm: React.FC = () => {
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
       autoComplete="off"
-      layout="vertical">
+      layout="vertical"
+      className={cls.textColor}>
+      <h2>Тема:</h2>
       <Form.Item
         label="В двух словах опишите, о чем ваша тема"
         name="theme"
@@ -44,7 +42,7 @@ const CreateTopicForm: React.FC = () => {
             message: 'Введите название темы',
           },
         ]}>
-        <Input />
+        <Input id="theme" className={cls.ctInput} />
       </Form.Item>
 
       <Form.Item
@@ -55,14 +53,10 @@ const CreateTopicForm: React.FC = () => {
             message: 'Введите описание темы',
           },
         ]}>
-        <TextArea
-          rows={7}
-          placeholder="лимит 1000 символов"
-          minLength={20}
-          maxLength={1000}
-        />
+        <TextArea rows={7} placeholder="лимит 1000 символов" maxLength={1000} />
       </Form.Item>
 
+      <h2>Теги:</h2>
       <Form.Item
         label="Несколько тегов могут быть разделены запятыми"
         name="tags"
@@ -72,14 +66,10 @@ const CreateTopicForm: React.FC = () => {
             message: 'Ввод некорректен',
           },
         ]}>
-        <Input />
+        <Input className={cls.ctInput} />
       </Form.Item>
 
-      <Form.Item
-        wrapperCol={{
-          offset: 8,
-          span: 16,
-        }}>
+      <Form.Item>
         <Button type="primary" htmlType="submit">
           Создать топик
         </Button>

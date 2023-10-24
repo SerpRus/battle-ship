@@ -5,10 +5,10 @@ import Profile from '../../../pages/profile'
 import Home from '../../../pages/home'
 import Game from '../../../pages/game'
 import Leaderboard from '../../../pages/leaderboard'
-import TopicList from '../../../pages/Forum/TopicList/TopicList'
-import Topic from '../../../pages/Forum/TopicConversation/Topic'
+import TopicList from '../../../pages/Forum/TopicListPage'
+import Topic from '../../../pages/Forum/TopicConversationPage'
 import NotFound from '../../../pages/404'
-import CreateTopic from '../../../pages/Forum/CreateTopic/CreateTopic'
+import CreateTopic from '../../../pages/Forum/CreateTopicPage'
 
 export type AppRouteProps = RouteProps & {
   authOnly?: boolean

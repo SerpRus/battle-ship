@@ -1,0 +1,23 @@
+.layout{
+  height: 100%;
+  background: url(./../../../../assets/backgroundWhite.png);
+}
+
+.wrapper {
+  margin-top: 30px;
+}
+
+.themeCard {
+  margin-bottom: 15px;
+}
+
+.form {
+  width: 600px;
+}
+
+.ship {
+  width: 100px;
+  height: 100px;
+  background: url('../../../shared/assets/battleship-svgrepo-com.svg') no-repeat center;
+  margin-bottom: 64px;
+}

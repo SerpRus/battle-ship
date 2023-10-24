@@ -2,6 +2,9 @@ import { LikeFilled } from '@ant-design/icons'
 import { Flex, Card, Divider } from 'antd'
 import React, { ReactNode } from 'react'
 import { v4 as makeUUID } from 'uuid'
+import { dateFormat } from '../../../pages/Forum/TopicListPage/utils/dateFormatter'
+
+import cls from './CommentCard.module.scss'
 
 type CommentsDataType = {
   /* types */ likesCount: ReactNode
@@ -20,14 +23,14 @@ type ColumnType = {
 export const CommentCard: React.FC<ColumnType> = props => {
   const { itemList, children } = props
   return (
-    <Card>
+    <Card className={cls.commentCard}>
       {itemList.map(item => (
         <Flex vertical style={{ width: 700 }} key={makeUUID()}>
-          <Flex justify="space-around">
-            <Flex vertical justify="space-between">
+          <Flex justify="space-between">
+            <Flex vertical justify="space-evenly">
               <div>{item.name}</div>
               <div>{item.comment}</div>
-              {new Date(item.creationDate).toString().substring(0, 24)}
+              {dateFormat(new Date(item.creationDate))}
               {/* dateutil */}
             </Flex>
             <Flex align="center">

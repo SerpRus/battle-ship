@@ -4,8 +4,10 @@ import { Card, Layout, Flex, Button, Form, Input } from 'antd'
 import { LikeFilled, SendOutlined } from '@ant-design/icons'
 import { v4 as makeUUID } from 'uuid'
 
-import forumData from '../data.json'
-import { CommentCard } from '../../../shared/ui/CommentCard/CommentCard'
+import forumData from '../../data.json'
+import { CommentCard } from '../../../../shared/ui/CommentCard/CommentCard'
+
+import cls from './TopicPage.module.scss'
 
 const { Content } = Layout
 
@@ -28,7 +30,7 @@ const onFinishFailed = (errorInfo: any) => {
   console.log('Failed:', errorInfo) // eslint-disable-line no-console
 }
 
-const Topic: React.FC = () => {
+export const Topic: React.FC = () => {
   const { id } = useParams()
 
   const topicsData = forumData.data.topics
@@ -61,8 +63,8 @@ const Topic: React.FC = () => {
       dataCopy.push({
         id: makeUUID(),
         topicId: Number(id),
-        name: `User${makeUUID()}`,
-        creationDate: new Date().toISOString(),
+        name: `User-${makeUUID()}`,
+        creationDate: new Date().toString(),
         likesCount: 0,
         comment: inputText,
       })
@@ -72,13 +74,13 @@ const Topic: React.FC = () => {
   }, [commentsData, inputText, id])
 
   return (
-    <Layout>
-      <Flex justify="space-around">
+    <Layout className={cls.layout}>
+      <Flex justify="space-around" className={cls.wrapper}>
         <Content
           style={{
             maxWidth: 800,
           }}>
-          <Card>
+          <Card className={cls.themeCard}>
             <h2>{currentTopicData?.name}</h2>
             <h4>{currentTopicData?.description}</h4>
             <div>
@@ -103,5 +105,3 @@ const Topic: React.FC = () => {
     </Layout>
   )
 }
-
-export default Topic
