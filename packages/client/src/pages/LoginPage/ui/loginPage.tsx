@@ -8,17 +8,23 @@ import {
   PASSWORD_REGEXP,
 } from '../../../shared/constants/validationConstants'
 import { ValidatableFormItemInput } from '../../../shared/ui/ValidatableFormItemInput/ValidatableFormItemInput'
+import { useLoginUser } from '../model/hooks/useAuthUser'
+import { RoutePath } from '../../../app/providers/router/routeConfig'
+import { useAuth } from '../../../shared/lib/hooks/useAuth'
 
 const { Content } = Layout
 
 type FieldType = {
-  login?: string
-  password?: string
+  login: string
+  password: string
   remember?: boolean
 }
 
 export const LoginPage = () => {
   const navigate = useNavigate()
+  const login = useLoginUser()
+  const { setIsAuth } = useAuth()
+
   const {
     control,
     handleSubmit,
@@ -33,8 +39,15 @@ export const LoginPage = () => {
     },
   })
 
-  const onFinish = (values: any) => {
-    console.log('Success:', values)
+  const onFinish = async (values: any) => {
+    const isLogged = await login({
+      login: values.login,
+      password: values.password,
+    })
+    if (isLogged) {
+      setIsAuth(true)
+      window.location.replace(RoutePath.home)
+    }
   }
 
   const onFinishFailed = (errorInfo: any) => {
