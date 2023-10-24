@@ -13,6 +13,7 @@ import text from '../elements/text'
 import button from '../elements/button'
 import board from '../elements/board'
 import getClickPosition from '../utils/get-click-position'
+import ships from '../elements/ships'
 
 export default class StartStep {
   ctx
@@ -100,11 +101,16 @@ export default class StartStep {
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
       await this.render()
 
-      const playerShips = generateShipLocations(BOARD_SIZE, SHIPS)
+      this.playerShips = generateShipLocations(BOARD_SIZE, SHIPS)
 
-      if (this.setPlayerShips) {
-        this.setPlayerShips(playerShips)
-      }
+      ships(
+        this.ctx,
+        {
+          x: PLAYER_BOARD_POSITION.x,
+          y: PLAYER_BOARD_POSITION.y,
+        },
+        this.playerShips
+      )
 
       await button(this.ctx, 'Играть', this.startGameButtonInfo.width, {
         x: this.startGameButtonInfo.position.x,
@@ -115,6 +121,10 @@ export default class StartStep {
     }
 
     if (this.isGameStartButtonClick(x, y) && this.playerShips) {
+      if (this.setPlayerShips) {
+        this.setPlayerShips(this.playerShips)
+      }
+
       if (this.setComputerShips) {
         const computerShips = generateShipLocations(BOARD_SIZE, SHIPS)
 

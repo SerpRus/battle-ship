@@ -109,15 +109,6 @@ export default class GameStep {
       },
       this.playerBoard.ships
     )
-
-    ships(
-      this.ctx,
-      {
-        x: COMPUTER_BOARD_POSITION.x,
-        y: COMPUTER_BOARD_POSITION.y,
-      },
-      this.computerBoard.ships
-    )
   }
 
   clickHandler = (e: React.MouseEvent<HTMLElement>) => {
