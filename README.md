@@ -1,3 +1,5 @@
+Ссылка на дизайн: https://www.figma.com/file/5Ebp2VHbBOafGFvBfJ7wsi/battle-ship?node-id=0%3A1&mode=dev
+
 ### Как запускать?
 
 1. Убедитесь что у вас установлен `node` и `docker`
