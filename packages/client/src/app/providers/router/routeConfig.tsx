@@ -1,13 +1,13 @@
 import { RouteProps } from 'react-router-dom'
-import Login from './pages/login'
-import Registration from './pages/registration'
-import Profile from './pages/profile'
-import Home from './pages/home'
-import Game from './pages/game'
-import Leaderboard from './pages/leaderboard'
-import Forum from './pages/forum/index'
-import Topic from './pages/forum/[id]'
-import NotFound from './pages/404'
+import Login from '../../../pages/LoginPage'
+import RegistrationPage from '../../../pages/RegistrationPage'
+import Profile from '../../../pages/profile'
+import Home from '../../../pages/home'
+import Game from '../../../pages/game'
+import Leaderboard from '../../../pages/leaderboard'
+import Forum from '../../../pages/forum'
+import Topic from '../../../pages/forum/[id]'
+import NotFound from '../../../pages/404'
 
 export type AppRouteProps = RouteProps & {
   authOnly?: boolean
@@ -50,7 +50,7 @@ export const routeConfig: Record<AppRoutes, AppRouteProps> = {
   },
   [AppRoutes.REGISTRATION]: {
     path: RoutePath.registration,
-    element: <Registration />,
+    element: <RegistrationPage />,
     authOnly: false,
   },
   [AppRoutes.PROFILE]: {
