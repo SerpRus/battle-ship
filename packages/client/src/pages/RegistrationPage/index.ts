@@ -1,3 +1,3 @@
-import { RegistrationPage } from './ui/registrationPage'
+import { RegistrationPage } from './ui/registrationPage';
 
-export default RegistrationPage
+export default RegistrationPage;
