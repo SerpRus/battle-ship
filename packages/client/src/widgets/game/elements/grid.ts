@@ -1,8 +1,8 @@
-import { CELL_SIZE } from '../utils/constants'
+import { CELL_SIZE, GRID_CELL_COLOR } from '../utils/constants'
 
 function setupCell(ctx: CanvasRenderingContext2D) {
   ctx.lineWidth = 1
-  ctx.strokeStyle = '#D0DFE3'
+  ctx.strokeStyle = GRID_CELL_COLOR
 }
 
 const createCell = (ctx: CanvasRenderingContext2D, x: number, y: number) => {

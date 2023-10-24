@@ -1,7 +1,4 @@
-export type ShipsType = {
-  locations: string[]
-  hits: string[]
-}[]
+import { ShipsType } from '../types'
 
 function collision(ships: ShipsType, locations: string[]) {
   for (let i = 0; i < ships.length; i += 1) {

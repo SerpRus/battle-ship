@@ -1,28 +1,50 @@
 import React from 'react'
-import createGrid from '../elements/grid'
-import text from '../elements/text'
-import board from '../elements/board'
 import {
   PLAYER_BOARD_POSITION,
   COMPUTER_BOARD_POSITION,
   CELL_SIZE,
   BOARD_SIZE,
+  SHIPS,
 } from '../utils/constants'
-import { ShipsType } from '../utils/generate-ships'
-import ships from '../elements/ships'
+import { ShipsType } from '../types'
 import checkClickElement from '../utils/check-click-element'
 import getClickPosition from '../utils/get-click-position'
+import getBoardCellPosition from '../utils/get-board-cell-position'
+import generateShipLocations from '../utils/generate-ships'
+import hitCheck from '../utils/hit-check'
+import generateComputerShot from '../utils/generate-computer.shot'
+import createGrid from '../elements/grid'
+import text from '../elements/text'
+import board from '../elements/board'
+import ships from '../elements/ships'
+import renderShot from '../elements/render-shot'
 
 export default class GameStep {
-  ctx: CanvasRenderingContext2D
+  ctx
 
-  canvas: HTMLCanvasElement
+  canvas
 
-  setGameStep: React.Dispatch<React.SetStateAction<string>>
+  setGameStep
 
-  setPlayerShips?: React.Dispatch<React.SetStateAction<ShipsType>>
+  setPlayerShips
 
-  playerShips?: ShipsType
+  playerBoard: {
+    ships: ShipsType
+    shots: null[][] | string[][]
+  } = {
+    ships: [],
+    shots: [...Array(BOARD_SIZE)].map(() => Array(BOARD_SIZE)),
+  }
+
+  computerBoard: {
+    ships: ShipsType
+    shots: null[][] | string[][]
+  } = {
+    ships: [],
+    shots: [...Array(BOARD_SIZE)].map(() => Array(BOARD_SIZE)),
+  }
+
+  isPlayersTurn = true
 
   constructor(
     ctx: CanvasRenderingContext2D,
@@ -35,7 +57,7 @@ export default class GameStep {
     this.canvas = canvas
     this.setGameStep = setGameStep
     this.setPlayerShips = setPlayerShips
-    this.playerShips = playerShips
+    this.playerBoard.ships = playerShips
   }
 
   render() {
@@ -43,12 +65,22 @@ export default class GameStep {
 
     text(this.ctx, 'Игра', this.canvas.width / 2 - 30, 50)
 
-    board(this.ctx, PLAYER_BOARD_POSITION.x, PLAYER_BOARD_POSITION.y)
+    board(this.ctx, {
+      x: PLAYER_BOARD_POSITION.x,
+      y: PLAYER_BOARD_POSITION.y,
+    })
 
-    board(this.ctx, COMPUTER_BOARD_POSITION.x, COMPUTER_BOARD_POSITION.y)
+    board(this.ctx, {
+      x: COMPUTER_BOARD_POSITION.x,
+      y: COMPUTER_BOARD_POSITION.y,
+    })
 
-    if (!this.playerShips) {
+    if (!this.playerBoard.ships) {
       return
+    }
+
+    if (this.setPlayerShips) {
+      this.setPlayerShips(this.playerBoard.ships)
     }
 
     ships(
@@ -57,8 +89,19 @@ export default class GameStep {
         x: PLAYER_BOARD_POSITION.x,
         y: PLAYER_BOARD_POSITION.y,
       },
-      this.playerShips
+      this.playerBoard.ships
     )
+
+    this.computerBoard.ships = generateShipLocations(BOARD_SIZE, SHIPS)
+
+    // ships(
+    //   this.ctx,
+    //   {
+    //     x: COMPUTER_BOARD_POSITION.x,
+    //     y: COMPUTER_BOARD_POSITION.y,
+    //   },
+    //   this.computerBoard.ships
+    // )
   }
 
   clickHandler = (e: React.MouseEvent<HTMLElement>) => {
@@ -66,14 +109,12 @@ export default class GameStep {
 
     this.setGameStep('game')
 
-    this.isComputerBoardClick(x, y)
-  }
+    if (!this.isComputerBoardClick(x, y)) {
+      return
+    }
 
-  isComputerBoardClick(x: number, y: number) {
-    return checkClickElement(
+    const clickCellPosition = getBoardCellPosition(
       {
-        width: BOARD_SIZE * CELL_SIZE,
-        height: BOARD_SIZE * CELL_SIZE,
         x: COMPUTER_BOARD_POSITION.x,
         y: COMPUTER_BOARD_POSITION.y,
       },
@@ -82,5 +123,64 @@ export default class GameStep {
         y,
       }
     )
+
+    if (
+      this.computerBoard.shots[clickCellPosition.x][clickCellPosition.y] ||
+      !this.isPlayersTurn
+    ) {
+      return
+    }
+
+    const isHit = hitCheck(clickCellPosition, this.computerBoard.ships)
+
+    this.computerBoard.shots[clickCellPosition.x][clickCellPosition.y] = isHit
+      ? 'HIT'
+      : 'MISS'
+
+    renderShot(this.ctx, COMPUTER_BOARD_POSITION, clickCellPosition, isHit)
+
+    if (isHit) {
+      return
+    }
+
+    this.isPlayersTurn = false
+
+    this.computerTurn()
+
+    this.isPlayersTurn = true
+  }
+
+  isComputerBoardClick(x: number, y: number) {
+    return checkClickElement(
+      {
+        width: BOARD_SIZE * CELL_SIZE,
+        height: BOARD_SIZE * CELL_SIZE,
+        position: {
+          x: COMPUTER_BOARD_POSITION.x,
+          y: COMPUTER_BOARD_POSITION.y,
+        },
+      },
+      {
+        x,
+        y,
+      }
+    )
+  }
+
+  computerTurn() {
+    let isHit
+
+    do {
+      let computerShotPosition
+      do {
+        computerShotPosition = generateComputerShot()
+      } while (
+        this.computerBoard.shots[computerShotPosition.x][computerShotPosition.y]
+      )
+
+      isHit = hitCheck(computerShotPosition, this.playerBoard.ships)
+
+      renderShot(this.ctx, PLAYER_BOARD_POSITION, computerShotPosition, isHit)
+    } while (isHit)
   }
 }
