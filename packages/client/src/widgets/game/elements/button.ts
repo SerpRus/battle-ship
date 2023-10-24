@@ -12,7 +12,11 @@ const button = async function buttonRender(
   ctx.strokeStyle = INC_COLOR
 
   await text(ctx, textButton, position.x + 10, position.y - 12, font)
-  ctx.strokeRect(position.x, position.y - CELL_SIZE, size, CELL_SIZE)
+
+  // Без задежки рамка вокруг кнопки почему-то не всегда отображается.
+  setTimeout(() => {
+    ctx.strokeRect(position.x, position.y - CELL_SIZE, size, CELL_SIZE)
+  }, 100)
 }
 
 export default button

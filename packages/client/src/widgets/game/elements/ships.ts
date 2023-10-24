@@ -1,5 +1,5 @@
 import ship from '../elements/ship'
-import { ShipsType } from '../utils/generate-ships'
+import { ShipsType } from '../types'
 
 const ships = function renderShips(
   ctx: CanvasRenderingContext2D,

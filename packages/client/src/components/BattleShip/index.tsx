@@ -2,9 +2,7 @@ import React, { useRef, useEffect, useState } from 'react'
 import StartStep from '../../widgets/game/steps/start-step'
 import GameStep from '../../widgets/game/steps/game-step'
 import EndStep from '../../widgets/game/steps/end-step'
-import { ShipsType } from '../../widgets/game/utils/generate-ships'
-import ships from '../../widgets/game/elements/ships'
-import { PLAYER_BOARD_POSITION } from '../../widgets/game/utils/constants'
+import { ShipsType } from '../../widgets/game/types'
 
 type GameStepsType = {
   start: typeof StartStep
@@ -17,6 +15,8 @@ export default function BattleShip() {
 
   const [gameStep, setGameStep] = useState('start')
   const [playerShips, setPlayerShips] = useState([])
+  const [computerShips, setComputerShips] = useState([])
+  const [isPlayerWin, setIsPlayerWin] = useState(false)
 
   // eslint-disable-next-line
   const clickRef = useRef<null | ((e: React.MouseEvent<HTMLElement>) => void)>(
@@ -42,30 +42,26 @@ export default function BattleShip() {
     }
 
     ctx.clearRect(0, 0, canvasElement.width, canvasElement.height)
+    ctx.beginPath()
 
     const currentStep = new gameSteps[gameStep as keyof GameStepsType](
       ctx,
       canvasElement,
       setGameStep,
       setPlayerShips as React.Dispatch<React.SetStateAction<ShipsType>>,
-      playerShips
+      playerShips,
+      setComputerShips as React.Dispatch<React.SetStateAction<ShipsType>>,
+      computerShips,
+      isPlayerWin,
+      setIsPlayerWin as React.Dispatch<React.SetStateAction<boolean>>
     )
 
     currentStep.render()
 
-    ships(
-      ctx,
-      {
-        x: PLAYER_BOARD_POSITION.x,
-        y: PLAYER_BOARD_POSITION.y,
-      },
-      playerShips
-    )
-
     if (currentStep.clickHandler) {
       clickRef.current = currentStep.clickHandler
     }
-  }, [gameStep, playerShips])
+  }, [gameStep, playerShips, computerShips, isPlayerWin])
 
   return (
     <canvas

@@ -31,18 +31,22 @@ export default class StartStep {
 
   randomGenerateShipsButtonInfo
 
+  setComputerShips?: React.Dispatch<React.SetStateAction<ShipsType>>
+
   constructor(
     ctx: CanvasRenderingContext2D,
     canvas: HTMLCanvasElement,
     setGameStep: React.Dispatch<React.SetStateAction<string>>,
-    setPlayerShips: React.Dispatch<React.SetStateAction<ShipsType>>,
-    playerShips: ShipsType
+    setPlayerShips?: React.Dispatch<React.SetStateAction<ShipsType>>,
+    playerShips?: ShipsType,
+    setComputerShips?: React.Dispatch<React.SetStateAction<ShipsType>>
   ) {
     this.ctx = ctx
     this.canvas = canvas
     this.setGameStep = setGameStep
     this.setPlayerShips = setPlayerShips
     this.playerShips = playerShips
+    this.setComputerShips = setComputerShips
 
     this.randomGenerateShipsButtonInfo = {
       width: 300,
@@ -111,6 +115,12 @@ export default class StartStep {
     }
 
     if (this.isGameStartButtonClick(x, y) && this.playerShips) {
+      if (this.setComputerShips) {
+        const computerShips = generateShipLocations(BOARD_SIZE, SHIPS)
+
+        this.setComputerShips(computerShips)
+      }
+
       this.setGameStep('game')
     }
   }
