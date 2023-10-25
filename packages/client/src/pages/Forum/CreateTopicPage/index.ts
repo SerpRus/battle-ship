@@ -1,3 +1,3 @@
-import { CreateTopic } from './ui/CreateTopicPage'
+import { CreateTopic } from './ui/CreateTopicPage';
 
-export default CreateTopic
+export default CreateTopic;

@@ -1,11 +1,11 @@
-import { Col, Row, Card } from 'antd'
-import React, { ReactNode } from 'react'
-import { v4 as makeUUID } from 'uuid'
-import cls from './TopicCard.module.scss'
+import { Col, Row, Card } from 'antd';
+import React, { ReactNode } from 'react';
+import { v4 as makeUUID } from 'uuid';
+import cls from './TopicCard.module.scss';
 
 type ColumnType = {
-  itemList: Array<string | ReactNode>
-}
+  itemList: Array<string | ReactNode>;
+};
 export const TopicCard: React.FC<ColumnType> = ({ itemList }) => {
   const cols = [
     {
@@ -20,7 +20,7 @@ export const TopicCard: React.FC<ColumnType> = ({ itemList }) => {
       span: 8,
       className: cls.info,
     },
-  ]
+  ];
   return (
     <Card className={cls.topicCard} bodyStyle={{ height: '100%' }}>
       <Row style={{ height: '100%' }}>
@@ -34,5 +34,5 @@ export const TopicCard: React.FC<ColumnType> = ({ itemList }) => {
         ))}
       </Row>
     </Card>
-  )
-}
+  );
+};

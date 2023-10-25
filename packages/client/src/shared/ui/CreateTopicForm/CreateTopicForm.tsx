@@ -1,19 +1,19 @@
-import React from 'react'
-import { Button, Form, Input } from 'antd'
-import cls from './CreateTopicForm.module.scss'
+import React from 'react';
+import { Button, Form, Input } from 'antd';
+import cls from './CreateTopicForm.module.scss';
 
-const { TextArea } = Input
+const { TextArea } = Input;
 
 const CreateTopicForm: React.FC = () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onFinish = (values: any) => {
-    console.log('Success:', values) // eslint-disable-line no-console
-  }
+    console.log('Success:', values); // eslint-disable-line no-console
+  };
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onFinishFailed = (errorInfo: any) => {
-    console.log('Failed:', errorInfo) // eslint-disable-line no-console
-  }
+    console.log('Failed:', errorInfo); // eslint-disable-line no-console
+  };
 
   return (
     <Form
@@ -75,7 +75,7 @@ const CreateTopicForm: React.FC = () => {
         </Button>
       </Form.Item>
     </Form>
-  )
-}
+  );
+};
 
-export default CreateTopicForm
+export default CreateTopicForm;

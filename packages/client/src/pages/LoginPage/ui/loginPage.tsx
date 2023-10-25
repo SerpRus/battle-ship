@@ -1,29 +1,29 @@
-import React from 'react'
-import { Layout, Button, Checkbox, Form } from 'antd'
-import { useNavigate } from 'react-router-dom'
-import { useForm, Controller } from 'react-hook-form'
-import cls from './loginPage.module.scss'
+import React from 'react';
+import { Layout, Button, Checkbox, Form } from 'antd';
+import { useNavigate } from 'react-router-dom';
+import { useForm, Controller } from 'react-hook-form';
+import cls from './loginPage.module.scss';
 import {
   LOGIN_REGEXP,
   PASSWORD_REGEXP,
-} from '../../../shared/constants/validationConstants'
-import { ValidatableFormItemInput } from '../../../shared/ui/ValidatableFormItemInput/ValidatableFormItemInput'
-import { useLoginUser } from '../model/hooks/useAuthUser'
-import { RoutePath } from '../../../app/providers/router/routeConfig'
-import { useAuth } from '../../../shared/lib/hooks/useAuth'
+} from '../../../shared/constants/validationConstants';
+import { ValidatableFormItemInput } from '../../../shared/ui/ValidatableFormItemInput/ValidatableFormItemInput';
+import { useLoginUser } from '../model/hooks/useAuthUser';
+import { RoutePath } from '../../../app/providers/router/routeConfig';
+import { useAuth } from '../../../shared/lib/hooks/useAuth';
 
-const { Content } = Layout
+const { Content } = Layout;
 
 type FieldType = {
-  login: string
-  password: string
-  remember?: boolean
-}
+  login: string;
+  password: string;
+  remember?: boolean;
+};
 
 export const LoginPage = () => {
-  const navigate = useNavigate()
-  const login = useLoginUser()
-  const { setIsAuth } = useAuth()
+  const navigate = useNavigate();
+  const login = useLoginUser();
+  const { setIsAuth } = useAuth();
 
   const {
     control,
@@ -37,22 +37,24 @@ export const LoginPage = () => {
       password: '',
       remember: true,
     },
-  })
-
+  });
+  // TODO: any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onFinish = async (values: any) => {
     const isLogged = await login({
       login: values.login,
       password: values.password,
-    })
+    });
     if (isLogged) {
-      setIsAuth(true)
-      window.location.replace(RoutePath.home)
+      setIsAuth(true);
+      window.location.replace(RoutePath.home);
     }
-  }
-
+  };
+  // TODO: any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onFinishFailed = (errorInfo: any) => {
-    console.log('Failed:', errorInfo)
-  }
+    console.log('Failed:', errorInfo); // eslint-disable-line
+  };
   return (
     <Layout className={cls.wrapper}>
       <Content className={cls.content}>
@@ -65,7 +67,7 @@ export const LoginPage = () => {
           onFinish={handleSubmit(onFinish)}
           onFinishFailed={onFinishFailed}
           autoComplete="off">
-          <ValidatableFormItemInput<FieldType>
+          <ValidatableFormItemInput
             name="login"
             label="Логин"
             control={control}
@@ -80,13 +82,14 @@ export const LoginPage = () => {
                 value: 20,
                 message: 'Логин должен быть короче 20 символов',
               },
-              validate: value =>
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              validate: (value: any) =>
                 LOGIN_REGEXP.test(value) ||
                 'Логин должен состоять из английских букв или спецсимволов(-_)',
             }}
           />
 
-          <ValidatableFormItemInput<FieldType>
+          <ValidatableFormItemInput
             name="password"
             label="Пароль"
             control={control}
@@ -135,7 +138,7 @@ export const LoginPage = () => {
             <Button
               type="link"
               onClick={() => {
-                navigate('/registration')
+                navigate('/registration');
               }}>
               Зарегистрироваться
             </Button>
@@ -143,5 +146,5 @@ export const LoginPage = () => {
         </Form>
       </Content>
     </Layout>
-  )
-}
+  );
+};

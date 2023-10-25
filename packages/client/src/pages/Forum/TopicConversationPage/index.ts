@@ -1,3 +1,3 @@
-import { Topic } from './ui/TopicPage'
+import { Topic } from './ui/TopicPage';
 
-export default Topic
+export default Topic;

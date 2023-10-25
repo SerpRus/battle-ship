@@ -1,36 +1,36 @@
-import { Card, Layout, Flex, Space, Button } from 'antd'
-import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
-import { CommentOutlined, LikeFilled } from '@ant-design/icons'
-import { v4 as makeUUID } from 'uuid'
+import { Card, Layout, Flex, Space, Button } from 'antd';
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { CommentOutlined, LikeFilled } from '@ant-design/icons';
+import { v4 as makeUUID } from 'uuid';
 
-import forumData from '../../data.json'
-import { TopicCard } from '../../../../shared/ui/TopicCard/TopicCard'
-import { dateFormat } from '../../../../widgets/game/utils/date-formatter'
+import forumData from '../../data.json';
+import { TopicCard } from '../../../../shared/ui/TopicCard/TopicCard';
+import { dateFormat } from '../../../../widgets/game/utils/date-formatter';
 
-import cls from './TopicListPage.module.scss'
+import cls from './TopicListPage.module.scss';
 
-const { Content } = Layout
+const { Content } = Layout;
 
 type TopicType = {
-  id: number | string
-  name: string
-  author: string
-  creationDate: Date | string
-  commentsCount: number
-  likesCount: number
-}
+  id: number | string;
+  name: string;
+  author: string;
+  creationDate: Date | string;
+  commentsCount: number;
+  likesCount: number;
+};
 
 export const TopicList: React.FC = () => {
-  const [data] = useState(forumData.data.topics)
-  const [readyMadeItems, setreadyMadeItems] = useState<TopicType[]>([])
+  const [data] = useState(forumData.data.topics);
+  const [readyMadeItems, setreadyMadeItems] = useState<TopicType[]>([]);
 
   useEffect(() => {
     const sortedList = [...data].sort((a, b) =>
       b.creationDate.localeCompare(a.creationDate)
-    )
-    setreadyMadeItems(sortedList)
-  }, [data])
+    );
+    setreadyMadeItems(sortedList);
+  }, [data]);
 
   return (
     <Layout className={cls.forumPageLayout}>
@@ -77,5 +77,5 @@ export const TopicList: React.FC = () => {
         </Content>
       </Flex>
     </Layout>
-  )
-}
+  );
+};

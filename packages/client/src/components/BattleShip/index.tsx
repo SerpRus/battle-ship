@@ -1,46 +1,46 @@
-import React, { useRef, useEffect, useState } from 'react'
-import StartStep from '../../widgets/game/steps/start-step'
-import GameStep from '../../widgets/game/steps/game-step'
-import EndStep from '../../widgets/game/steps/end-step'
-import { ShipsType } from '../../widgets/game/utils/generate-ships'
-import ships from '../../widgets/game/elements/ships'
-import { PLAYER_BOARD_POSITION } from '../../widgets/game/utils/constants'
+import React, { useRef, useEffect, useState } from 'react';
+import StartStep from '../../widgets/game/steps/start-step';
+import GameStep from '../../widgets/game/steps/game-step';
+import EndStep from '../../widgets/game/steps/end-step';
+import { ShipsType } from '../../widgets/game/utils/generate-ships';
+import ships from '../../widgets/game/elements/ships';
+import { PLAYER_BOARD_POSITION } from '../../widgets/game/utils/constants';
 
 type GameStepsType = {
-  start: typeof StartStep
-  game: typeof GameStep
-  end: typeof EndStep
-}
+  start: typeof StartStep;
+  game: typeof GameStep;
+  end: typeof EndStep;
+};
 
 export default function BattleShip() {
-  const canvas = useRef<null | HTMLCanvasElement>(null)
+  const canvas = useRef<null | HTMLCanvasElement>(null);
 
-  const [gameStep, setGameStep] = useState('start')
-  const [playerShips, setPlayerShips] = useState([])
+  const [gameStep, setGameStep] = useState('start');
+  const [playerShips, setPlayerShips] = useState([]);
 
   const clickRef = useRef<null | ((e: React.MouseEvent<HTMLElement>) => void)>(
     null
-  )
+  );
 
   useEffect(() => {
     const gameSteps: GameStepsType = {
       start: StartStep,
       game: GameStep,
       end: EndStep,
-    }
+    };
 
-    const canvasElement = canvas.current
+    const canvasElement = canvas.current;
     if (!canvasElement) {
-      return
+      return;
     }
 
-    const ctx = canvasElement.getContext('2d')
+    const ctx = canvasElement.getContext('2d');
 
     if (!ctx) {
-      return
+      return;
     }
 
-    ctx.clearRect(0, 0, canvasElement.width, canvasElement.height)
+    ctx.clearRect(0, 0, canvasElement.width, canvasElement.height);
 
     const currentStep = new gameSteps[gameStep as keyof GameStepsType](
       ctx,
@@ -48,9 +48,9 @@ export default function BattleShip() {
       setGameStep,
       setPlayerShips as React.Dispatch<React.SetStateAction<ShipsType>>,
       playerShips
-    )
+    );
 
-    currentStep.render()
+    currentStep.render();
 
     ships(
       ctx,
@@ -59,12 +59,12 @@ export default function BattleShip() {
         y: PLAYER_BOARD_POSITION.y,
       },
       playerShips
-    )
+    );
 
     if (currentStep.clickHandler) {
-      clickRef.current = currentStep.clickHandler
+      clickRef.current = currentStep.clickHandler;
     }
-  }, [gameStep, playerShips])
+  }, [gameStep, playerShips]);
 
   return (
     <canvas
@@ -73,9 +73,9 @@ export default function BattleShip() {
       height={601}
       onClick={e => {
         if (clickRef.current) {
-          clickRef.current(e)
+          clickRef.current(e);
         }
       }}
     />
-  )
+  );
 }

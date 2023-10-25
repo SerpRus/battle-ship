@@ -1,27 +1,27 @@
-import { LikeFilled } from '@ant-design/icons'
-import { Flex, Card, Divider } from 'antd'
-import React, { ReactNode } from 'react'
-import { v4 as makeUUID } from 'uuid'
-import { dateFormat } from '../../../widgets/game/utils/date-formatter'
+import { LikeFilled } from '@ant-design/icons';
+import { Flex, Card, Divider } from 'antd';
+import React, { ReactNode } from 'react';
+import { v4 as makeUUID } from 'uuid';
+import { dateFormat } from '../../../widgets/game/utils/date-formatter';
 
-import cls from './CommentCard.module.scss'
+import cls from './CommentCard.module.scss';
 
 type CommentsDataType = {
-  /* types */ likesCount: ReactNode
-  id: number | string
-  topicId: number | string
-  name: string
-  comment: string
-  creationDate: Date | string
-}
+  /* types */ likesCount: ReactNode;
+  id: number | string;
+  topicId: number | string;
+  name: string;
+  comment: string;
+  creationDate: Date | string;
+};
 
 type ColumnType = {
-  itemList: Array<CommentsDataType>
-  children: ReactNode
-}
+  itemList: Array<CommentsDataType>;
+  children: ReactNode;
+};
 
 export const CommentCard: React.FC<ColumnType> = props => {
-  const { itemList, children } = props
+  const { itemList, children } = props;
   return (
     <Card className={cls.commentCard}>
       {itemList.map(item => (
@@ -43,5 +43,5 @@ export const CommentCard: React.FC<ColumnType> = props => {
       ))}
       {children}
     </Card>
-  )
-}
+  );
+};

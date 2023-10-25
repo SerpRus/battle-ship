@@ -1,8 +1,8 @@
-import React from 'react'
-import { Card, Flex } from 'antd'
-import CreateTopicForm from '../../../../shared/ui/CreateTopicForm/CreateTopicForm'
+import React from 'react';
+import { Card, Flex } from 'antd';
+import CreateTopicForm from '../../../../shared/ui/CreateTopicForm/CreateTopicForm';
 
-import cls from './CreateTopicPage.module.scss'
+import cls from './CreateTopicPage.module.scss';
 
 export const CreateTopic: React.FC = () => (
   <Flex justify="space-around">
@@ -16,4 +16,4 @@ export const CreateTopic: React.FC = () => (
       <CreateTopicForm />
     </Card>
   </Flex>
-)
+);
