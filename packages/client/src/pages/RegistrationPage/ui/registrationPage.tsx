@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout, Button, Form, Input } from 'antd';
+import { Layout, Button, Form } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import cls from './registrationPage.module.scss';
@@ -47,10 +47,14 @@ export const RegistrationPage = () => {
       confirm_password: '',
     },
   });
+  // TODO: any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onFinish = (values: any) => {
     console.log('Success:', values); // eslint-disable-line
   };
 
+  // TODO: any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onFinishFailed = (errorInfo: any) => {
     console.log('Failed:', errorInfo); // eslint-disable-line
   };
@@ -66,7 +70,7 @@ export const RegistrationPage = () => {
           onFinish={handleSubmit(onFinish)}
           onFinishFailed={onFinishFailed}
           autoComplete="off">
-          <ValidatableFormItemInput<FieldType>
+          <ValidatableFormItemInput
             label="Почта"
             name="email"
             control={control}
@@ -78,7 +82,7 @@ export const RegistrationPage = () => {
             }}
           />
 
-          <ValidatableFormItemInput<FieldType>
+          <ValidatableFormItemInput
             name="login"
             label="Логин"
             control={control}
@@ -99,7 +103,7 @@ export const RegistrationPage = () => {
             }}
           />
 
-          <ValidatableFormItemInput<FieldType>
+          <ValidatableFormItemInput
             label="Имя"
             name="first_name"
             control={control}
@@ -112,7 +116,7 @@ export const RegistrationPage = () => {
             }}
           />
 
-          <ValidatableFormItemInput<FieldType>
+          <ValidatableFormItemInput
             label="Фамилия"
             name="second_name"
             control={control}
@@ -125,7 +129,7 @@ export const RegistrationPage = () => {
             }}
           />
 
-          <ValidatableFormItemInput<FieldType>
+          <ValidatableFormItemInput
             label="Телефон"
             name="phone"
             control={control}
@@ -146,7 +150,7 @@ export const RegistrationPage = () => {
             }}
           />
 
-          <ValidatableFormItemInput<FieldType>
+          <ValidatableFormItemInput
             name="password"
             label="Пароль"
             control={control}
@@ -168,7 +172,7 @@ export const RegistrationPage = () => {
             isPassword
           />
 
-          <ValidatableFormItemInput<FieldType>
+          <ValidatableFormItemInput
             label="Повторите пароль"
             name="confirm_password"
             control={control}

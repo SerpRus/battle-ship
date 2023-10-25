@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Button } from 'antd';
 import {
   AppRoutes,
@@ -10,7 +10,10 @@ import cls from './Header.module.scss';
 import { useLogoutUser } from '../../../pages/LoginPage/model/hooks/useAuthUser';
 import { useAuth } from '../../lib/hooks/useAuth';
 
-const Header: FC<{ isAuth: boolean }> = ({ isAuth }) => {
+const Header: FC<{ authOnly?: boolean; isAuth: boolean }> = ({
+  authOnly,
+  isAuth,
+}) => {
   const logout = useLogoutUser();
   const { setIsAuth } = useAuth();
 
@@ -26,13 +29,10 @@ const Header: FC<{ isAuth: boolean }> = ({ isAuth }) => {
     <nav className={cls.navbar}>
       <ul>
         {Object.keys(routeConfig).map((key: string) => {
-          const {
-            path,
-            element,
-            authOnly: routeAuthOnly,
-          } = routeConfig[key as AppRoutes];
+          const { path, authOnly: routeAuthOnly } =
+            routeConfig[key as AppRoutes];
 
-          if ((!routeAuthOnly && !isAuth) || (routeAuthOnly && isAuth)) {
+          if (authOnly === routeAuthOnly) {
             return (
               <li key={key}>
                 <Link to={path!}>{key}</Link>

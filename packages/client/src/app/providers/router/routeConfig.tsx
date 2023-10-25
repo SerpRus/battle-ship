@@ -7,7 +7,7 @@ import Game from '../../../pages/game';
 import Leaderboard from '../../../pages/leaderboard';
 import Forum from '../../../pages/forum';
 import Topic from '../../../pages/forum/[id]';
-import NotFound from '../../../pages/404';
+import NotFound from '../../../pages/404Page';
 
 export type AppRouteProps = RouteProps & {
   authOnly?: boolean;
@@ -81,5 +81,6 @@ export const routeConfig: Record<AppRoutes, AppRouteProps> = {
   [AppRoutes.NOT_FOUND]: {
     path: RoutePath.not_found,
     element: <NotFound />,
+    authOnly: undefined,
   },
 };

@@ -9,11 +9,16 @@ export const AppRouter = ({ isAuth }: { isAuth: boolean }) => {
       <Route
         key={route.path}
         path={route.path}
-        element={<LayoutWrapper isAuth={isAuth}>{route.element}</LayoutWrapper>}
+        element={
+          <LayoutWrapper authOnly={route.authOnly} isAuth={isAuth}>
+            {route.element}
+          </LayoutWrapper>
+        }
       />
     ),
     [isAuth]
   );
+
   return (
     <Router>
       <Routes>{Object.values(routeConfig).map(renderWithWrapper)}</Routes>

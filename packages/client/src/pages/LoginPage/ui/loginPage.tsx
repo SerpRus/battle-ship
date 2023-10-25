@@ -38,7 +38,8 @@ export const LoginPage = () => {
       remember: true,
     },
   });
-
+  // TODO: any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onFinish = async (values: any) => {
     const isLogged = await login({
       login: values.login,
@@ -49,7 +50,8 @@ export const LoginPage = () => {
       window.location.replace(RoutePath.home);
     }
   };
-
+  // TODO: any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onFinishFailed = (errorInfo: any) => {
     console.log('Failed:', errorInfo); // eslint-disable-line
   };
@@ -65,7 +67,7 @@ export const LoginPage = () => {
           onFinish={handleSubmit(onFinish)}
           onFinishFailed={onFinishFailed}
           autoComplete="off">
-          <ValidatableFormItemInput<FieldType>
+          <ValidatableFormItemInput
             name="login"
             label="Логин"
             control={control}
@@ -80,13 +82,14 @@ export const LoginPage = () => {
                 value: 20,
                 message: 'Логин должен быть короче 20 символов',
               },
-              validate: value =>
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              validate: (value: any) =>
                 LOGIN_REGEXP.test(value) ||
                 'Логин должен состоять из английских букв или спецсимволов(-_)',
             }}
           />
 
-          <ValidatableFormItemInput<FieldType>
+          <ValidatableFormItemInput
             name="password"
             label="Пароль"
             control={control}

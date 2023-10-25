@@ -9,18 +9,22 @@ import {
 } from 'react-hook-form';
 import React from 'react';
 
-interface ValidatableFormItemInputProps<T> {
+interface ValidatableFormItemInputProps {
   name: string;
   label?: string;
+  // TODO: any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   control: Control<any>;
   errors: Partial<FieldErrorsImpl<DeepRequired<FieldValues>>>;
+  // TODO: any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   rules: RegisterOptions<FieldValues, any>;
   isPassword?: boolean;
   required?: boolean;
 }
 
-export const ValidatableFormItemInput = <T,>(
-  props: ValidatableFormItemInputProps<T>
+export const ValidatableFormItemInput = (
+  props: ValidatableFormItemInputProps
 ) => {
   const {
     name,
