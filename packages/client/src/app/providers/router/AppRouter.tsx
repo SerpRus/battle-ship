@@ -1,7 +1,7 @@
-import { useCallback } from 'react'
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
-import { AppRouteProps, routeConfig } from './routeConfig'
-import LayoutWrapper from './Layout'
+import { useCallback } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { AppRouteProps, routeConfig } from './routeConfig';
+import LayoutWrapper from './Layout';
 
 export const AppRouter = ({ isAuth }: { isAuth: boolean }) => {
   const renderWithWrapper = useCallback(
@@ -13,10 +13,10 @@ export const AppRouter = ({ isAuth }: { isAuth: boolean }) => {
       />
     ),
     [isAuth]
-  )
+  );
   return (
     <Router>
       <Routes>{Object.values(routeConfig).map(renderWithWrapper)}</Routes>
     </Router>
-  )
-}
+  );
+};

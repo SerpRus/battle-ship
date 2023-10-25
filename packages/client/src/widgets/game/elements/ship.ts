@@ -1,4 +1,4 @@
-import { INC_COLOR, CELL_SIZE } from '../utils/constants'
+import { INC_COLOR, CELL_SIZE } from '../utils/constants';
 
 const ship = function renderShip(
   ctx: CanvasRenderingContext2D,
@@ -9,7 +9,7 @@ const ship = function renderShip(
   size: number,
   isHorizontal?: boolean
 ) {
-  ctx.strokeStyle = INC_COLOR
+  ctx.strokeStyle = INC_COLOR;
 
   if (isHorizontal) {
     ctx.strokeRect(
@@ -17,17 +17,17 @@ const ship = function renderShip(
       boardY + CELL_SIZE * y,
       CELL_SIZE * size,
       CELL_SIZE
-    )
+    );
   } else {
     ctx.strokeRect(
       boardX + CELL_SIZE * x,
       boardY + CELL_SIZE * y,
       CELL_SIZE,
       CELL_SIZE * size
-    )
+    );
   }
 
-  ctx.stroke()
-}
+  ctx.stroke();
+};
 
-export default ship
+export default ship;

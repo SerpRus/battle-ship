@@ -1,6 +1,6 @@
-import React from 'react'
-import BattleShip from '../components/BattleShip'
+import React from 'react';
+import BattleShip from '../components/BattleShip';
 
 export default function Game() {
-  return <BattleShip />
+  return <BattleShip />;
 }

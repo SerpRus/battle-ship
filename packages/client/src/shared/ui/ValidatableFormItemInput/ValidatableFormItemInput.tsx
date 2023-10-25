@@ -1,4 +1,4 @@
-import { Form, Input } from 'antd'
+import { Form, Input } from 'antd';
 import {
   Control,
   Controller,
@@ -6,17 +6,17 @@ import {
   FieldErrorsImpl,
   FieldValues,
   RegisterOptions,
-} from 'react-hook-form'
-import React from 'react'
+} from 'react-hook-form';
+import React from 'react';
 
 interface ValidatableFormItemInputProps<T> {
-  name: string
-  label?: string
-  control: Control<any>
-  errors: Partial<FieldErrorsImpl<DeepRequired<FieldValues>>>
-  rules: RegisterOptions<FieldValues, any>
-  isPassword?: boolean
-  required?: boolean
+  name: string;
+  label?: string;
+  control: Control<any>;
+  errors: Partial<FieldErrorsImpl<DeepRequired<FieldValues>>>;
+  rules: RegisterOptions<FieldValues, any>;
+  isPassword?: boolean;
+  required?: boolean;
 }
 
 export const ValidatableFormItemInput = <T,>(
@@ -30,7 +30,7 @@ export const ValidatableFormItemInput = <T,>(
     label,
     isPassword = false,
     required = true,
-  } = props
+  } = props;
   return (
     <Controller
       name={name}
@@ -48,13 +48,13 @@ export const ValidatableFormItemInput = <T,>(
             control={control as Control}
             render={({ field }) => {
               if (isPassword) {
-                return <Input.Password {...field} />
+                return <Input.Password {...field} />;
               }
-              return <Input {...field} />
+              return <Input {...field} />;
             }}
           />
         </Form.Item>
       )}
     />
-  )
-}
+  );
+};
