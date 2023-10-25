@@ -1,17 +1,17 @@
-import { RouteProps } from 'react-router-dom'
-import Login from '../../../pages/LoginPage'
-import RegistrationPage from '../../../pages/RegistrationPage'
-import Profile from '../../../pages/profile'
-import Home from '../../../pages/home'
-import Game from '../../../pages/game'
-import Leaderboard from '../../../pages/leaderboard'
-import Forum from '../../../pages/forum'
-import Topic from '../../../pages/forum/[id]'
-import NotFound from '../../../pages/404Page'
+import { RouteProps } from 'react-router-dom';
+import Login from '../../../pages/LoginPage';
+import RegistrationPage from '../../../pages/RegistrationPage';
+import Profile from '../../../pages/profile';
+import Home from '../../../pages/home';
+import Game from '../../../pages/game';
+import Leaderboard from '../../../pages/leaderboard';
+import Forum from '../../../pages/forum';
+import Topic from '../../../pages/forum/[id]';
+import NotFound from '../../../pages/404Page';
 
 export type AppRouteProps = RouteProps & {
-  authOnly?: boolean
-}
+  authOnly?: boolean;
+};
 
 export enum AppRoutes {
   HOME = 'home',
@@ -35,7 +35,7 @@ export const RoutePath: Record<AppRoutes, string> = {
   [AppRoutes.FORUM]: '/forum',
   [AppRoutes.TOPIC]: '/forum/:id',
   [AppRoutes.NOT_FOUND]: '*',
-}
+};
 
 export const routeConfig: Record<AppRoutes, AppRouteProps> = {
   [AppRoutes.HOME]: {
@@ -83,4 +83,4 @@ export const routeConfig: Record<AppRoutes, AppRouteProps> = {
     element: <NotFound />,
     authOnly: undefined,
   },
-}
+};

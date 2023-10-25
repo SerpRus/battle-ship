@@ -1,5 +1,5 @@
-import React from 'react'
+import React from 'react';
 
 export default function Profile() {
-  return <h1>Страница профиля</h1>
+  return <h1>Страница профиля</h1>;
 }
