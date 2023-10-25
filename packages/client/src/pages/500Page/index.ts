@@ -1,3 +1,3 @@
-import { ServerErrorPage } from './ui/500Page'
+import { ServerErrorPage } from './ui/500Page';
 
-export default ServerErrorPage
+export default ServerErrorPage;
