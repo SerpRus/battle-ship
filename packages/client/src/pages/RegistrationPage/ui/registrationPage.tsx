@@ -1,8 +1,8 @@
-import React from 'react'
-import { Layout, Button, Form, Input } from 'antd'
-import { useNavigate } from 'react-router-dom'
-import { useForm } from 'react-hook-form'
-import cls from './registrationPage.module.scss'
+import React from 'react';
+import { Layout, Button, Form } from 'antd';
+import { useNavigate } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import cls from './registrationPage.module.scss';
 import {
   EMAIL_REGEXP,
   FIRST_NAME_REGEXP,
@@ -10,24 +10,24 @@ import {
   PASSWORD_REGEXP,
   PHONE_REGEXP,
   SECOND_NAME_REGEXP,
-} from '../../../shared/constants/validationConstants'
-import { ValidatableFormItemInput } from '../../../shared/ui/ValidatableFormItemInput/ValidatableFormItemInput'
+} from '../../../shared/constants/validationConstants';
+import { ValidatableFormItemInput } from '../../../shared/ui/ValidatableFormItemInput/ValidatableFormItemInput';
 
-const { Content } = Layout
+const { Content } = Layout;
 
 type FieldType = {
-  email: string
-  login: string
-  first_name: string
-  second_name: string
-  phone: string
-  username?: string
-  password?: string
-  confirm_password?: string
-}
+  email: string;
+  login: string;
+  first_name: string;
+  second_name: string;
+  phone: string;
+  username?: string;
+  password?: string;
+  confirm_password?: string;
+};
 
 export const RegistrationPage = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const {
     control,
@@ -46,14 +46,18 @@ export const RegistrationPage = () => {
       password: '',
       confirm_password: '',
     },
-  })
+  });
+  // TODO: any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onFinish = (values: any) => {
-    console.log('Success:', values)
-  }
+    console.log('Success:', values); // eslint-disable-line
+  };
 
+  // TODO: any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onFinishFailed = (errorInfo: any) => {
-    console.log('Failed:', errorInfo)
-  }
+    console.log('Failed:', errorInfo); // eslint-disable-line
+  };
   return (
     <Layout className={cls.wrapper}>
       <Content className={cls.content}>
@@ -66,7 +70,7 @@ export const RegistrationPage = () => {
           onFinish={handleSubmit(onFinish)}
           onFinishFailed={onFinishFailed}
           autoComplete="off">
-          <ValidatableFormItemInput<FieldType>
+          <ValidatableFormItemInput
             label="Почта"
             name="email"
             control={control}
@@ -78,7 +82,7 @@ export const RegistrationPage = () => {
             }}
           />
 
-          <ValidatableFormItemInput<FieldType>
+          <ValidatableFormItemInput
             name="login"
             label="Логин"
             control={control}
@@ -99,7 +103,7 @@ export const RegistrationPage = () => {
             }}
           />
 
-          <ValidatableFormItemInput<FieldType>
+          <ValidatableFormItemInput
             label="Имя"
             name="first_name"
             control={control}
@@ -112,7 +116,7 @@ export const RegistrationPage = () => {
             }}
           />
 
-          <ValidatableFormItemInput<FieldType>
+          <ValidatableFormItemInput
             label="Фамилия"
             name="second_name"
             control={control}
@@ -125,7 +129,7 @@ export const RegistrationPage = () => {
             }}
           />
 
-          <ValidatableFormItemInput<FieldType>
+          <ValidatableFormItemInput
             label="Телефон"
             name="phone"
             control={control}
@@ -146,7 +150,7 @@ export const RegistrationPage = () => {
             }}
           />
 
-          <ValidatableFormItemInput<FieldType>
+          <ValidatableFormItemInput
             name="password"
             label="Пароль"
             control={control}
@@ -168,7 +172,7 @@ export const RegistrationPage = () => {
             isPassword
           />
 
-          <ValidatableFormItemInput<FieldType>
+          <ValidatableFormItemInput
             label="Повторите пароль"
             name="confirm_password"
             control={control}
@@ -197,7 +201,7 @@ export const RegistrationPage = () => {
             <Button
               type="link"
               onClick={() => {
-                navigate('/login')
+                navigate('/login');
               }}>
               Войти
             </Button>
@@ -205,5 +209,5 @@ export const RegistrationPage = () => {
         </Form>
       </Content>
     </Layout>
-  )
-}
+  );
+};

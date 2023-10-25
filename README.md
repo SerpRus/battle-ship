@@ -1,3 +1,10 @@
+Полезные ссылки: 
+- Figma: https://www.figma.com/file/5Ebp2VHbBOafGFvBfJ7wsi/battle-ship?node-id=0%3A1&mode=dev
+- Linear: https://linear.app/lazy-team/team/LT/active
+- Discord: https://discord.gg/JsXCJYa9
+- Pachca: https://app.pachca.com/chats/7213485
+
+
 ### Как запускать?
 
 1. Убедитесь что у вас установлен `node` и `docker`

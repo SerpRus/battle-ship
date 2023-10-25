@@ -1,4 +1,4 @@
-import { PositionType, SizeWithPositionType } from '../types'
+import { PositionType, SizeWithPositionType } from '../types';
 
 export default function checkClickElement(
   target: SizeWithPositionType,
@@ -9,5 +9,5 @@ export default function checkClickElement(
     clickPosition.y >= target.position.y &&
     clickPosition.x <= target.position.x + target.width &&
     clickPosition.y <= target.position.y + target.height
-  )
+  );
 }

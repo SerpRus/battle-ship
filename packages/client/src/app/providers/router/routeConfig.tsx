@@ -1,17 +1,18 @@
-import { RouteProps } from 'react-router-dom'
-import Login from '../../../pages/LoginPage'
-import RegistrationPage from '../../../pages/RegistrationPage'
-import Profile from '../../../pages/profile'
-import Home from '../../../pages/home'
-import Game from '../../../pages/game'
-import Leaderboard from '../../../pages/leaderboard'
-import Forum from '../../../pages/forum'
-import Topic from '../../../pages/forum/[id]'
-import NotFound from '../../../pages/404'
+import { RouteProps } from 'react-router-dom';
+import Login from '../../../pages/LoginPage';
+import RegistrationPage from '../../../pages/RegistrationPage';
+import Profile from '../../../pages/profile';
+import Home from '../../../pages/home';
+import Game from '../../../pages/game';
+import Leaderboard from '../../../pages/leaderboard';
+import Forum from '../../../pages/forum';
+import Topic from '../../../pages/forum/[id]';
+import NotFound from '../../../pages/404Page';
+import ServerErrorPage from '../../../pages/500Page';
 
 export type AppRouteProps = RouteProps & {
-  authOnly?: boolean
-}
+  authOnly?: boolean;
+};
 
 export enum AppRoutes {
   HOME = 'home',
@@ -23,6 +24,7 @@ export enum AppRoutes {
   FORUM = 'forum',
   TOPIC = 'topic',
   NOT_FOUND = 'not_found',
+  SERVER_ERROR = 'server_error',
 }
 
 export const RoutePath: Record<AppRoutes, string> = {
@@ -34,8 +36,9 @@ export const RoutePath: Record<AppRoutes, string> = {
   [AppRoutes.LEADERBOARD]: '/leaderboard',
   [AppRoutes.FORUM]: '/forum',
   [AppRoutes.TOPIC]: '/forum/:id',
+  [AppRoutes.SERVER_ERROR]: '/500',
   [AppRoutes.NOT_FOUND]: '*',
-}
+};
 
 export const routeConfig: Record<AppRoutes, AppRouteProps> = {
   [AppRoutes.HOME]: {
@@ -81,5 +84,11 @@ export const routeConfig: Record<AppRoutes, AppRouteProps> = {
   [AppRoutes.NOT_FOUND]: {
     path: RoutePath.not_found,
     element: <NotFound />,
+    authOnly: undefined,
   },
-}
+  [AppRoutes.SERVER_ERROR]: {
+    path: RoutePath.server_error,
+    element: <ServerErrorPage />,
+    authOnly: undefined,
+  },
+};
