@@ -1,9 +1,14 @@
-import React, { ReactNode, useCallback } from 'react'
-import { Navigate, useLocation } from 'react-router-dom'
-import Header from '../../../shared/ui/Header/Header'
-import cls from './Layout.module.scss'
-import { RoutePath } from './routeConfig'
-import ErrorBoundary from '../../../components/ErrorBoundary/ErrorBoundary'
+import React, {
+  ReactNode,
+  // useCallback
+} from 'react';
+import {
+  // Navigate,
+  useLocation,
+} from 'react-router-dom';
+import Header from '../../../shared/ui/Header/Header';
+// import { RoutePath } from './routeConfig'
+import ErrorBoundary from '../../../components/ErrorBoundary/ErrorBoundary';
 
 const LayoutWrapper = ({
   isAuth,
@@ -31,23 +36,13 @@ const LayoutWrapper = ({
   // }, [children, isAuth, location]);
 
   // return (
-  <>
+  <ErrorBoundary>
     {authOnly !== undefined && <Header authOnly={authOnly} isAuth={isAuth} />}
     {/* {returnContent()} */}
     {children}
-  </>
+  </ErrorBoundary>
 );
 // );
 // };
 
-  return (
-    <ErrorBoundary>
-      <main className={cls.container}>
-        <Header isAuth={isAuth} />
-        {returnContent()}
-      </main>
-    </ErrorBoundary>
-  )
-}
-
-export default LayoutWrapper
+export default LayoutWrapper;

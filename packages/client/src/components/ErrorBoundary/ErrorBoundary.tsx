@@ -1,27 +1,27 @@
-import { Component, ErrorInfo } from 'react'
-import { Props, TState } from './typings'
+import { Component, ErrorInfo } from 'react';
+import { Props, TState } from './typings';
 
 class ErrorBoundary extends Component<Props, TState> {
   constructor(props: Props | Readonly<Props>) {
-    super(props)
-    this.state = { error: null }
+    super(props);
+    this.state = { error: null };
   }
 
   public static getDerivedStateFromError(error: Error): TState {
-    return { error }
+    return { error };
   }
 
   public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    console.error('Uncaught error:', error, errorInfo)
+    console.error('Uncaught error:', error, errorInfo); // eslint-disable-line no-console
 
     this.setState({
       error,
-    })
+    });
   }
 
   public render() {
-    const { error } = this.state
-    const { children } = this.props
+    const { error } = this.state;
+    const { children } = this.props;
 
     if (error) {
       return (
@@ -32,11 +32,11 @@ class ErrorBoundary extends Component<Props, TState> {
             {error && error.toString()}
           </details>
         </div>
-      )
+      );
     }
 
-    return children
+    return children;
   }
 }
 
-export default ErrorBoundary
+export default ErrorBoundary;
