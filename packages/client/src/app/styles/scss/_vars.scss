@@ -1,3 +1,4 @@
+@use 'sass:math';
 @import 'utils/index';
 
 //* paths */
@@ -29,6 +30,7 @@ $rulesDisplay: (
 $black: #000000;
 $white: #ffffff;
 $governor-bay: #6195ed;
+$dark-blue: #113c7c;
 
 //* dynamic colors */
 $color-brand: $governor-bay;
@@ -49,7 +51,7 @@ $screen: (mobile, tablet, desktop, desktopBig, desktopLarge);
 
 //* fonts */
 $base-font-size: 16px;
-$base-line-height: (24/16);
+$base-line-height: math.div(24, 16);
 $base-font-family: Verdana, Geneva, sans-serif;
 $font-family-brand: 'Segoe-Print';
 $default-font-family: $font-family-brand, $base-font-family;

@@ -41,6 +41,8 @@ module.exports = {
             code: 120,
         }],
         'react-hooks/rules-of-hooks': 'error', // Checks rules of Hooks
-        'react-hooks/exhaustive-deps': 'error'
+        'react-hooks/exhaustive-deps': 'error',
+        'class-methods-use-this': 0,
+        'no-console': 'error',
     },
 }

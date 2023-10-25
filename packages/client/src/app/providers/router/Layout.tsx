@@ -1,18 +1,47 @@
-import React, { ReactNode } from 'react'
-import Header from '../../../shared/ui/Header/Header'
-import cls from './Layout.module.scss'
+import React, {
+  ReactNode,
+  // useCallback
+} from 'react';
+import {
+  // Navigate,
+  useLocation,
+} from 'react-router-dom';
+import Header from '../../../shared/ui/Header/Header';
+// import { RoutePath } from './routeConfig'
 
 const LayoutWrapper = ({
-  authOnly = false,
+  isAuth,
+  authOnly,
   children,
 }: {
-  authOnly?: boolean
-  children: ReactNode
+  authOnly?: boolean;
+  isAuth: boolean;
+  children: ReactNode;
+  // }) => {
 }) => (
-  <main className={cls.container}>
-    <Header authOnly={authOnly} />
-    {children}
-  </main>
-)
+  // const location = useLocation();
+  // const returnContent = useCallback(() => {
+  //   // TODO: всегда на login перенаправляет
+  //   if (!isAuth) {
+  //     return (
+  //       <>
+  //         <Navigate to={RoutePath.login} state={{ from: location }} replace />
+  //         {children}
+  //       </>
+  //     );
+  //   }
+  //
+  //   return children;
+  // }, [children, isAuth, location]);
 
-export default LayoutWrapper
+  // return (
+  <>
+    {authOnly !== undefined && <Header authOnly={authOnly} isAuth={isAuth} />}
+    {/* {returnContent()} */}
+    {children}
+  </>
+);
+// );
+// };
+
+export default LayoutWrapper;
