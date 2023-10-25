@@ -8,6 +8,7 @@ import Leaderboard from '../../../pages/leaderboard';
 import Forum from '../../../pages/forum';
 import Topic from '../../../pages/forum/[id]';
 import NotFound from '../../../pages/404Page';
+import ServerErrorPage from '../../../pages/500Page';
 
 export type AppRouteProps = RouteProps & {
   authOnly?: boolean;
@@ -23,6 +24,7 @@ export enum AppRoutes {
   FORUM = 'forum',
   TOPIC = 'topic',
   NOT_FOUND = 'not_found',
+  SERVER_ERROR = 'server_error',
 }
 
 export const RoutePath: Record<AppRoutes, string> = {
@@ -34,6 +36,7 @@ export const RoutePath: Record<AppRoutes, string> = {
   [AppRoutes.LEADERBOARD]: '/leaderboard',
   [AppRoutes.FORUM]: '/forum',
   [AppRoutes.TOPIC]: '/forum/:id',
+  [AppRoutes.SERVER_ERROR]: '/500',
   [AppRoutes.NOT_FOUND]: '*',
 };
 
@@ -81,6 +84,11 @@ export const routeConfig: Record<AppRoutes, AppRouteProps> = {
   [AppRoutes.NOT_FOUND]: {
     path: RoutePath.not_found,
     element: <NotFound />,
+    authOnly: undefined,
+  },
+  [AppRoutes.SERVER_ERROR]: {
+    path: RoutePath.server_error,
+    element: <ServerErrorPage />,
     authOnly: undefined,
   },
 };
