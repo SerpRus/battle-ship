@@ -1,12 +1,13 @@
 import { RouteProps } from 'react-router-dom';
+import Topic from '../../../pages/Forum/TopicConversationPage';
+import CreateTopic from '../../../pages/Forum/CreateTopicPage';
 import Login from '../../../pages/LoginPage';
 import RegistrationPage from '../../../pages/RegistrationPage';
 import Profile from '../../../pages/profile';
 import Home from '../../../pages/home';
 import Game from '../../../pages/game';
 import Leaderboard from '../../../pages/leaderboard';
-import Forum from '../../../pages/forum';
-import Topic from '../../../pages/forum/[id]';
+import TopicList from '../../../pages/Forum/TopicListPage';
 import NotFound from '../../../pages/404Page';
 import ServerErrorPage from '../../../pages/500Page';
 
@@ -14,6 +15,7 @@ export type AppRouteProps = RouteProps & {
   authOnly?: boolean;
 };
 
+/* eslint-disable no-unused-vars */
 export enum AppRoutes {
   HOME = 'home',
   LOGIN = 'login',
@@ -22,10 +24,12 @@ export enum AppRoutes {
   GAME = 'game',
   LEADERBOARD = 'leaderboard',
   FORUM = 'forum',
+  CREATE_TOPIC = 'create',
   TOPIC = 'topic',
   NOT_FOUND = 'not_found',
   SERVER_ERROR = 'server_error',
 }
+/* eslint-enable no-unused-vars */
 
 export const RoutePath: Record<AppRoutes, string> = {
   [AppRoutes.HOME]: '/',
@@ -35,6 +39,7 @@ export const RoutePath: Record<AppRoutes, string> = {
   [AppRoutes.GAME]: '/game',
   [AppRoutes.LEADERBOARD]: '/leaderboard',
   [AppRoutes.FORUM]: '/forum',
+  [AppRoutes.CREATE_TOPIC]: '/forum/create',
   [AppRoutes.TOPIC]: '/forum/:id',
   [AppRoutes.SERVER_ERROR]: '/500',
   [AppRoutes.NOT_FOUND]: '*',
@@ -73,7 +78,12 @@ export const routeConfig: Record<AppRoutes, AppRouteProps> = {
   },
   [AppRoutes.FORUM]: {
     path: RoutePath.forum,
-    element: <Forum />,
+    element: <TopicList />,
+    authOnly: true,
+  },
+  [AppRoutes.CREATE_TOPIC]: {
+    path: RoutePath.create,
+    element: <CreateTopic />,
     authOnly: true,
   },
   [AppRoutes.TOPIC]: {
