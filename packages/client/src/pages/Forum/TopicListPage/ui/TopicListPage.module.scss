@@ -1,20 +1,19 @@
 .forumPageCard {
   border: solid $black 1px;
-  background: rgba(248, 248, 248, 0.00);
+  background: rgba(248, 248, 248, 0);
   margin-right: 50px;
 }
 
-.forumPageLayout{
+.forumPageLayout {
   height: 100%;
-  background-image: url("./../../../../assets/backgroundWhite.png");
+  background-image: url('./../../../../assets/backgroundWhite.png');
 }
 
-.wrapper{
+.wrapper {
   margin-top: 30px;
 }
 
-.LikesComments{
+.LikesComments {
   justify-content: space-evenly;
   width: 100%;
 }
-

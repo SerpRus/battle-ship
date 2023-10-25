@@ -1,3 +1,8 @@
+export enum Day {
+  TODAY = 'Today',
+  YESTERDAY = 'Yesterday',
+}
+
 const checkYear = (currentDate: Date, date: Date) => {
   if (currentDate.getFullYear() - date.getFullYear()) {
     return date.toString().substring(4, 15)
@@ -15,11 +20,11 @@ const checkWeek = (currentDate: Date, date: Date) => {
 
 const checkDay = (date: Date) => {
   const currentDate: Date = new Date()
-  let formatedDate = 'Today'
+  let formatedDate = Day.TODAY as string
   if (currentDate.getDate() - date.getDate() > 1) {
     formatedDate = checkWeek(currentDate, date)
   } else if (currentDate.getDate() - date.getDate() === 1) {
-    formatedDate = 'Yesterday'
+    formatedDate = Day.YESTERDAY as string
   }
   return formatedDate
 }

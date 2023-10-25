@@ -22,11 +22,17 @@ type CommentsDataType = {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const onFinish = (values: any) => {
+  /* *
+   *   @todo Сделать типизацию
+   * */
   console.log('Success:', values) // eslint-disable-line no-console
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const onFinishFailed = (errorInfo: any) => {
+  /* *
+   *   @todo Сделать типизацию
+   * */
   console.log('Failed:', errorInfo) // eslint-disable-line no-console
 }
 
@@ -36,7 +42,7 @@ export const Topic: React.FC = () => {
   const topicsData = forumData.data.topics
   const currentTopicData = topicsData.find(topic => topic.id === Number(id))
   const [commentsData, setData] = useState(forumData.data.comments)
-  const [readyMadeComments, setreadyMadeItems] = useState<CommentsDataType[]>(
+  const [readyMadeComments, setReadyMadeItems] = useState<CommentsDataType[]>(
     []
   )
   const [inputText, setInputText] = useState('')
@@ -48,7 +54,7 @@ export const Topic: React.FC = () => {
     const sortedList = [...currentTopicComments].sort((a, b) =>
       b.creationDate.localeCompare(a.creationDate)
     )
-    setreadyMadeItems(sortedList)
+    setReadyMadeItems(sortedList)
   }, [commentsData, currentTopicData?.id])
 
   const onChange = useCallback((e: ChangeEvent) => {
