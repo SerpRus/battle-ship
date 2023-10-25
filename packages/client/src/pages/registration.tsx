@@ -1,5 +1,3 @@
-import React from 'react'
-
 export default function Registration() {
-  return <h1>Cтраница регистрации</h1>
+  return <h1>Cтраница регистрации</h1>;
 }

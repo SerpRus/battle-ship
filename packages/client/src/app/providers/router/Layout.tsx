@@ -7,24 +7,38 @@ import ErrorBoundary from '../../../components/ErrorBoundary/ErrorBoundary'
 
 const LayoutWrapper = ({
   isAuth,
+  authOnly,
   children,
 }: {
-  isAuth: boolean
-  children: ReactNode
-}) => {
-  const location = useLocation()
-  const returnContent = useCallback(() => {
-    if (!isAuth) {
-      return (
-        <>
-          <Navigate to={RoutePath.login} state={{ from: location }} replace />
-          {children}
-        </>
-      )
-    }
+  authOnly?: boolean;
+  isAuth: boolean;
+  children: ReactNode;
+  // }) => {
+}) => (
+  // const location = useLocation();
+  // const returnContent = useCallback(() => {
+  //   // TODO: всегда на login перенаправляет
+  //   if (!isAuth) {
+  //     return (
+  //       <>
+  //         <Navigate to={RoutePath.login} state={{ from: location }} replace />
+  //         {children}
+  //       </>
+  //     );
+  //   }
+  //
+  //   return children;
+  // }, [children, isAuth, location]);
 
-    return children
-  }, [children, isAuth, location])
+  // return (
+  <>
+    {authOnly !== undefined && <Header authOnly={authOnly} isAuth={isAuth} />}
+    {/* {returnContent()} */}
+    {children}
+  </>
+);
+// );
+// };
 
   return (
     <ErrorBoundary>
