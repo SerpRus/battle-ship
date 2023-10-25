@@ -1,4 +1,4 @@
 export interface ErrorPageWrapperProps {
-  title: string
-  description: string
+  title: string;
+  description: string;
 }

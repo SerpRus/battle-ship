@@ -1,16 +1,16 @@
-import React from 'react'
-import { useNavigate } from 'react-router-dom'
-import { Layout, Button } from 'antd'
-import cls from './ErrorPageWrapper.module.scss'
-import { ErrorPageWrapperProps } from './types'
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Layout, Button } from 'antd';
+import cls from './ErrorPageWrapper.module.scss';
+import { ErrorPageWrapperProps } from './types';
 
-const { Content } = Layout
+const { Content } = Layout;
 
 export const ErrorPageWrapper = ({
   title,
   description,
 }: ErrorPageWrapperProps) => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   return (
     <Layout className={cls.wrapper}>
@@ -21,11 +21,11 @@ export const ErrorPageWrapper = ({
           type="link"
           className={cls.link}
           onClick={() => {
-            navigate(-1)
+            navigate(-1);
           }}>
           Вернуться назад
         </Button>
       </Content>
     </Layout>
-  )
-}
+  );
+};

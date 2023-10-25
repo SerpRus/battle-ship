@@ -23,8 +23,8 @@ interface ValidatableFormItemInputProps {
   required?: boolean;
 }
 
-export const ValidatableFormItemInput = <T,>(
-  props: ValidatableFormItemInputProps<T>
+export const ValidatableFormItemInput = (
+  props: ValidatableFormItemInputProps
 ) => {
   const {
     name,

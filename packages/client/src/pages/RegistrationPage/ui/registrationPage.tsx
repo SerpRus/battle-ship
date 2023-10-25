@@ -70,7 +70,7 @@ export const RegistrationPage = () => {
           onFinish={handleSubmit(onFinish)}
           onFinishFailed={onFinishFailed}
           autoComplete="off">
-          <ValidatableFormItemInput<FieldType>
+          <ValidatableFormItemInput
             label="Почта"
             name="email"
             control={control}
@@ -82,7 +82,7 @@ export const RegistrationPage = () => {
             }}
           />
 
-          <ValidatableFormItemInput<FieldType>
+          <ValidatableFormItemInput
             name="login"
             label="Логин"
             control={control}
@@ -103,7 +103,7 @@ export const RegistrationPage = () => {
             }}
           />
 
-          <ValidatableFormItemInput<FieldType>
+          <ValidatableFormItemInput
             label="Имя"
             name="first_name"
             control={control}
@@ -116,7 +116,7 @@ export const RegistrationPage = () => {
             }}
           />
 
-          <ValidatableFormItemInput<FieldType>
+          <ValidatableFormItemInput
             label="Фамилия"
             name="second_name"
             control={control}
@@ -129,7 +129,7 @@ export const RegistrationPage = () => {
             }}
           />
 
-          <ValidatableFormItemInput<FieldType>
+          <ValidatableFormItemInput
             label="Телефон"
             name="phone"
             control={control}
@@ -150,7 +150,7 @@ export const RegistrationPage = () => {
             }}
           />
 
-          <ValidatableFormItemInput<FieldType>
+          <ValidatableFormItemInput
             name="password"
             label="Пароль"
             control={control}
@@ -172,7 +172,7 @@ export const RegistrationPage = () => {
             isPassword
           />
 
-          <ValidatableFormItemInput<FieldType>
+          <ValidatableFormItemInput
             label="Повторите пароль"
             name="confirm_password"
             control={control}
