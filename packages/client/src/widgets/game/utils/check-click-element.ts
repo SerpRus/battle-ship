@@ -1,23 +1,13 @@
-type TargetType = {
-  width: number;
-  height: number;
-  x: number;
-  y: number;
-};
-
-type ClickPositionType = {
-  x: number;
-  y: number;
-};
+import { PositionType, SizeWithPositionType } from '../types';
 
 export default function checkClickElement(
-  target: TargetType,
-  clickPosition: ClickPositionType
+  target: SizeWithPositionType,
+  clickPosition: PositionType
 ) {
   return (
-    clickPosition.x >= target.x &&
-    clickPosition.y >= target.y &&
-    clickPosition.x <= target.x + target.width &&
-    clickPosition.y <= target.y + target.height
+    clickPosition.x >= target.position.x &&
+    clickPosition.y >= target.position.y &&
+    clickPosition.x <= target.position.x + target.width &&
+    clickPosition.y <= target.position.y + target.height
   );
 }
