@@ -5,7 +5,7 @@ import {
   PLAYER_BOARD_POSITION,
   SHIPS,
 } from '../utils/constants';
-import { ShipsType } from '../types';
+import { ShipsType, BoardType } from '../types';
 import checkClickElement from '../utils/check-click-element';
 import generateShipLocations from '../utils/generate-ships';
 import createGrid from '../elements/grid';
@@ -22,9 +22,11 @@ export default class StartStep {
 
   setGameStep;
 
-  setPlayerShips;
+  setPlayerBoard;
 
-  playerShips;
+  playerShips: ShipsType = [];
+
+  playerBoard;
 
   startGameButtonInfo;
 
@@ -32,22 +34,26 @@ export default class StartStep {
 
   randomGenerateShipsButtonInfo;
 
-  setComputerShips?: React.Dispatch<React.SetStateAction<ShipsType>>
+  setComputerBoard;
+
+  computerBoard;
 
   constructor(
     ctx: CanvasRenderingContext2D,
     canvas: HTMLCanvasElement,
     setGameStep: React.Dispatch<React.SetStateAction<string>>,
-    setPlayerShips?: React.Dispatch<React.SetStateAction<ShipsType>>,
-    playerShips?: ShipsType,
-    setComputerShips?: React.Dispatch<React.SetStateAction<ShipsType>>
+    setPlayerBoard: React.Dispatch<React.SetStateAction<BoardType>>,
+    playerBoard: BoardType,
+    setComputerBoard: React.Dispatch<React.SetStateAction<BoardType>>,
+    computerBoard: BoardType
   ) {
     this.ctx = ctx;
     this.canvas = canvas;
     this.setGameStep = setGameStep;
-    this.setPlayerShips = setPlayerShips;
-    this.playerShips = playerShips;
-    this.setComputerShips = setComputerShips;
+    this.setPlayerBoard = setPlayerBoard;
+    this.playerBoard = playerBoard;
+    this.setComputerBoard = setComputerBoard;
+    this.computerBoard = computerBoard;
 
     this.randomGenerateShipsButtonInfo = {
       width: 300,
@@ -92,7 +98,7 @@ export default class StartStep {
       x: PLAYER_BOARD_POSITION.x,
       y: PLAYER_BOARD_POSITION.y,
     });
-  }
+  };
 
   clickHandler = async (e: React.MouseEvent<HTMLElement>) => {
     const { x, y } = getClickPosition(this.canvas, e);
@@ -121,15 +127,17 @@ export default class StartStep {
     }
 
     if (this.isGameStartButtonClick(x, y) && this.playerShips) {
-      if (this.setPlayerShips) {
-        this.setPlayerShips(this.playerShips);
-      }
+      this.setPlayerBoard({
+        ...this.playerBoard,
+        ships: this.playerShips,
+      });
 
-      if (this.setComputerShips) {
-        const computerShips = generateShipLocations(BOARD_SIZE, SHIPS);
+      const computerShips = generateShipLocations(BOARD_SIZE, SHIPS);
 
-        this.setComputerShips(computerShips);
-      }
+      this.setComputerBoard({
+        ...this.computerBoard,
+        ships: computerShips,
+      });
 
       this.setGameStep('game');
     }

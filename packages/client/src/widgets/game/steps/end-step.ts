@@ -3,12 +3,12 @@ import createGrid from '../elements/grid';
 import text from '../elements/text';
 import board from '../elements/board';
 import {
-  BOARD_SIZE,
   COMPUTER_BOARD_POSITION,
   PLAYER_BOARD_POSITION,
 } from '../utils/constants';
-import { ShipsType } from '../types';
+import { BoardType } from '../types';
 import ships from '../elements/ships';
+import renderBoardShots from '../elements/render-board-shots';
 
 export default class EndStep {
   ctx: CanvasRenderingContext2D;
@@ -17,52 +17,33 @@ export default class EndStep {
 
   setGameStep: React.Dispatch<React.SetStateAction<string>>;
 
-  setPlayerShips?: React.Dispatch<React.SetStateAction<ShipsType>>;
+  setPlayerBoard: React.Dispatch<React.SetStateAction<BoardType>>;
 
-  setComputerShips?: React.Dispatch<React.SetStateAction<ShipsType>>;
+  setComputerBoard: React.Dispatch<React.SetStateAction<BoardType>>;
 
   isPlayerWin?: boolean;
 
-  playerBoard: {
-    ships: ShipsType
-    shots: null[][] | string[][]
-    hits: number
-  } = {
-    ships: [],
-    shots: [...Array(BOARD_SIZE)].map(() => Array(BOARD_SIZE)),
-    hits: 0,
-  };
+  playerBoard: BoardType;
 
-  computerBoard: {
-    ships: ShipsType
-    shots: null[][] | string[][]
-    hits: number
-  } = {
-    ships: [],
-    shots: [...Array(BOARD_SIZE)].map(() => Array(BOARD_SIZE)),
-    hits: 0,
-  };
+  computerBoard: BoardType;
 
   constructor(
     ctx: CanvasRenderingContext2D,
     canvas: HTMLCanvasElement,
     setGameStep: React.Dispatch<React.SetStateAction<string>>,
-    setPlayerShips?: React.Dispatch<React.SetStateAction<ShipsType>>,
-    playerShips?: ShipsType,
-    setComputerShips?: React.Dispatch<React.SetStateAction<ShipsType>>,
-    computerShips?: ShipsType,
-    isPlayerWin?: boolean
+    setPlayerBoard: React.Dispatch<React.SetStateAction<BoardType>>,
+    playerBoard: BoardType,
+    setComputerBoard: React.Dispatch<React.SetStateAction<BoardType>>,
+    computerBoard: BoardType,
+    isPlayerWin: boolean
   ) {
     this.ctx = ctx;
     this.canvas = canvas;
     this.setGameStep = setGameStep;
-    this.setPlayerShips = setPlayerShips;
-    this.setComputerShips = setComputerShips;
-
-    if (playerShips !== undefined && computerShips !== undefined) {
-      this.playerBoard.ships = playerShips;
-      this.computerBoard.ships = computerShips;
-    }
+    this.setPlayerBoard = setPlayerBoard;
+    this.playerBoard = playerBoard;
+    this.setComputerBoard = setComputerBoard;
+    this.computerBoard = computerBoard;
 
     if (isPlayerWin !== undefined) {
       this.isPlayerWin = isPlayerWin;
@@ -104,7 +85,18 @@ export default class EndStep {
       },
       this.computerBoard.ships
     );
-  }
+
+    renderBoardShots(
+      this.ctx,
+      PLAYER_BOARD_POSITION,
+      this.playerBoard.shots as string[][]
+    );
+    renderBoardShots(
+      this.ctx,
+      COMPUTER_BOARD_POSITION,
+      this.computerBoard.shots as string[][]
+    );
+  };
 
   clickHandler = () => {
     this.setGameStep('end');

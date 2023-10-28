@@ -5,7 +5,7 @@ import {
   CELL_SIZE,
   BOARD_SIZE,
 } from '../utils/constants';
-import { ShipsType } from '../types';
+import { BoardType } from '../types';
 import checkClickElement from '../utils/check-click-element';
 import getClickPosition from '../utils/get-click-position';
 import getBoardCellPosition from '../utils/get-board-cell-position';
@@ -25,29 +25,13 @@ export default class GameStep {
 
   setGameStep;
 
-  setPlayerShips;
+  setPlayerBoard;
 
-  setComputerShips;
+  playerBoard: BoardType;
 
-  playerBoard: {
-    ships: ShipsType
-    shots: null[][] | string[][]
-    hits: number
-  } = {
-    ships: [],
-    shots: [...Array(BOARD_SIZE)].map(() => Array(BOARD_SIZE)),
-    hits: 0,
-  };
+  setComputerBoard;
 
-  computerBoard: {
-    ships: ShipsType
-    shots: null[][] | string[][]
-    hits: number
-  } = {
-    ships: [],
-    shots: [...Array(BOARD_SIZE)].map(() => Array(BOARD_SIZE)),
-    hits: 0,
-  };
+  computerBoard: BoardType;
 
   setIsPlayerWin?: React.Dispatch<React.SetStateAction<boolean>>;
 
@@ -59,26 +43,23 @@ export default class GameStep {
     ctx: CanvasRenderingContext2D,
     canvas: HTMLCanvasElement,
     setGameStep: React.Dispatch<React.SetStateAction<string>>,
-    setPlayerShips: React.Dispatch<React.SetStateAction<ShipsType>>,
-    playerShips: ShipsType,
-    setComputerShips?: React.Dispatch<React.SetStateAction<ShipsType>>,
-    computerShips?: ShipsType,
-    isPlayerWin?: boolean,
-    setIsPlayerWin?: React.Dispatch<React.SetStateAction<boolean>>
+    setPlayerBoard: React.Dispatch<React.SetStateAction<BoardType>>,
+    playerBoard: BoardType,
+    setComputerBoard: React.Dispatch<React.SetStateAction<BoardType>>,
+    computerBoard: BoardType,
+    isPlayerWin: boolean,
+    setIsPlayerWin: React.Dispatch<React.SetStateAction<boolean>>
   ) {
     this.ctx = ctx;
     this.canvas = canvas;
     this.setGameStep = setGameStep;
-    this.setPlayerShips = setPlayerShips;
-    this.playerBoard.ships = playerShips;
-    this.setComputerShips = setComputerShips;
+    this.setPlayerBoard = setPlayerBoard;
+    this.playerBoard = playerBoard;
+    this.setComputerBoard = setComputerBoard;
+    this.computerBoard = computerBoard;
 
     if (setIsPlayerWin !== undefined) {
       this.setIsPlayerWin = setIsPlayerWin;
-    }
-
-    if (computerShips !== undefined) {
-      this.computerBoard.ships = computerShips;
     }
   }
 
@@ -109,7 +90,16 @@ export default class GameStep {
       },
       this.playerBoard.ships
     );
-  }
+
+    ships(
+      this.ctx,
+      {
+        x: COMPUTER_BOARD_POSITION.x,
+        y: COMPUTER_BOARD_POSITION.y,
+      },
+      this.computerBoard.ships
+    );
+  };
 
   clickHandler = (e: React.MouseEvent<HTMLElement>) => {
     const { x, y } = getClickPosition(this.canvas, e);
@@ -161,7 +151,7 @@ export default class GameStep {
     this.computerTurn();
 
     this.isPlayersTurn = true;
-  }
+  };
 
   isComputerBoardClick(x: number, y: number) {
     return checkClickElement(
@@ -189,12 +179,12 @@ export default class GameStep {
         computerShotPosition = generateComputerShot();
       } while (
         this.playerBoard.shots[computerShotPosition.x][computerShotPosition.y]
-      )
+      );
+
+      isHit = hitCheck(computerShotPosition, this.playerBoard.ships);
 
       this.playerBoard.shots[computerShotPosition.x][computerShotPosition.y] =
         isHit ? 'HIT' : 'MISS';
-
-      isHit = hitCheck(computerShotPosition, this.playerBoard.ships);
 
       renderShot(this.ctx, PLAYER_BOARD_POSITION, computerShotPosition, isHit);
 
@@ -207,7 +197,7 @@ export default class GameStep {
           return;
         }
       }
-    } while (isHit)
+    } while (isHit);
   }
 
   gameOver(isPlayerWin: boolean) {
