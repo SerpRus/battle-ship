@@ -5,7 +5,7 @@ import {
   PLAYER_BOARD_POSITION,
   SHIPS,
 } from '../utils/constants';
-import { ShipsType, BoardType } from '../types';
+import { ShipsType, BoardType, GameStepI } from '../types';
 import checkClickElement from '../utils/check-click-element';
 import generateShipLocations from '../utils/generate-ships';
 import createGrid from '../elements/grid';
@@ -15,7 +15,7 @@ import board from '../elements/board';
 import getClickPosition from '../utils/get-click-position';
 import ships from '../elements/ships';
 
-export default class StartStep {
+export default class StartStep implements GameStepI {
   ctx;
 
   canvas;
@@ -38,6 +38,10 @@ export default class StartStep {
 
   computerBoard;
 
+  isPlayerWin;
+
+  setIsPlayerWin;
+
   constructor(
     ctx: CanvasRenderingContext2D,
     canvas: HTMLCanvasElement,
@@ -45,7 +49,9 @@ export default class StartStep {
     setPlayerBoard: React.Dispatch<React.SetStateAction<BoardType>>,
     playerBoard: BoardType,
     setComputerBoard: React.Dispatch<React.SetStateAction<BoardType>>,
-    computerBoard: BoardType
+    computerBoard: BoardType,
+    isPlayerWin: boolean,
+    setIsPlayerWin: React.Dispatch<React.SetStateAction<boolean>>
   ) {
     this.ctx = ctx;
     this.canvas = canvas;
@@ -54,6 +60,8 @@ export default class StartStep {
     this.playerBoard = playerBoard;
     this.setComputerBoard = setComputerBoard;
     this.computerBoard = computerBoard;
+    this.isPlayerWin = isPlayerWin;
+    this.setIsPlayerWin = setIsPlayerWin;
 
     this.randomGenerateShipsButtonInfo = {
       width: 300,
@@ -82,6 +90,13 @@ export default class StartStep {
       'Расстановка кораблей',
       this.canvas.width / 2 - 100,
       50
+    );
+
+    await text(
+      this.ctx,
+      'Игрок',
+      this.canvas.width / 4 - 50,
+      this.canvas.height - CELL_SIZE
     );
 
     await button(

@@ -1,3 +1,5 @@
+import React from 'react';
+
 export type PositionType = {
   x: number;
   y: number;
@@ -19,3 +21,15 @@ export type BoardType = {
   shots: null[][] | string[][];
   hits: number;
 };
+
+export interface GameStepI {
+  ctx: CanvasRenderingContext2D;
+  canvas: HTMLCanvasElement;
+  setGameStep: React.Dispatch<React.SetStateAction<string>>;
+  setPlayerBoard: React.Dispatch<React.SetStateAction<BoardType>>;
+  playerBoard: BoardType;
+  setComputerBoard: React.Dispatch<React.SetStateAction<BoardType>>;
+  computerBoard: BoardType;
+  isPlayerWin: boolean;
+  setIsPlayerWin: React.Dispatch<React.SetStateAction<boolean>>;
+}

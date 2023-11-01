@@ -5,7 +5,7 @@ import {
   CELL_SIZE,
   BOARD_SIZE,
 } from '../utils/constants';
-import { BoardType } from '../types';
+import { BoardType, GameStepI } from '../types';
 import checkClickElement from '../utils/check-click-element';
 import getClickPosition from '../utils/get-click-position';
 import getBoardCellPosition from '../utils/get-board-cell-position';
@@ -18,7 +18,7 @@ import board from '../elements/board';
 import ships from '../elements/ships';
 import renderShot from '../elements/render-shot';
 
-export default class GameStep {
+export default class GameStep implements GameStepI {
   ctx;
 
   canvas;
@@ -27,13 +27,15 @@ export default class GameStep {
 
   setPlayerBoard;
 
-  playerBoard: BoardType;
+  playerBoard;
 
   setComputerBoard;
 
-  computerBoard: BoardType;
+  computerBoard;
 
-  setIsPlayerWin?: React.Dispatch<React.SetStateAction<boolean>>;
+  isPlayerWin;
+
+  setIsPlayerWin;
 
   isPlayersTurn = true;
 
@@ -57,16 +59,28 @@ export default class GameStep {
     this.playerBoard = playerBoard;
     this.setComputerBoard = setComputerBoard;
     this.computerBoard = computerBoard;
-
-    if (setIsPlayerWin !== undefined) {
-      this.setIsPlayerWin = setIsPlayerWin;
-    }
+    this.isPlayerWin = isPlayerWin;
+    this.setIsPlayerWin = setIsPlayerWin;
   }
 
   render = async () => {
     createGrid(this.ctx);
 
     await text(this.ctx, 'Игра', this.canvas.width / 2 - 30, 50);
+
+    await text(
+      this.ctx,
+      'Игрок',
+      this.canvas.width / 4 - 50,
+      this.canvas.height - CELL_SIZE
+    );
+
+    await text(
+      this.ctx,
+      'Компьютер',
+      this.canvas.width / 1.5,
+      this.canvas.height - CELL_SIZE
+    );
 
     board(this.ctx, {
       x: PLAYER_BOARD_POSITION.x,
@@ -89,15 +103,6 @@ export default class GameStep {
         y: PLAYER_BOARD_POSITION.y,
       },
       this.playerBoard.ships
-    );
-
-    ships(
-      this.ctx,
-      {
-        x: COMPUTER_BOARD_POSITION.x,
-        y: COMPUTER_BOARD_POSITION.y,
-      },
-      this.computerBoard.ships
     );
   };
 
@@ -122,6 +127,8 @@ export default class GameStep {
     );
 
     if (
+      clickCellPosition.x >= BOARD_SIZE ||
+      clickCellPosition.y >= BOARD_SIZE ||
       this.computerBoard.shots[clickCellPosition.x][clickCellPosition.y] ||
       !this.isPlayersTurn
     ) {
