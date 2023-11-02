@@ -8,6 +8,7 @@ import {
 } from 'react-router-dom';
 import Header from '../../../shared/ui/Header/Header';
 // import { RoutePath } from './routeConfig'
+import ErrorBoundary from '../../../components/ErrorBoundary/ErrorBoundary';
 
 const LayoutWrapper = ({
   isAuth,
@@ -35,11 +36,11 @@ const LayoutWrapper = ({
   // }, [children, isAuth, location]);
 
   // return (
-  <>
+  <ErrorBoundary>
     {authOnly !== undefined && <Header authOnly={authOnly} isAuth={isAuth} />}
     {/* {returnContent()} */}
     {children}
-  </>
+  </ErrorBoundary>
 );
 // );
 // };
