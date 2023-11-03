@@ -2,6 +2,7 @@ import React from 'react';
 import { Layout, Button, Checkbox, Form } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { useForm, Controller } from 'react-hook-form';
+import { toast } from 'react-toastify';
 import cls from './loginPage.module.scss';
 import {
   LOGIN_REGEXP,
@@ -9,6 +10,7 @@ import {
 } from '../../../shared/constants/validationConstants';
 import { ValidatableFormItemInput } from '../../../shared/ui/ValidatableFormItemInput/ValidatableFormItemInput';
 import { useAuth } from '../../../app/providers/AuthProvider/AuthProvider';
+import { RoutePath } from '../../../app/providers/router/routeConfig';
 
 const { Content } = Layout;
 
@@ -20,7 +22,7 @@ export type ILoginDataFieldType = {
 
 export const LoginPage = () => {
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { login, errors: authErrors } = useAuth();
 
   const {
     control,
@@ -35,17 +37,21 @@ export const LoginPage = () => {
       remember: true,
     },
   });
-  const onFinish = async (values: ILoginDataFieldType) => {
-    await login({
+  const onFinish = (values: ILoginDataFieldType) => {
+    login({
       login: values.login,
       password: values.password,
-    });
+    })
+      .then(res => {
+        if (res) {
+          navigate(RoutePath.home, { replace: true });
+        }
+      })
+      .catch(() => {
+        toast.error('Непредвиденная ошибка входа');
+      });
   };
-  // TODO: any
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const onFinishFailed = (errorInfo: any) => {
-    console.log('Failed:', errorInfo); // eslint-disable-line
-  };
+
   return (
     <Layout className={cls.wrapper}>
       <Content className={cls.content}>
@@ -56,7 +62,6 @@ export const LoginPage = () => {
           labelCol={{ span: 8 }}
           wrapperCol={{ span: 16 }}
           onFinish={handleSubmit(onFinish)}
-          onFinishFailed={onFinishFailed}
           autoComplete="off">
           <ValidatableFormItemInput
             name="login"

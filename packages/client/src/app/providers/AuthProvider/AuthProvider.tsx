@@ -6,6 +6,7 @@ import {
   useState,
 } from 'react';
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import { toast } from 'react-toastify';
 import { IAuthContext, IUser } from './types';
 import { ISignUpData } from '../../../pages/RegistrationPage/ui/registrationPage';
 import { ILoginDataFieldType } from '../../../pages/LoginPage/ui/loginPage';
@@ -38,9 +39,9 @@ export function ProvideAuth({ children }: { children: ReactElement }) {
         return null;
       })
       .catch(err => {
+        const errorMessage = JSON.parse(err.request.response);
         setIsLoading(false);
-        console.log(err); // eslint-disable-line
-        setErrors([err]);
+        setErrors([errorMessage?.reason]);
         return null;
       });
   };
@@ -62,14 +63,16 @@ export function ProvideAuth({ children }: { children: ReactElement }) {
           setIsLoading(false);
           setUser(res.data);
           setIsAuth(true);
+          toast.success('Вход выполнен');
           return true;
         }
         return false;
       })
       .catch(err => {
+        const errorMessage = JSON.parse(err.request.response);
         setIsLoading(false);
-        console.log(err); // eslint-disable-line
-        setErrors([err]);
+        toast.error(errorMessage?.reason);
+        setErrors([errorMessage?.reason]);
         return null;
       });
   };
@@ -89,13 +92,15 @@ export function ProvideAuth({ children }: { children: ReactElement }) {
           setUser({} as IUser);
           setIsLoading(false);
           setIsAuth(false);
+          toast.success('Выполнен выход из системы');
           return true;
         }
         return false;
       })
-      .catch(err => {
+      .catch(() => {
         setIsLoading(false);
-        console.log(err); // eslint-disable-line
+        toast.error('Ошибка выхода из системы');
+        setErrors(['Ошибка выхода из системы']);
         return false;
       });
   };
@@ -117,17 +122,16 @@ export function ProvideAuth({ children }: { children: ReactElement }) {
           setIsLoading(false);
           // @ts-ignore
           this.checkIsAuth(); // eslint-disable-line
-          return res.data;
-        }
-        if (res.status === 400) {
+          toast.success('Пользователь создан успешно');
           return res.data;
         }
         return { reason: 'Not created' };
       })
       .catch(err => {
+        const errorMessage = JSON.parse(err.request.response);
         setIsLoading(false);
-        console.log(err); // eslint-disable-line
-        setErrors([err]);
+        toast.error(errorMessage?.reason);
+        setErrors([errorMessage?.reason]);
         return null;
       });
   };

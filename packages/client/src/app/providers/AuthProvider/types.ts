@@ -20,7 +20,7 @@ export interface IAuthContext {
   logout: () => Promise<boolean>;
   signUp: (
     data: ISignUpData
-  ) => Promise<{ id: number } | { reason: string } | null>;
+  ) => Promise<{ [index: string]: string | number } | null>;
   errors: any[];
   isLoading: boolean;
   isAuth: boolean;

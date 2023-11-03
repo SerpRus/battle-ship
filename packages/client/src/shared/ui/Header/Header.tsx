@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from 'antd';
 import {
   AppRoutes,
@@ -11,12 +11,14 @@ import { useAuth } from '../../../app/providers/AuthProvider/AuthProvider';
 
 const Header: FC = () => {
   const { isAuth, logout } = useAuth();
+  const navigate = useNavigate();
 
-  const onLogout = async () => {
-    const isLoggedOut = await logout();
-    if (isLoggedOut) {
-      window.location.replace(RoutePath.login);
-    }
+  const onLogout = () => {
+    logout().then(res => {
+      if (res) {
+        navigate(RoutePath.login, { replace: true });
+      }
+    });
   };
 
   return (

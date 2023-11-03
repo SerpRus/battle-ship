@@ -2,6 +2,7 @@ import React from 'react';
 import { Layout, Button, Form } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 import cls from './registrationPage.module.scss';
 import {
   EMAIL_REGEXP,
@@ -13,6 +14,7 @@ import {
 } from '../../../shared/constants/validationConstants';
 import { ValidatableFormItemInput } from '../../../shared/ui/ValidatableFormItemInput/ValidatableFormItemInput';
 import { useAuth } from '../../../app/providers/AuthProvider/AuthProvider';
+import { RoutePath } from '../../../app/providers/router/routeConfig';
 
 const { Content } = Layout;
 
@@ -52,7 +54,11 @@ export const RegistrationPage = () => {
   const { signUp } = useAuth();
 
   const onFinish = async (values: ISignUpData) => {
-    const result = signUp(values);
+    const result = await signUp(values);
+    if (result?.id) {
+      toast.success('Пользователь создан успешно');
+      navigate(RoutePath.login, { replace: true });
+    }
   };
 
   // TODO: any

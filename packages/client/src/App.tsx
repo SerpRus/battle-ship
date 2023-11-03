@@ -24,7 +24,6 @@ function App() {
     if (!__INIT__.current) {
       __INIT__.current = true;
       checkIsAuth();
-      toast.error('testtoast');
     }
   }, [checkIsAuth]);
 
