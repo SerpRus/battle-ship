@@ -8,13 +8,11 @@ import {
   PASSWORD_REGEXP,
 } from '../../../shared/constants/validationConstants';
 import { ValidatableFormItemInput } from '../../../shared/ui/ValidatableFormItemInput/ValidatableFormItemInput';
-import { useLoginUser } from '../model/hooks/useAuthUser';
-import { RoutePath } from '../../../app/providers/router/routeConfig';
-import { useAuth } from '../../../shared/lib/hooks/useAuth';
+import { useAuth } from '../../../app/providers/AuthProvider/AuthProvider';
 
 const { Content } = Layout;
 
-type FieldType = {
+export type ILoginDataFieldType = {
   login: string;
   password: string;
   remember?: boolean;
@@ -22,8 +20,7 @@ type FieldType = {
 
 export const LoginPage = () => {
   const navigate = useNavigate();
-  const login = useLoginUser();
-  const { setIsAuth } = useAuth();
+  const { login } = useAuth();
 
   const {
     control,
@@ -38,17 +35,11 @@ export const LoginPage = () => {
       remember: true,
     },
   });
-  // TODO: any
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const onFinish = async (values: any) => {
-    const isLogged = await login({
+  const onFinish = async (values: ILoginDataFieldType) => {
+    await login({
       login: values.login,
       password: values.password,
     });
-    if (isLogged) {
-      setIsAuth(true);
-      window.location.replace(RoutePath.home);
-    }
   };
   // TODO: any
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -115,7 +106,7 @@ export const LoginPage = () => {
             name="remember"
             control={control}
             render={field => (
-              <Form.Item<FieldType>
+              <Form.Item<ILoginDataFieldType>
                 name="remember"
                 valuePropName="checked"
                 wrapperCol={{ offset: 8, span: 16 }}

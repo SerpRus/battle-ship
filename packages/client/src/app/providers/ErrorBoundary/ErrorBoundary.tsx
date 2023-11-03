@@ -26,9 +26,9 @@ class ErrorBoundary extends Component<Props, TState> {
     if (error) {
       return (
         // error page
-        <div>
+        <div className="page-wrapper">
           <h2>Something went wrong.</h2>
-          <details style={{ whiteSpace: 'pre-wrap' }}>
+          <details style={{ whiteSpace: 'pre-wrap', color: 'red' }}>
             {error && error.toString()}
           </details>
         </div>

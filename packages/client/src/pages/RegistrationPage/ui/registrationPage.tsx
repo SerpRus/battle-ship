@@ -12,17 +12,18 @@ import {
   SECOND_NAME_REGEXP,
 } from '../../../shared/constants/validationConstants';
 import { ValidatableFormItemInput } from '../../../shared/ui/ValidatableFormItemInput/ValidatableFormItemInput';
+import { useAuth } from '../../../app/providers/AuthProvider/AuthProvider';
 
 const { Content } = Layout;
 
-type FieldType = {
+export type ISignUpData = {
   email: string;
   login: string;
   first_name: string;
   second_name: string;
   phone: string;
   username?: string;
-  password?: string;
+  password: string;
   confirm_password?: string;
 };
 
@@ -47,10 +48,11 @@ export const RegistrationPage = () => {
       confirm_password: '',
     },
   });
-  // TODO: any
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const onFinish = (values: any) => {
-    console.log('Success:', values); // eslint-disable-line
+
+  const { signUp } = useAuth();
+
+  const onFinish = async (values: ISignUpData) => {
+    const result = signUp(values);
   };
 
   // TODO: any

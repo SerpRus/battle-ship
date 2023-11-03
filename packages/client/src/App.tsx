@@ -1,33 +1,47 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import './app/styles/App.scss';
+import { toast, ToastContainer } from 'react-toastify';
 import { AppRouter } from './app/providers/router/AppRouter';
-import { useAuth } from './shared/lib/hooks/useAuth';
-import { useAuthUser } from './pages/LoginPage/model/hooks/useAuthUser';
+import { useAuth } from './app/providers/AuthProvider/AuthProvider';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
-  const checkIsAuth = useAuthUser();
-  const { auth, setIsAuth } = useAuth();
+  const __INIT__ = useRef(false);
+
+  const { user, checkIsAuth, isAuth } = useAuth();
 
   useEffect(() => {
     const fetchServerData = async () => {
-      // const url = `http://localhost:${__SERVER_PORT__}`
-      // const response = await fetch(url)
-      // const data = await response.json()
+      /* const url = `http://localhost:${__SERVER_PORT__}`;
+      const response = await fetch(url);
+      const data = await response.json(); */
     };
 
     fetchServerData();
   }, []);
 
   useEffect(() => {
-    checkIsAuth().then(res => {
-      console.log(res, 'res'); // eslint-disable-line
-      setIsAuth(res);
-    });
-  }, [checkIsAuth, setIsAuth]);
+    if (!__INIT__.current) {
+      __INIT__.current = true;
+      checkIsAuth();
+      toast.error('testtoast');
+    }
+  }, [checkIsAuth]);
 
   return (
     <div className="App">
-      <AppRouter isAuth={auth} />
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        closeOnClick
+        hideProgressBar={false}
+        pauseOnFocusLoss={false}
+        rtl={false}
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
+      <AppRouter />
     </div>
   );
 }
