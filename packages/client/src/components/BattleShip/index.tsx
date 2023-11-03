@@ -2,7 +2,8 @@ import React, { useRef, useEffect, useState } from 'react';
 import StartStep from '../../widgets/game/steps/start-step';
 import GameStep from '../../widgets/game/steps/game-step';
 import EndStep from '../../widgets/game/steps/end-step';
-import { ShipsType } from '../../widgets/game/types';
+import { BoardType } from '../../widgets/game/types';
+import { BOARD_SIZE } from '../../widgets/game/utils/constants';
 
 type GameStepsType = {
   start: typeof StartStep;
@@ -14,8 +15,16 @@ export default function BattleShip() {
   const canvas = useRef<null | HTMLCanvasElement>(null);
 
   const [gameStep, setGameStep] = useState('start');
-  const [playerShips, setPlayerShips] = useState([]);
-  const [computerShips, setComputerShips] = useState([]);
+  const [playerBoard, setPlayerBoard] = useState({
+    ships: [],
+    shots: [...Array(BOARD_SIZE)].map(() => Array(BOARD_SIZE)),
+    hits: 0,
+  });
+  const [computerBoard, setComputerBoard] = useState({
+    ships: [],
+    shots: [...Array(BOARD_SIZE)].map(() => Array(BOARD_SIZE)),
+    hits: 0,
+  });
   const [isPlayerWin, setIsPlayerWin] = useState(false);
 
   const clickRef = useRef<null | ((e: React.MouseEvent<HTMLElement>) => void)>(
@@ -47,10 +56,10 @@ export default function BattleShip() {
       ctx,
       canvasElement,
       setGameStep,
-      setPlayerShips as React.Dispatch<React.SetStateAction<ShipsType>>,
-      playerShips,
-      setComputerShips as React.Dispatch<React.SetStateAction<ShipsType>>,
-      computerShips,
+      setPlayerBoard as React.Dispatch<React.SetStateAction<BoardType>>,
+      playerBoard,
+      setComputerBoard as React.Dispatch<React.SetStateAction<BoardType>>,
+      computerBoard,
       isPlayerWin,
       setIsPlayerWin as React.Dispatch<React.SetStateAction<boolean>>
     );
@@ -60,7 +69,7 @@ export default function BattleShip() {
     if (currentStep.clickHandler) {
       clickRef.current = currentStep.clickHandler;
     }
-  }, [gameStep, playerShips, computerShips, isPlayerWin]);
+  }, [gameStep, playerBoard, computerBoard, isPlayerWin]);
 
   return (
     <canvas
