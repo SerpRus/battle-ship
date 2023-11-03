@@ -1,0 +1,102 @@
+.fieldset {
+  position: relative;
+  letter-spacing: 0;
+  border: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+
+  &.fullWidth {
+    width: 100%;
+  }
+
+  .input {
+    outline: none;
+    background-color: var(--bkg-input);
+    width: 100%;
+    border-radius: 0.5rem;
+    padding: 1.801rem 1.05rem 0.325rem;
+    border: 1px solid transparent;
+    height: 3.5rem;
+    color: rgba(0, 0, 0, 0.8);
+    font-size: 0.9375rem;
+    line-height: 1.5em;
+    transition-duration: 0.25s;
+    transition-property: background-color, border-color;
+    transition-timing-function: ease;
+
+    &::placeholder {
+      transition-duration: 0.25s;
+      transition-property: opacity;
+      transition-timing-function: ease;
+      opacity: 1;
+    }
+
+    &:not(:focus)::placeholder {
+      opacity: 0;
+    }
+
+    &:not(:placeholder-shown),
+    &:focus {
+      border-color: rgba(51, 51, 51, 0.48);
+      background: transparent;
+    }
+
+    &:not(:placeholder-shown) + .label,
+    &:focus + .label {
+      font-size: 0.8125rem;
+      line-height: 1.53em;
+      transform: translateY(-0.75rem);
+      color: rgba(0, 0, 0, 0.8);
+    }
+
+    &[disabled] {
+      background-color: var(--bkg-input);
+      border-color: var(--bkg-input);
+    }
+  }
+
+  .label {
+    outline: none;
+    color: rgba(0, 0, 0, 0.54);
+    pointer-events: none;
+    position: absolute;
+    left: 1.05rem;
+    top: 1.2rem;
+    font-size: 0.9375rem;
+    transition-duration: 0.25s;
+    transition-property: font-size, color, transform;
+    transition-timing-function: ease;
+  }
+
+  .errorMessage {
+    color: var(--text-error);
+    font-size: 0.8125rem;
+    display: block;
+    margin-top: 0.5rem;
+    flex-grow: 1;
+    width: 100%;
+  }
+
+  & + & {
+    margin-top: 1.25rem;
+  }
+
+  &.error {
+    & .input {
+      background-color: var(--bkg-input-error);
+
+      &:not(:placeholder-shown),
+      &:focus {
+        border-color: var(--text-error);
+        background: transparent;
+      }
+
+      &:not(:placeholder-shown) + .label,
+      &:focus + .label {
+        color: var(--text-error);
+      }
+    }
+  }
+}

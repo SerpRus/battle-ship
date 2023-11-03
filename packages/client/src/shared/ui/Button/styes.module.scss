@@ -1,0 +1,33 @@
+.button {
+  border: 1px solid transparent;
+  border-radius: 0.5rem;
+  min-height: 3.375rem;
+  min-width: 3rem;
+  padding: 0.9375rem 2.1875rem 0.875rem;
+  font-variation-settings: var(--bold);
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--bkg-blue-hover);
+  }
+
+  color: #fff;
+  background-color: var(--bkg-blue);
+
+  &.secondary {
+    color: red;
+  }
+
+  &.ternary {
+    color: var(--font-color);
+    background-color: transparent;
+
+    &:hover {
+      background-color: var(--bkg-light-blue);
+    }
+  }
+
+  & + & {
+    margin-left: 1rem;
+  }
+}

@@ -1,9 +1,9 @@
-import { type ReactNode } from 'react'
+import { type ReactNode } from 'react';
 
 export type Props = {
-  children?: ReactNode
-}
+  children?: ReactNode;
+};
 
 export type TState = {
-  error: Error | null
-}
+  error: Error | null;
+};

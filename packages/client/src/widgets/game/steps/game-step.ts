@@ -187,8 +187,9 @@ export default class GameStep implements GameStepI {
       } while (
         this.playerBoard.shots[computerShotPosition.x][computerShotPosition.y]
       );
-
+      
       isHit = hitCheck(computerShotPosition, this.playerBoard.ships);
+
 
       this.playerBoard.shots[computerShotPosition.x][computerShotPosition.y] =
         isHit ? 'HIT' : 'MISS';

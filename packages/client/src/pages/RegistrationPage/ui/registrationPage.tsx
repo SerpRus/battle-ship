@@ -15,16 +15,16 @@ import { ValidatableFormItemInput } from '../../../shared/ui/ValidatableFormItem
 
 const { Content } = Layout;
 
-type FieldType = {
-  email: string;
-  login: string;
-  first_name: string;
-  second_name: string;
-  phone: string;
-  username?: string;
-  password?: string;
-  confirm_password?: string;
-};
+// type FieldType = {
+//   email: string;
+//   login: string;
+//   first_name: string;
+//   second_name: string;
+//   phone: string;
+//   username?: string;
+//   password?: string;
+//   confirm_password?: string;
+// };
 
 export const RegistrationPage = () => {
   const navigate = useNavigate();

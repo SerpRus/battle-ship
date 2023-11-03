@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import './app/styles/App.scss';
 import { AppRouter } from './app/providers/router/AppRouter';
 import { useAuth } from './shared/lib/hooks/useAuth';
