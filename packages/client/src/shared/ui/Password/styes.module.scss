@@ -1,0 +1,16 @@
+.button {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  color: rgba(0, 0, 0, 0.54);
+  border: none;
+  background: transparent;
+  width: 1.375rem;
+  height: 1.375rem;
+
+  .icon {
+    width: 100%;
+    height: 100%;
+    fill: currentColor;
+  }
+}

@@ -3,13 +3,13 @@ import Topic from '../../../pages/Forum/TopicConversationPage';
 import CreateTopic from '../../../pages/Forum/CreateTopicPage';
 import Login from '../../../pages/LoginPage';
 import RegistrationPage from '../../../pages/RegistrationPage';
-import Profile from '../../../pages/profile';
 import Home from '../../../pages/home';
 import Game from '../../../pages/game';
 import Leaderboard from '../../../pages/leaderboard';
 import TopicList from '../../../pages/Forum/TopicListPage';
 import NotFound from '../../../pages/404Page';
 import ServerErrorPage from '../../../pages/500Page';
+import { ProfilePage } from '../../../pages/ProfilePage';
 
 export type AppRouteProps = RouteProps & {
   authOnly?: boolean;
@@ -63,7 +63,7 @@ export const routeConfig: Record<AppRoutes, AppRouteProps> = {
   },
   [AppRoutes.PROFILE]: {
     path: RoutePath.profile,
-    element: <Profile />,
+    element: <ProfilePage />,
     authOnly: true,
   },
   [AppRoutes.GAME]: {

@@ -17,6 +17,6 @@ const button = async function buttonRender(
   setTimeout(() => {
     ctx.strokeRect(position.x, position.y - CELL_SIZE, size, CELL_SIZE);
   }, 100);
-}
+};
 
 export default button;

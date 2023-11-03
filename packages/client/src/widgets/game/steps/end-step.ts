@@ -24,9 +24,9 @@ export default class EndStep {
   isPlayerWin?: boolean;
 
   playerBoard: {
-    ships: ShipsType
-    shots: null[][] | string[][]
-    hits: number
+    ships: ShipsType;
+    shots: null[][] | string[][];
+    hits: number;
   } = {
     ships: [],
     shots: [...Array(BOARD_SIZE)].map(() => Array(BOARD_SIZE)),
@@ -34,9 +34,9 @@ export default class EndStep {
   };
 
   computerBoard: {
-    ships: ShipsType
-    shots: null[][] | string[][]
-    hits: number
+    ships: ShipsType;
+    shots: null[][] | string[][];
+    hits: number;
   } = {
     ships: [],
     shots: [...Array(BOARD_SIZE)].map(() => Array(BOARD_SIZE)),
@@ -104,7 +104,7 @@ export default class EndStep {
       },
       this.computerBoard.ships
     );
-  }
+  };
 
   clickHandler = () => {
     this.setGameStep('end');

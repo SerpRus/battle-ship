@@ -1,0 +1,20 @@
+.button {
+  right: 0;
+  height: 3.5rem;
+  border-radius: 0 0.5rem 0.5rem 0;
+  border: none;
+  background-color: var(--bkg-blue);
+  color: white;
+  font-size: 0.9375rem;
+  font-variation-settings: 'wght' 400;
+  cursor: pointer;
+
+  & .text {
+    padding: 0 1.25rem;
+  }
+
+  &.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+}

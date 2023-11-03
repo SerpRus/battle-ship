@@ -1,6 +1,8 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import { resolve } from 'path';
 import dotenv from 'dotenv';
+import svgr from 'vite-plugin-svgr';
 
 dotenv.config();
 
@@ -12,7 +14,7 @@ export default defineConfig({
   define: {
     __SERVER_PORT__: process.env.SERVER_PORT,
   },
-  plugins: [react()],
+  plugins: [svgr(), react()],
   css: {
     preprocessorOptions: {
       scss: {
@@ -26,5 +28,8 @@ export default defineConfig({
         `,
       },
     },
+  },
+  resolve: {
+    alias: [{ find: '@shared', replacement: resolve(__dirname, 'src/shared') }],
   },
 });

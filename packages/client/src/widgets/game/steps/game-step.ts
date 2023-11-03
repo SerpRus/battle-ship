@@ -30,9 +30,9 @@ export default class GameStep {
   setComputerShips;
 
   playerBoard: {
-    ships: ShipsType
-    shots: null[][] | string[][]
-    hits: number
+    ships: ShipsType;
+    shots: null[][] | string[][];
+    hits: number;
   } = {
     ships: [],
     shots: [...Array(BOARD_SIZE)].map(() => Array(BOARD_SIZE)),
@@ -40,9 +40,9 @@ export default class GameStep {
   };
 
   computerBoard: {
-    ships: ShipsType
-    shots: null[][] | string[][]
-    hits: number
+    ships: ShipsType;
+    shots: null[][] | string[][];
+    hits: number;
   } = {
     ships: [],
     shots: [...Array(BOARD_SIZE)].map(() => Array(BOARD_SIZE)),
@@ -109,7 +109,7 @@ export default class GameStep {
       },
       this.playerBoard.ships
     );
-  }
+  };
 
   clickHandler = (e: React.MouseEvent<HTMLElement>) => {
     const { x, y } = getClickPosition(this.canvas, e);
@@ -161,7 +161,7 @@ export default class GameStep {
     this.computerTurn();
 
     this.isPlayersTurn = true;
-  }
+  };
 
   isComputerBoardClick(x: number, y: number) {
     return checkClickElement(
@@ -189,7 +189,7 @@ export default class GameStep {
         computerShotPosition = generateComputerShot();
       } while (
         this.playerBoard.shots[computerShotPosition.x][computerShotPosition.y]
-      )
+      );
 
       this.playerBoard.shots[computerShotPosition.x][computerShotPosition.y] =
         isHit ? 'HIT' : 'MISS';
@@ -207,7 +207,7 @@ export default class GameStep {
           return;
         }
       }
-    } while (isHit)
+    } while (isHit);
   }
 
   gameOver(isPlayerWin: boolean) {

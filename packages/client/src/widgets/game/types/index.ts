@@ -1,15 +1,15 @@
 export type PositionType = {
-  x: number
-  y: number
-}
+  x: number;
+  y: number;
+};
 
 export type SizeWithPositionType = {
-  width: number
-  height: number
-  position: PositionType
-}
+  width: number;
+  height: number;
+  position: PositionType;
+};
 
 export type ShipsType = {
-  locations: string[]
-  hits: string[]
-}[]
+  locations: string[];
+  hits: string[];
+}[];
