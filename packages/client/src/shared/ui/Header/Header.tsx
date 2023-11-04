@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from 'antd';
 import {
@@ -35,7 +35,7 @@ const Header: FC<{ authOnly?: boolean; isAuth: boolean }> = ({
           if (authOnly === routeAuthOnly) {
             return (
               <li key={key}>
-                <Link to={path!}>{key}</Link>
+                <Link to={path as string}>{key}</Link>
               </li>
             );
           }

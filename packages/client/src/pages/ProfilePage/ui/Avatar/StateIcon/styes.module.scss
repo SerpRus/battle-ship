@@ -1,0 +1,48 @@
+.container {
+  position: absolute;
+  right: 1.25rem;
+  top: 1rem;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.container.center {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  right: unset;
+  top: unset;
+}
+
+.spinner,
+.check,
+.cross {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.check {
+  color: var(--text-success);
+}
+
+.cross {
+  color: var(--text-error);
+}
+
+.white .check,
+.white .cross {
+  color: white;
+}
+.white .spinner i {
+  background-color: white;
+}
+
+.center {
+  & .spinner svg,
+  & .check svg,
+  & .cross svg {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+}

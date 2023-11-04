@@ -2,10 +2,7 @@ import React, {
   ReactNode,
   // useCallback
 } from 'react';
-import {
-  // Navigate,
-  useLocation,
-} from 'react-router-dom';
+
 import Header from '../../../shared/ui/Header/Header';
 // import { RoutePath } from './routeConfig'
 import ErrorBoundary from '../../../components/ErrorBoundary/ErrorBoundary';
