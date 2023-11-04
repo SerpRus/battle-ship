@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Button } from 'antd';
 import {
   AppRoutes,
@@ -16,6 +16,7 @@ const Header: FC<{ authOnly?: boolean; isAuth: boolean }> = ({
 }) => {
   const logout = useLogoutUser();
   const { setIsAuth } = useAuth();
+  const { pathname } = useLocation();
 
   const onLogout = async () => {
     const isLoggedOut = await logout();
@@ -29,13 +30,20 @@ const Header: FC<{ authOnly?: boolean; isAuth: boolean }> = ({
     <nav className={cls.navbar}>
       <ul>
         {Object.keys(routeConfig).map((key: string) => {
-          const { path, authOnly: routeAuthOnly } =
-            routeConfig[key as AppRoutes];
+          const {
+            path,
+            authOnly: routeAuthOnly,
+            name,
+          } = routeConfig[key as AppRoutes];
 
           if (authOnly === routeAuthOnly) {
             return (
               <li key={key}>
-                <Link to={path as string}>{key}</Link>
+                <Link
+                  className={pathname === path ? `active` : ''}
+                  to={path as string}>
+                  {name}
+                </Link>
               </li>
             );
           }
