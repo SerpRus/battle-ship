@@ -9,7 +9,7 @@ import Leaderboard from '../../../pages/leaderboard';
 import TopicList from '../../../pages/Forum/TopicListPage';
 import NotFound from '../../../pages/404Page';
 import ServerErrorPage from '../../../pages/500Page';
-import ProfilePage from '../../../pages/ProfilePage';
+import { ProfilePage } from '../../../pages/ProfilePage';
 
 export type AppRouteProps = RouteProps & {
   authOnly?: boolean;
