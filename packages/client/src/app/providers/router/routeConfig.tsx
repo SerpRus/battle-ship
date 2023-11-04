@@ -3,7 +3,7 @@ import Topic from '../../../pages/Forum/TopicConversationPage';
 import CreateTopic from '../../../pages/Forum/CreateTopicPage';
 import Login from '../../../pages/LoginPage';
 import RegistrationPage from '../../../pages/RegistrationPage';
-import Home from '../../../pages/home';
+import HomePage from '../../../pages/HomePage';
 import Game from '../../../pages/game';
 import Leaderboard from '../../../pages/leaderboard';
 import TopicList from '../../../pages/Forum/TopicListPage';
@@ -48,7 +48,7 @@ export const RoutePath: Record<AppRoutes, string> = {
 export const routeConfig: Record<AppRoutes, AppRouteProps> = {
   [AppRoutes.HOME]: {
     path: RoutePath.home,
-    element: <Home />,
+    element: <HomePage />,
     authOnly: true,
   },
   [AppRoutes.LOGIN]: {

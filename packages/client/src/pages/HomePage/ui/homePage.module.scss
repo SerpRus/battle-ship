@@ -1,0 +1,54 @@
+.wrapper {
+  font-family: 'SF Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: var(--bkg-violet);
+  min-height: 100vh;
+}
+
+.content {
+  max-width: 1200px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 4rem;
+  margin: 2rem auto;
+}
+
+.description {
+  font-size: 1.125rem;
+  line-height: 1.5rem;
+
+  p {
+    margin-bottom: 1rem;
+  }
+
+  &_bold {
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+}
+
+.button {
+  font-family: 'SF Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  min-width: 8rem;
+  padding: 0.5rem;
+  margin-top: 2rem;
+  border-radius: 0.5rem;
+  background: transparent;
+  border: 1px solid var(--bkg-violet);
+  color: var(--bkg-violet);
+
+  &:hover {
+    cursor: pointer;
+    color: var(--bkg-blue);
+    border: 1px solid var(--bkg-blue);
+  }
+
+  &_wrapper {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+.img {
+  width: 100%;
+}
