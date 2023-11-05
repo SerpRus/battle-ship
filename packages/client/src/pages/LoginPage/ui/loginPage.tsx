@@ -22,7 +22,7 @@ export type ILoginDataFieldType = {
 
 export const LoginPage = () => {
   const navigate = useNavigate();
-  const { login, errors: authErrors } = useAuth();
+  const { login } = useAuth();
 
   const {
     control,

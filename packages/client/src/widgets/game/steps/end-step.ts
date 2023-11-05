@@ -4,69 +4,70 @@ import text from '../elements/text';
 import board from '../elements/board';
 import {
   BOARD_SIZE,
+  CELL_SIZE,
   COMPUTER_BOARD_POSITION,
+  HIT_COLOR,
   PLAYER_BOARD_POSITION,
+  SUCCESS_COLOR,
 } from '../utils/constants';
-import { ShipsType } from '../types';
+import { BoardType, GameStepI } from '../types';
 import ships from '../elements/ships';
+import renderBoardShots from '../elements/render-board-shots';
+import button from '../elements/button';
+import checkClickElement from '../utils/check-click-element';
+import getClickPosition from '../utils/get-click-position';
 
-export default class EndStep {
-  ctx: CanvasRenderingContext2D;
+export default class EndStep implements GameStepI {
+  ctx;
 
-  canvas: HTMLCanvasElement;
+  canvas;
 
-  setGameStep: React.Dispatch<React.SetStateAction<string>>;
+  setGameStep;
 
-  setPlayerShips?: React.Dispatch<React.SetStateAction<ShipsType>>;
+  setPlayerBoard;
 
-  setComputerShips?: React.Dispatch<React.SetStateAction<ShipsType>>;
+  setComputerBoard;
 
-  isPlayerWin?: boolean;
+  playerBoard;
 
-  playerBoard: {
-    ships: ShipsType;
-    shots: null[][] | string[][];
-    hits: number;
-  } = {
-    ships: [],
-    shots: [...Array(BOARD_SIZE)].map(() => Array(BOARD_SIZE)),
-    hits: 0,
-  };
+  computerBoard;
 
-  computerBoard: {
-    ships: ShipsType;
-    shots: null[][] | string[][];
-    hits: number;
-  } = {
-    ships: [],
-    shots: [...Array(BOARD_SIZE)].map(() => Array(BOARD_SIZE)),
-    hits: 0,
-  };
+  isPlayerWin;
+
+  setIsPlayerWin;
+
+  playAgainButton;
+
 
   constructor(
     ctx: CanvasRenderingContext2D,
     canvas: HTMLCanvasElement,
     setGameStep: React.Dispatch<React.SetStateAction<string>>,
-    setPlayerShips?: React.Dispatch<React.SetStateAction<ShipsType>>,
-    playerShips?: ShipsType,
-    setComputerShips?: React.Dispatch<React.SetStateAction<ShipsType>>,
-    computerShips?: ShipsType,
-    isPlayerWin?: boolean
+    setPlayerBoard: React.Dispatch<React.SetStateAction<BoardType>>,
+    playerBoard: BoardType,
+    setComputerBoard: React.Dispatch<React.SetStateAction<BoardType>>,
+    computerBoard: BoardType,
+    isPlayerWin: boolean,
+    setIsPlayerWin: React.Dispatch<React.SetStateAction<boolean>>
   ) {
     this.ctx = ctx;
     this.canvas = canvas;
     this.setGameStep = setGameStep;
-    this.setPlayerShips = setPlayerShips;
-    this.setComputerShips = setComputerShips;
+    this.setPlayerBoard = setPlayerBoard;
+    this.playerBoard = playerBoard;
+    this.setComputerBoard = setComputerBoard;
+    this.computerBoard = computerBoard;
+    this.isPlayerWin = isPlayerWin;
+    this.setIsPlayerWin = setIsPlayerWin;
 
-    if (playerShips !== undefined && computerShips !== undefined) {
-      this.playerBoard.ships = playerShips;
-      this.computerBoard.ships = computerShips;
-    }
-
-    if (isPlayerWin !== undefined) {
-      this.isPlayerWin = isPlayerWin;
-    }
+    this.playAgainButton = {
+      width: 230,
+      height: CELL_SIZE,
+      position: {
+        x: canvas.width / 2 - 120,
+        y: this.canvas.height - CELL_SIZE / 2,
+      },
+    };
   }
 
   render = async () => {
@@ -77,15 +78,39 @@ export default class EndStep {
     }`;
     await text(this.ctx, textMessage, this.canvas.width / 2 - 200, 50);
 
-    board(this.ctx, {
-      x: PLAYER_BOARD_POSITION.x,
-      y: PLAYER_BOARD_POSITION.y,
-    });
+    await text(
+      this.ctx,
+      'Игрок',
+      this.canvas.width / 4 - 50,
+      this.canvas.height - CELL_SIZE
+    );
 
-    board(this.ctx, {
-      x: COMPUTER_BOARD_POSITION.x,
-      y: COMPUTER_BOARD_POSITION.y,
-    });
+    await text(
+      this.ctx,
+      'Компьютер',
+      this.canvas.width / 1.5,
+      this.canvas.height - CELL_SIZE
+    );
+
+    board(
+      this.ctx,
+      {
+        x: PLAYER_BOARD_POSITION.x,
+        y: PLAYER_BOARD_POSITION.y,
+      },
+      BOARD_SIZE,
+      this.isPlayerWin ? SUCCESS_COLOR : HIT_COLOR
+    );
+
+    board(
+      this.ctx,
+      {
+        x: COMPUTER_BOARD_POSITION.x,
+        y: COMPUTER_BOARD_POSITION.y,
+      },
+      BOARD_SIZE,
+      this.isPlayerWin ? HIT_COLOR : SUCCESS_COLOR
+    );
 
     ships(
       this.ctx,
@@ -104,9 +129,49 @@ export default class EndStep {
       },
       this.computerBoard.ships
     );
+
+    renderBoardShots(
+      this.ctx,
+      PLAYER_BOARD_POSITION,
+      this.playerBoard.shots as string[][]
+    );
+
+    renderBoardShots(
+      this.ctx,
+      COMPUTER_BOARD_POSITION,
+      this.computerBoard.shots as string[][]
+    );
+
+    await button(this.ctx, 'Играть ещё раз', this.playAgainButton.width, {
+      x: this.playAgainButton.position.x,
+      y: this.playAgainButton.position.y,
+    });
   };
 
-  clickHandler = () => {
-    this.setGameStep('end');
+  clickHandler = (e: React.MouseEvent<HTMLElement>) => {
+    const { x, y } = getClickPosition(this.canvas, e);
+
+    if (!this.isPlayAgainButtonClick(x, y)) {
+      return;
+    }
+
+    this.setGameStep('start');
   };
+
+  isPlayAgainButtonClick(x: number, y: number) {
+    return checkClickElement(
+      {
+        width: this.playAgainButton.width,
+        height: CELL_SIZE,
+        position: {
+          x: this.playAgainButton.position.x,
+          y: this.playAgainButton.position.y - CELL_SIZE,
+        },
+      },
+      {
+        x,
+        y,
+      }
+    );
+  }
 }

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import './app/styles/App.scss';
-import { toast, ToastContainer } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import { AppRouter } from './app/providers/router/AppRouter';
 import { useAuth } from './app/providers/AuthProvider/AuthProvider';
 import 'react-toastify/dist/ReactToastify.css';
@@ -8,7 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 function App() {
   const __INIT__ = useRef(false);
 
-  const { user, checkIsAuth, isAuth } = useAuth();
+  const { checkIsAuth } = useAuth();
 
   useEffect(() => {
     const fetchServerData = async () => {
