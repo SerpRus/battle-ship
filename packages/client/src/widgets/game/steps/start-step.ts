@@ -32,7 +32,7 @@ export default class StartStep {
 
   randomGenerateShipsButtonInfo;
 
-  setComputerShips?: React.Dispatch<React.SetStateAction<ShipsType>>
+  setComputerShips?: React.Dispatch<React.SetStateAction<ShipsType>>;
 
   constructor(
     ctx: CanvasRenderingContext2D,
@@ -92,7 +92,7 @@ export default class StartStep {
       x: PLAYER_BOARD_POSITION.x,
       y: PLAYER_BOARD_POSITION.y,
     });
-  }
+  };
 
   clickHandler = async (e: React.MouseEvent<HTMLElement>) => {
     const { x, y } = getClickPosition(this.canvas, e);
