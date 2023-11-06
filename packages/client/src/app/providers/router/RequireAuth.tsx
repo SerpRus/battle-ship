@@ -9,7 +9,7 @@ export function RequireAuth({ children }: { children: JSX.Element }) {
   const location = useLocation();
 
   if (!auth) {
-    toast.error('Access denied');
+    toast.error('Доступ запрещен');
     return <Navigate to={RoutePath.login} state={{ from: location }} replace />;
   }
 
