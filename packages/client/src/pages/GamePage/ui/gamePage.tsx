@@ -8,27 +8,25 @@ import cls from './gamePage.module.scss';
 const { Content } = Layout;
 
 export const GamePage: FC = () => {
-  const [isToggle, setIsToggle] = useState(false);
+  const [isFullScreen, setIsFullScreen] = useState(false);
 
-  const onFullScreen = () => {
-    const header = document.querySelector('nav') as HTMLElement | null;
+  const onFullScreen = async () => {
+    const header = document.querySelector('.navbar') as HTMLElement | null;
 
     try {
       if (!document.fullscreenElement) {
-        document.documentElement.requestFullscreen().then(() => {
-          setIsToggle(false);
-          // TODO: передавать в стейт значение для отображения видимости шапки
-          if (header) {
-            header.style.display = 'none';
-          }
-        });
+        await document.documentElement.requestFullscreen();
+        setIsFullScreen(false);
+        // TODO: передавать в стейт значение для отображения видимости шапки
+        if (header) {
+          header.style.display = 'none';
+        }
       } else if (document.exitFullscreen) {
-        document.exitFullscreen().then(() => {
-          setIsToggle(true);
-          if (header) {
-            header.style.display = 'block';
-          }
-        });
+        await document.exitFullscreen();
+        setIsFullScreen(true);
+        if (header) {
+          header.style.display = 'block';
+        }
       }
     } catch (err: unknown) {
       if (err instanceof Error) {
@@ -42,7 +40,7 @@ export const GamePage: FC = () => {
       <Content className={cls.content}>
         <BattleShip />
         <Button onClick={onFullScreen} type="button">
-          {isToggle ? 'Включить полный экран' : 'Отключить полный экран'}
+          {isFullScreen ? 'Включить полный экран' : 'Отключить полный экран'}
         </Button>
       </Content>
     </Layout>

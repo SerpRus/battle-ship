@@ -26,7 +26,7 @@ const Header: FC<{ authOnly?: boolean; isAuth: boolean }> = ({
   };
 
   return (
-    <nav className={cls.navbar}>
+    <nav className={`${cls.navbar} navbar`}>
       <ul>
         {Object.keys(routeConfig).map((key: string) => {
           const { path, authOnly: routeAuthOnly } =
