@@ -7,6 +7,23 @@ import cls from './gamePage.module.scss';
 
 const { Content } = Layout;
 
+declare global {
+  interface Document {
+    mozCancelFullScreen?: () => Promise<void>;
+    msExitFullscreen?: () => Promise<void>;
+    webkitExitFullscreen?: () => Promise<void>;
+    mozFullScreenElement?: Element;
+    msFullscreenElement?: Element;
+    webkitFullscreenElement?: Element;
+  }
+
+  interface HTMLElement {
+    msRequestFullscreen?: () => Promise<void>;
+    mozRequestFullScreen?: () => Promise<void>;
+    webkitRequestFullscreen?: () => Promise<void>;
+  }
+}
+
 export const GamePage: FC = () => {
   const [isFullScreen, setIsFullScreen] = useState(false);
 
@@ -14,15 +31,36 @@ export const GamePage: FC = () => {
     const header = document.querySelector('.navbar') as HTMLElement | null;
 
     try {
-      if (!document.fullscreenElement) {
-        await document.documentElement.requestFullscreen();
+      if (
+        !document.fullscreenElement &&
+        !document.mozFullScreenElement &&
+        !document.webkitFullscreenElement &&
+        !document.msFullscreenElement
+      ) {
+        if (document.documentElement.requestFullscreen) {
+          await document.documentElement.requestFullscreen();
+        } else if (document.documentElement.msRequestFullscreen) {
+          await document.documentElement.msRequestFullscreen();
+        } else if (document.documentElement.mozRequestFullScreen) {
+          await document.documentElement.mozRequestFullScreen();
+        } else if (document.documentElement.webkitRequestFullscreen) {
+          await document.documentElement.webkitRequestFullscreen();
+        }
         setIsFullScreen(false);
         // TODO: передавать в стейт значение для отображения видимости шапки
         if (header) {
           header.style.display = 'none';
         }
-      } else if (document.exitFullscreen) {
-        await document.exitFullscreen();
+      } else {
+        if (document.exitFullscreen) {
+          await document.exitFullscreen();
+        } else if (document.msExitFullscreen) {
+          await document.msExitFullscreen();
+        } else if (document.mozCancelFullScreen) {
+          await document.mozCancelFullScreen();
+        } else if (document.webkitExitFullscreen) {
+          await document.webkitExitFullscreen();
+        }
         setIsFullScreen(true);
         if (header) {
           header.style.display = 'block';
