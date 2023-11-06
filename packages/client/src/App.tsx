@@ -20,7 +20,7 @@ function App() {
 
   useEffect(() => {
     checkIsAuth().then(res => {
-      console.log(res, 'res'); // eslint-disable-line
+      // console.log(res, 'res'); // eslint-disable-line
       setIsAuth(res);
     });
   }, [checkIsAuth, setIsAuth]);
