@@ -61,11 +61,6 @@ export const RegistrationPage = () => {
     }
   };
 
-  // TODO: any
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const onFinishFailed = (errorInfo: any) => {
-    console.log('Failed:', errorInfo); // eslint-disable-line
-  };
   return (
     <Layout className={cls.wrapper}>
       <Content className={cls.content}>
@@ -76,7 +71,6 @@ export const RegistrationPage = () => {
           labelCol={{ span: 8 }}
           wrapperCol={{ span: 16 }}
           onFinish={handleSubmit(onFinish)}
-          onFinishFailed={onFinishFailed}
           autoComplete="off">
           <ValidatableFormItemInput
             label="Почта"

@@ -5,135 +5,102 @@ import {
   useMemo,
   useState,
 } from 'react';
-import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import { AxiosError } from 'axios';
 import { toast } from 'react-toastify';
 import { IAuthContext, IUser } from './types';
 import { ISignUpData } from '../../../pages/RegistrationPage/ui/registrationPage';
 import { ILoginDataFieldType } from '../../../pages/LoginPage/ui/loginPage';
+import { USER_STORAGE_KEY } from './constants';
+import AuthApi from '../../../shared/axios/AuthApi';
 
 const authContext = createContext<IAuthContext>({} as IAuthContext);
-export const baseUrl = 'https://ya-praktikum.tech/api/v2';
 
 export function ProvideAuth({ children }: { children: ReactElement }) {
-  const [user, setUser] = useState<IUser>({} as IUser);
-  const [isAuth, setIsAuth] = useState(false);
+  // @ts-ignore
+  const storageUser = JSON.parse(localStorage.getItem(USER_STORAGE_KEY));
+  const [user, setUser] = useState<IUser>(storageUser as IUser);
+  const [isAuth, setIsAuth] = useState(!!storageUser);
   const [errors, setErrors] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(false); // const history = useHistory();
 
   const checkIsAuth = async () => {
-    const configAxios: AxiosRequestConfig = {
-      url: `${baseUrl}/auth/user`,
-      method: 'GET',
-      responseType: 'json',
-    };
-    setIsLoading(true);
-    configAxios.withCredentials = true;
-    return axios(configAxios)
-      .then((res: AxiosResponse) => {
-        if (res.status === 200) {
-          setIsLoading(false);
-          setUser(res.data);
-          setIsAuth(true);
-          return res.data;
-        }
-        return null;
-      })
-      .catch(err => {
-        const errorMessage = JSON.parse(err.request.response);
-        setIsLoading(false);
-        setErrors([errorMessage?.reason]);
-        return null;
-      });
+    try {
+      setIsLoading(true);
+      const response = await AuthApi.getUser();
+      setIsLoading(false);
+      setUser(response.data);
+      localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(response.data));
+      setIsAuth(true);
+      return response.data;
+    } catch (error) {
+      setErrors([error]);
+      return null;
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const login = async (data: Omit<ILoginDataFieldType, 'remember'>) => {
-    const configAxios: AxiosRequestConfig = {
-      url: `${baseUrl}/auth/signin`,
-      method: 'POST',
-      data,
-      responseType: 'json',
-    };
-    setIsLoading(true);
-
-    configAxios.withCredentials = true;
-
-    return axios(configAxios)
-      .then((res: AxiosResponse) => {
-        if (res.status === 200) {
-          setIsLoading(false);
-          setUser(res.data);
-          setIsAuth(true);
-          toast.success('Вход выполнен');
-          return true;
-        }
-        return false;
-      })
-      .catch(err => {
-        const errorMessage = JSON.parse(err.request.response);
-        setIsLoading(false);
-        toast.error(errorMessage?.reason);
-        setErrors([errorMessage?.reason]);
-        return null;
-      });
+    try {
+      setIsLoading(true);
+      const response = await AuthApi.login(data);
+      setIsLoading(false);
+      setUser(response.data);
+      localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(response.data));
+      setIsAuth(true);
+      toast.success('Вход выполнен');
+      return true;
+    } catch (error) {
+      const err = error as AxiosError;
+      const errorMessage = JSON.parse(err.request.response);
+      setErrors([errorMessage]);
+      toast.error(errorMessage?.reason);
+      return null;
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const logout = async () => {
-    const configAxios: AxiosRequestConfig = {
-      url: `${baseUrl}/auth/logout`,
-      method: 'POST',
-      responseType: 'json',
-    };
-
-    configAxios.withCredentials = true;
-    setIsLoading(true);
-    return axios(configAxios)
-      .then((res: AxiosResponse) => {
-        if (res.status === 200) {
-          setUser({} as IUser);
-          setIsLoading(false);
-          setIsAuth(false);
-          toast.success('Выполнен выход из системы');
-          return true;
-        }
-        return false;
-      })
-      .catch(() => {
-        setIsLoading(false);
-        toast.error('Ошибка выхода из системы');
-        setErrors(['Ошибка выхода из системы']);
-        return false;
-      });
+    try {
+      setIsLoading(true);
+      await AuthApi.logout();
+      setIsLoading(false);
+      setUser({} as IUser);
+      localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(null));
+      setIsAuth(false);
+      toast.success('Выполнен выход из системы');
+      return true;
+    } catch (error) {
+      const err = error as AxiosError;
+      const errorMessage = JSON.parse(err.request.response);
+      setErrors([errorMessage]);
+      toast.error(errorMessage?.reason);
+      return false;
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  const signUp = (data: ISignUpData) => {
-    const configAxios: AxiosRequestConfig = {
-      url: `${baseUrl}/auth/signup`,
-      method: 'POST',
-      data,
-      responseType: 'json',
-    };
-    setIsLoading(true);
-
-    configAxios.withCredentials = true;
-
-    return axios(configAxios)
-      .then((res: AxiosResponse) => {
-        if (res.status === 200) {
-          setIsLoading(false);
-          // @ts-ignore
-          this.checkIsAuth(); // eslint-disable-line
-          toast.success('Пользователь создан успешно');
-          return res.data;
-        }
-        return { reason: 'Not created' };
-      })
-      .catch(err => {
-        const errorMessage = JSON.parse(err.request.response);
-        setIsLoading(false);
-        toast.error(errorMessage?.reason);
-        setErrors([errorMessage?.reason]);
-        return null;
-      });
+  const signUp = async (data: ISignUpData) => {
+    try {
+      setIsLoading(true);
+      const response = await AuthApi.createUser(data);
+      setIsLoading(false);
+      // @ts-ignore
+      this.checkIsAuth(); // eslint-disable-line
+      setIsAuth(true);
+      toast.success('Пользователь создан успешно');
+      return response;
+    } catch (error) {
+      const err = error as AxiosError;
+      const errorMessage = JSON.parse(err.request.response);
+      setErrors([errorMessage]);
+      toast.error(errorMessage?.reason);
+      return null;
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const value = useMemo(
