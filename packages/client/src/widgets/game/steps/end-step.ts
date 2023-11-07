@@ -38,7 +38,6 @@ export default class EndStep implements GameStepI {
 
   playAgainButton;
 
-
   constructor(
     ctx: CanvasRenderingContext2D,
     canvas: HTMLCanvasElement,
