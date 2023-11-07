@@ -1,8 +1,23 @@
 .navbar {
+  position: absolute;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
   width: 100%;
   height: var(--navbar-heght);
-  ul {
+}
+
+.links {
+  display: flex;
+  li {
+    padding: 0 32px;
+    height: 36px;
     display: flex;
-    justify-content: space-evenly;
+    flex-direction: row;
+    align-items: center;
   }
+}
+
+.btn {
+  padding: 16px;
 }

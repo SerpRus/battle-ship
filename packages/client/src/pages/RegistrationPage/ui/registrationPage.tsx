@@ -2,6 +2,7 @@ import React from 'react';
 import { Layout, Button, Form } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 import cls from './registrationPage.module.scss';
 import {
   EMAIL_REGEXP,
@@ -12,19 +13,21 @@ import {
   SECOND_NAME_REGEXP,
 } from '../../../shared/constants/validationConstants';
 import { ValidatableFormItemInput } from '../../../shared/ui/ValidatableFormItemInput/ValidatableFormItemInput';
+import { useAuth } from '../../../app/providers/AuthProvider/AuthProvider';
+import { RoutePath } from '../../../app/providers/router/routeConfig';
 
 const { Content } = Layout;
 
-// type FieldType = {
-//   email: string;
-//   login: string;
-//   first_name: string;
-//   second_name: string;
-//   phone: string;
-//   username?: string;
-//   password?: string;
-//   confirm_password?: string;
-// };
+export type ISignUpData = {
+  email: string;
+  login: string;
+  first_name: string;
+  second_name: string;
+  phone: string;
+  username?: string;
+  password: string;
+  confirm_password?: string;
+};
 
 export const RegistrationPage = () => {
   const navigate = useNavigate();
@@ -47,17 +50,17 @@ export const RegistrationPage = () => {
       confirm_password: '',
     },
   });
-  // TODO: any
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const onFinish = (values: any) => {
-    console.log('Success:', values); // eslint-disable-line
+
+  const { signUp } = useAuth();
+
+  const onFinish = async (values: ISignUpData) => {
+    const result = await signUp(values);
+    if (result?.id) {
+      toast.success('Пользователь создан успешно');
+      navigate(RoutePath.login, { replace: true });
+    }
   };
 
-  // TODO: any
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const onFinishFailed = (errorInfo: any) => {
-    console.log('Failed:', errorInfo); // eslint-disable-line
-  };
   return (
     <Layout className={cls.wrapper}>
       <Content className={cls.content}>
@@ -68,7 +71,6 @@ export const RegistrationPage = () => {
           labelCol={{ span: 8 }}
           wrapperCol={{ span: 16 }}
           onFinish={handleSubmit(onFinish)}
-          onFinishFailed={onFinishFailed}
           autoComplete="off">
           <ValidatableFormItemInput
             label="Почта"

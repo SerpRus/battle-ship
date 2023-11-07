@@ -1,5 +1,5 @@
-import { FC } from 'react';
-import { Link } from 'react-router-dom';
+import React, { FC } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from 'antd';
 import {
   AppRoutes,
@@ -7,42 +7,44 @@ import {
   RoutePath,
 } from '../../../app/providers/router/routeConfig';
 import cls from './Header.module.scss';
-import { useLogoutUser } from '../../../pages/LoginPage/model/hooks/useAuthUser';
-import { useAuth } from '../../lib/hooks/useAuth';
+import { useAuth } from '../../../app/providers/AuthProvider/AuthProvider';
 
-const Header: FC<{ authOnly?: boolean; isAuth: boolean }> = ({
-  authOnly,
-  isAuth,
-}) => {
-  const logout = useLogoutUser();
-  const { setIsAuth } = useAuth();
+const Header: FC = () => {
+  const { isAuth, logout } = useAuth();
+  const navigate = useNavigate();
 
-  const onLogout = async () => {
-    const isLoggedOut = await logout();
-    if (isLoggedOut) {
-      setIsAuth(false);
-      window.location.replace(RoutePath.login);
-    }
+  const onLogout = () => {
+    logout().then(res => {
+      if (res) {
+        navigate(RoutePath.login, { replace: true });
+      }
+    });
   };
 
   return (
     <nav className={`${cls.navbar} navbar`}>
-      <ul>
+      <ul className={cls.links}>
         {Object.keys(routeConfig).map((key: string) => {
           const { path, authOnly: routeAuthOnly } =
             routeConfig[key as AppRoutes];
 
-          if (authOnly === routeAuthOnly) {
+          if (isAuth === routeAuthOnly) {
             return (
               <li key={key}>
-                <Link to={path as string}>{key}</Link>
+                <Link to={path!} className={cls.link}>
+                  {key}
+                </Link>
               </li>
             );
           }
           return null;
         })}
       </ul>
-      {isAuth && <Button onClick={onLogout}>Выйти</Button>}
+      {isAuth && (
+        <div className={cls.btn}>
+          <Button onClick={onLogout}>Выйти</Button>
+        </div>
+      )}
     </nav>
   );
 };

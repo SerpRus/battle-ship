@@ -46,7 +46,7 @@ export const GamePage: FC = () => {
         } else if (document.documentElement.webkitRequestFullscreen) {
           await document.documentElement.webkitRequestFullscreen();
         }
-        setIsFullScreen(false);
+        setIsFullScreen(true);
         // TODO: передавать в стейт значение для отображения видимости шапки
         if (header) {
           header.style.display = 'none';
@@ -61,7 +61,7 @@ export const GamePage: FC = () => {
         } else if (document.webkitExitFullscreen) {
           await document.webkitExitFullscreen();
         }
-        setIsFullScreen(true);
+        setIsFullScreen(false);
         if (header) {
           header.style.display = 'block';
         }
@@ -78,7 +78,7 @@ export const GamePage: FC = () => {
       <Content className={cls.content}>
         <BattleShip />
         <Button onClick={onFullScreen} type="button">
-          {isFullScreen ? 'Включить полный экран' : 'Отключить полный экран'}
+          {isFullScreen ? 'Отключить полный экран' : 'Включить полный экран'}
         </Button>
       </Content>
     </Layout>
