@@ -94,7 +94,7 @@ export default class StartStep {
     });
   };
 
-  clickHandler = async (e: React.MouseEvent<HTMLElement>) => {
+  public clickHandler = async (e: React.MouseEvent<HTMLElement>) => {
     const { x, y } = getClickPosition(this.canvas, e);
 
     if (this.isRandomGenerateShipsButtonClick(x, y)) {
@@ -135,7 +135,7 @@ export default class StartStep {
     }
   };
 
-  isGameStartButtonClick(x: number, y: number) {
+  public isGameStartButtonClick(x: number, y: number) {
     return checkClickElement(
       {
         width: this.startGameButtonInfo.width,
