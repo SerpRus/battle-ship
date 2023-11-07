@@ -62,3 +62,7 @@ input[type='number'] {
 .ant-layout-content {
   font-family: $default-font-family;
 }
+
+.hidden {
+  @include rulesDisplay(hidden);
+}
