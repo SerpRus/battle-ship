@@ -22,6 +22,7 @@ export function ProvideAuth({ children }: { children: ReactElement }) {
   const [isAuth, setIsAuth] = useState(!!storageUser);
   const [errors, setErrors] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(false); // const history = useHistory();
+  const [isFullScreen, setIsFullScreen] = useState(false);
 
   const checkIsAuth = async () => {
     try {
@@ -103,6 +104,43 @@ export function ProvideAuth({ children }: { children: ReactElement }) {
     }
   };
 
+  const fullScreen = async () => {
+    try {
+      if (
+        !document.fullscreenElement &&
+        !document.mozFullScreenElement &&
+        !document.webkitFullscreenElement &&
+        !document.msFullscreenElement
+      ) {
+        if (document.documentElement.requestFullscreen) {
+          await document.documentElement.requestFullscreen();
+        } else if (document.documentElement.msRequestFullscreen) {
+          await document.documentElement.msRequestFullscreen();
+        } else if (document.documentElement.mozRequestFullScreen) {
+          await document.documentElement.mozRequestFullScreen();
+        } else if (document.documentElement.webkitRequestFullscreen) {
+          await document.documentElement.webkitRequestFullscreen();
+        }
+        setIsFullScreen(true);
+      } else {
+        if (document.exitFullscreen) {
+          await document.exitFullscreen();
+        } else if (document.msExitFullscreen) {
+          await document.msExitFullscreen();
+        } else if (document.mozCancelFullScreen) {
+          await document.mozCancelFullScreen();
+        } else if (document.webkitExitFullscreen) {
+          await document.webkitExitFullscreen();
+        }
+        setIsFullScreen(false);
+      }
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        console.error(`Ошибка включения полноэкранного режима`); // eslint-disable-line
+      }
+    }
+  };
+
   const value = useMemo(
     () => ({
       user,
@@ -113,8 +151,10 @@ export function ProvideAuth({ children }: { children: ReactElement }) {
       signUp,
       errors,
       isLoading,
+      isFullScreen,
+      fullScreen,
     }),
-    [user, errors, isLoading, isAuth]
+    [user, errors, isLoading, isAuth, isFullScreen]
   );
 
   return <authContext.Provider value={value}>{children}</authContext.Provider>;

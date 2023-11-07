@@ -24,5 +24,24 @@ export interface IAuthContext {
   errors: any[];
   isLoading: boolean;
   isAuth: boolean;
+  isFullScreen: boolean;
+  fullScreen: () => Promise<void>;
   checkIsAuth: () => Promise<IUser | null>;
+}
+
+declare global {
+  interface Document {
+    mozCancelFullScreen?: () => Promise<void>;
+    msExitFullscreen?: () => Promise<void>;
+    webkitExitFullscreen?: () => Promise<void>;
+    mozFullScreenElement?: Element;
+    msFullscreenElement?: Element;
+    webkitFullscreenElement?: Element;
+  }
+
+  interface HTMLElement {
+    msRequestFullscreen?: () => Promise<void>;
+    mozRequestFullScreen?: () => Promise<void>;
+    webkitRequestFullscreen?: () => Promise<void>;
+  }
 }
