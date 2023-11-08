@@ -1,6 +1,9 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import { resolve } from 'path';
 import dotenv from 'dotenv';
+import svgr from 'vite-plugin-svgr';
+import { VitePWA } from 'vite-plugin-pwa';
 
 dotenv.config();
 
@@ -12,7 +15,16 @@ export default defineConfig({
   define: {
     __SERVER_PORT__: process.env.SERVER_PORT,
   },
-  plugins: [react()],
+  plugins: [
+    svgr(),
+    react(),
+    VitePWA({
+      strategies: 'injectManifest',
+      srcDir: 'src',
+      filename: 'sw.js',
+      includeAssets: ['*.ttf'],
+    }),
+  ],
   css: {
     preprocessorOptions: {
       scss: {
@@ -26,5 +38,11 @@ export default defineConfig({
         `,
       },
     },
+  },
+  resolve: {
+    alias: [
+      { find: '@shared', replacement: resolve(__dirname, 'src/shared') },
+      { find: '@root', replacement: resolve(__dirname) },
+    ],
   },
 });
