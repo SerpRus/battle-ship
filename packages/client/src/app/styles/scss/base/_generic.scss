@@ -80,3 +80,7 @@ input[type='number'] {
     border: 1px solid var(--bkg-blue);
   }
 }
+
+.hidden {
+  @include rulesDisplay(hidden);
+}

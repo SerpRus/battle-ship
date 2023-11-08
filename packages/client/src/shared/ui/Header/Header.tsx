@@ -1,5 +1,5 @@
-import { FC } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import React, { FC } from 'react';
 import { Button } from 'antd';
 import {
   AppRoutes,
@@ -7,28 +7,24 @@ import {
   RoutePath,
 } from '../../../app/providers/router/routeConfig';
 import cls from './Header.module.scss';
-import { useLogoutUser } from '../../../pages/LoginPage/model/hooks/useAuthUser';
-import { useAuth } from '../../lib/hooks/useAuth';
+import { useAuth } from '../../../app/providers/AuthProvider/AuthProvider';
 
-const Header: FC<{ authOnly?: boolean; isAuth: boolean }> = ({
-  authOnly,
-  isAuth,
-}) => {
-  const logout = useLogoutUser();
-  const { setIsAuth } = useAuth();
+const Header: FC = () => {
+  const { isAuth, logout, isFullScreen } = useAuth();
+  const navigate = useNavigate();
   const { pathname } = useLocation();
 
-  const onLogout = async () => {
-    const isLoggedOut = await logout();
-    if (isLoggedOut) {
-      setIsAuth(false);
-      window.location.replace(RoutePath.login);
-    }
+  const onLogout = () => {
+    logout().then(res => {
+      if (res) {
+        navigate(RoutePath.login, { replace: true });
+      }
+    });
   };
 
   return (
-    <nav className={cls.navbar}>
-      <ul>
+    <nav className={isFullScreen ? `${cls.navbar} hidden` : `${cls.navbar}`}>
+      <ul className={cls.links}>
         {Object.keys(routeConfig).map((key: string) => {
           const {
             path,
@@ -36,7 +32,7 @@ const Header: FC<{ authOnly?: boolean; isAuth: boolean }> = ({
             name,
           } = routeConfig[key as AppRoutes];
 
-          if (authOnly === routeAuthOnly) {
+          if (isAuth === routeAuthOnly) {
             return (
               <li key={key}>
                 <Link
@@ -50,7 +46,11 @@ const Header: FC<{ authOnly?: boolean; isAuth: boolean }> = ({
           return null;
         })}
       </ul>
-      {isAuth && <Button onClick={onLogout}>Выйти</Button>}
+      {isAuth && (
+        <div className={cls.btn}>
+          <Button onClick={onLogout}>Выйти</Button>
+        </div>
+      )}
     </nav>
   );
 };
