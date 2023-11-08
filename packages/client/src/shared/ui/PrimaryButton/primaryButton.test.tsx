@@ -1,5 +1,5 @@
 import * as renderer from 'react-test-renderer';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import PrimaryButton from './PrimaryButton';
 

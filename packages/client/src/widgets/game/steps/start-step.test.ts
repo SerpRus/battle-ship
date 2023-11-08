@@ -1,6 +1,7 @@
 import 'jest-canvas-mock';
 import React from 'react';
 import StartStep from './start-step';
+import { BOARD_SIZE } from '../utils/constants';
 
 const canvas: HTMLCanvasElement = document.createElement('canvas');
 const clickRef: {
@@ -20,9 +21,25 @@ const ctx = canvasElement.getContext('2d');
 
 ctx!.clearRect(0, 0, canvasElement.width, canvasElement.height);
 ctx!.beginPath();
+const board = {
+  ships: [],
+  shots: [...Array(BOARD_SIZE)].map(() => Array(BOARD_SIZE)),
+  hits: 0,
+};
+
 class TestStep extends StartStep {
   public constructor() {
-    super(ctx!, canvasElement, () => 'start');
+    super(
+      ctx!,
+      canvasElement,
+      jest.fn(),
+      jest.fn(),
+      board,
+      jest.fn(),
+      board,
+      false,
+      jest.fn()
+    );
   }
 }
 

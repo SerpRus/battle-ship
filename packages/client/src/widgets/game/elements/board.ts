@@ -5,9 +5,10 @@ import text from './text';
 const board = function boardRender(
   ctx: CanvasRenderingContext2D,
   position: PositionType,
-  size: number = BOARD_SIZE
+  size: number = BOARD_SIZE,
+  borderColor: string = INC_COLOR
 ) {
-  ctx.strokeStyle = INC_COLOR;
+  ctx.strokeStyle = borderColor;
 
   ctx.strokeRect(position.x, position.y, CELL_SIZE * size, CELL_SIZE * size);
 

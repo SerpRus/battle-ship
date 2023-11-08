@@ -11,5 +11,7 @@ export default {
   },
   moduleNameMapper: {
     '\\.(css|scss)$': '<rootDir>/__mocks__/styleMock.js',
+    '\\.svg$': '<rootDir>/__mocks__/svg.js',
+    '@root/serviceWorker?url': '<rootDir>/__mocks__/function.js',
   },
 };
