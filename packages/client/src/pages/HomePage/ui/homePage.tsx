@@ -5,6 +5,10 @@ import { RoutePath } from '../../../app/providers/router/routeConfig';
 
 const { Content } = Layout;
 
+const IMAGES = {
+  mainImage: new URL('../seabattle.png', import.meta.url).href,
+};
+
 export const HomePage = () => {
   const onClick = useCallback(() => {
     window.location.replace(RoutePath.game);
@@ -49,8 +53,8 @@ export const HomePage = () => {
             </button>
           </div>
         </div>
-        <div>
-          <img className={cls.img} src="../seabattle.png" alt="морской бой" />
+        <div className={cls.img_wrapper}>
+          <img className={cls.img} src={IMAGES.mainImage} alt="морской бой" />
         </div>
       </Content>
     </Layout>
