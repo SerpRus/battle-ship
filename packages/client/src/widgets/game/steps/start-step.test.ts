@@ -20,33 +20,33 @@ const ctx = canvasElement.getContext('2d');
 
 ctx!.clearRect(0, 0, canvasElement.width, canvasElement.height);
 ctx!.beginPath();
-class TestEntity extends StartStep {
+class TestStep extends StartStep {
   public constructor() {
     super(ctx!, canvasElement, () => 'start');
   }
 }
 
-describe('AbstractEntity', () => {
-  it('create an instance of AbstractEntity', () => {
-    const testEntity = new TestEntity();
+describe('StartStep', () => {
+  it('create an instance of StartStep', () => {
+    const testStep = new TestStep();
 
-    expect(testEntity).toBeInstanceOf(TestEntity);
+    expect(testStep).toBeInstanceOf(TestStep);
   });
 
   it('isGameStartButtonClick - true', () => {
-    const testEntity2 = new TestEntity();
-    const resultLow = testEntity2.isGameStartButtonClick(521, 521);
-    const resultHigh = testEntity2.isGameStartButtonClick(640, 561);
+    const testStep2 = new TestStep();
+    const resultLow = testStep2.isGameStartButtonClick(521, 521);
+    const resultHigh = testStep2.isGameStartButtonClick(640, 561);
     expect(resultLow).toBe(true);
     expect(resultHigh).toBe(true);
   });
 
   it('isGameStartButtonClick - false', () => {
-    const testEntity2 = new TestEntity();
-    const resultLowY = testEntity2.isGameStartButtonClick(521, 520);
-    const resultHighY = testEntity2.isGameStartButtonClick(521, 562);
-    const resultLowX = testEntity2.isGameStartButtonClick(520, 521);
-    const resultHighX = testEntity2.isGameStartButtonClick(641, 521);
+    const testStep3 = new TestStep();
+    const resultLowY = testStep3.isGameStartButtonClick(521, 520);
+    const resultHighY = testStep3.isGameStartButtonClick(521, 562);
+    const resultLowX = testStep3.isGameStartButtonClick(520, 521);
+    const resultHighX = testStep3.isGameStartButtonClick(641, 521);
     expect(resultLowY).toBe(false);
     expect(resultHighY).toBe(false);
     expect(resultLowX).toBe(false);

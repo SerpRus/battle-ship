@@ -7,11 +7,3 @@ exports[`Game renders correctly 1`] = `
   width={1041}
 />
 `;
-
-exports[`StartStep renders correctly 1`] = `
-<canvas
-  height={601}
-  onClick={[Function]}
-  width={1041}
-/>
-`;

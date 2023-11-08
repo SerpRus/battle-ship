@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, Form, Input } from 'antd';
+import PrimaryButton from '../PrimaryButton/PrimaryButton';
 import cls from './CreateTopicForm.module.scss';
 
 const { TextArea } = Input;
@@ -70,9 +71,7 @@ const CreateTopicForm: React.FC = () => {
       </Form.Item>
 
       <Form.Item>
-        <Button type="primary" htmlType="submit">
-          Создать топик
-        </Button>
+        <PrimaryButton buttonTitle="Создать топик" />
       </Form.Item>
     </Form>
   );
