@@ -36,7 +36,7 @@ const Header: FC = () => {
             return (
               <li key={key}>
                 <Link
-                  className={pathname === path ? `active` : ''}
+                  className={pathname === path ? `${cls.active}` : ''}
                   to={path as string}>
                   {name}
                 </Link>

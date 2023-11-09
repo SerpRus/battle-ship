@@ -63,24 +63,6 @@ input[type='number'] {
   font-family: $default-font-family;
 }
 
-.active {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 8rem;
-  padding: 0.5rem;
-  border-radius: 0.5rem;
-  background: transparent;
-  border: 1px solid var(--bkg-violet);
-  color: var(--bkg-violet);
-
-  &:hover {
-    cursor: pointer;
-    color: var(--bkg-blue);
-    border: 1px solid var(--bkg-blue);
-  }
-}
-
 .hidden {
   @include rulesDisplay(hidden);
 }
