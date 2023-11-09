@@ -2,12 +2,9 @@ import React, { useCallback } from 'react';
 import { Layout } from 'antd';
 import cls from './homePage.module.scss';
 import { RoutePath } from '../../../app/providers/router/routeConfig';
+import seabattleImg from '../seabattle.png';
 
 const { Content } = Layout;
-
-const IMAGES = {
-  mainImage: new URL('../seabattle.png', import.meta.url).href,
-};
 
 export const HomePage = () => {
   const onClick = useCallback(() => {
@@ -54,7 +51,7 @@ export const HomePage = () => {
           </div>
         </div>
         <div className={cls.img_wrapper}>
-          <img className={cls.img} src={IMAGES.mainImage} alt="морской бой" />
+          <img className={cls.img} src={seabattleImg} alt="морской бой" />
         </div>
       </Content>
     </Layout>
