@@ -10,8 +10,8 @@ export default {
     __SERVER_PORT__: process.env.SERVER_PORT,
   },
   moduleNameMapper: {
-    '\\.(css|scss)$': '<rootDir>/__mocks__/styleMock.js',
-    '\\.svg$': '<rootDir>/__mocks__/svg.js',
-    '@root/serviceWorker?url': '<rootDir>/__mocks__/function.js',
+    '@root/serviceWorker?url': '<rootDir>/__mocks__/mockFunction.js',
+    '.+\\.(jpg|ico|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga|css|scss)$':
+      '<rootDir>/__mocks__/mockFunction.js'
   },
 };

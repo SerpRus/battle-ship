@@ -22,7 +22,7 @@ export default defineConfig({
       strategies: 'injectManifest',
       srcDir: 'src',
       filename: 'sw.js',
-      includeAssets: ['*.ttf'],
+      includeAssets: ['/fonts/*.ttf', '*.svg', '/**/*.png', '/**/*.svg'],
     }),
   ],
   css: {

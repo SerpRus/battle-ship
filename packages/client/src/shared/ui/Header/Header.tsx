@@ -1,5 +1,5 @@
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import React, { FC } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
 import { Button } from 'antd';
 import {
   AppRoutes,
@@ -12,6 +12,7 @@ import { useAuth } from '../../../app/providers/AuthProvider/AuthProvider';
 const Header: FC = () => {
   const { isAuth, logout, isFullScreen } = useAuth();
   const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   const onLogout = () => {
     logout().then(res => {
@@ -25,14 +26,19 @@ const Header: FC = () => {
     <nav className={isFullScreen ? `${cls.navbar} hidden` : `${cls.navbar}`}>
       <ul className={cls.links}>
         {Object.keys(routeConfig).map((key: string) => {
-          const { path, authOnly: routeAuthOnly } =
-            routeConfig[key as AppRoutes];
+          const {
+            path,
+            authOnly: routeAuthOnly,
+            name,
+          } = routeConfig[key as AppRoutes];
 
           if (isAuth === routeAuthOnly) {
             return (
               <li key={key}>
-                <Link to={path!} className={cls.link}>
-                  {key}
+                <Link
+                  className={pathname === path ? `${cls.active}` : ''}
+                  to={path as string}>
+                  {name}
                 </Link>
               </li>
             );
