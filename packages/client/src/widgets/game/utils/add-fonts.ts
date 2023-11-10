@@ -1,8 +1,8 @@
 export default async function addFonts() {
-  const f = new FontFace('Segoeprint', 'url(/src/assets/fonts/segoeprint.ttf)');
+  const f = new FontFace('Segoeprint', 'url(/fonts/segoeprint.ttf)');
   const fBold = new FontFace(
     'Segoeprint-bold',
-    'url(/src/assets/fonts/segoeprint-bold.ttf)'
+    'url(/fonts/segoeprint-bold.ttf)'
   );
 
   return new Promise(resolve => {

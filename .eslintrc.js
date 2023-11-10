@@ -52,4 +52,5 @@ module.exports = {
     'class-methods-use-this': 0,
     'no-console': 'error',
   },
+  ignorePatterns: ['**/client/dist/*'],
 };

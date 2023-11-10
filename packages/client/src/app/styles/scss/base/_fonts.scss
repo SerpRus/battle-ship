@@ -17,3 +17,11 @@
   font-display: block;
   src: url('#{$pathFonts}segoeprint-bold.ttf') format('truetype');
 }
+
+@font-face {
+  font-family: 'SF Pro';
+  font-style: normal;
+
+  font-display: block;
+  src: url('#{$pathFonts}SF-Pro.ttf') format('truetype');
+}
