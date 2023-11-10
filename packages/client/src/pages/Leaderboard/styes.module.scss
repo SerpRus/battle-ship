@@ -8,45 +8,27 @@
 .container {
   font-family: 'SF Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   color: var(--font-color);
-  font-size: 1rem;
+  -webkit-font-smoothing: antialiased;
+  font-size: 1.125rem;
   line-height: 1.1em;
+  font-weight: bold;
   min-height: calc(100vh - var(--navbar-heght));
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: stretch;
   align-content: center;
-  flex-wrap: wrap;
 
-  & .wrapper {
-    width: 24rem;
+  .wrapper {
+    width: 35rem;
     height: 100%;
     margin-bottom: 3rem;
-  }
-}
 
-.header {
-  margin: 0;
-  display: flex;
-  gap: 1.625rem;
-  margin-bottom: 2rem;
-
-  & .fullname {
-    margin: 0.1rem 0 0 0;
-    line-height: 1.56rem;
-    font-size: 1.31rem;
-    font-variation-settings: 'wght' 700;
-  }
-
-  & .nickname {
-    color: var(--font-muted);
-    margin-top: 0.6rem;
-  }
-}
-
-.loader {
-  height: 100%;
-
-  & .spinnerContent {
-    color: green;
+    .header {
+      font-size: 6rem;
+      line-height: 1.2em;
+      margin-bottom: 4rem;
+      text-align: center;
+    }
   }
 }

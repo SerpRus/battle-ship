@@ -10,7 +10,7 @@ import cls from './Header.module.scss';
 import { useAuth } from '../../../app/providers/AuthProvider/AuthProvider';
 
 const Header: FC = () => {
-  const { isAuth, logout } = useAuth();
+  const { isAuth, logout, isFullScreen } = useAuth();
   const navigate = useNavigate();
 
   const onLogout = () => {
@@ -22,7 +22,7 @@ const Header: FC = () => {
   };
 
   return (
-    <nav className={cls.navbar}>
+    <nav className={isFullScreen ? `${cls.navbar} hidden` : `${cls.navbar}`}>
       <ul className={cls.links}>
         {Object.keys(routeConfig).map((key: string) => {
           const { path, authOnly: routeAuthOnly } =
