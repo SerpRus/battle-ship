@@ -3,7 +3,7 @@ import Login from '../../../pages/LoginPage';
 import RegistrationPage from '../../../pages/RegistrationPage';
 import Home from '../../../pages/home';
 import GamePage from '../../../pages/GamePage';
-import Leaderboard from '../../../pages/leaderboard';
+import { Leaderboard } from '../../../pages/Leaderboard';
 import Forum from '../../../pages/Forum';
 import Topic from '../../../pages/Forum/[id]';
 import NotFound from '../../../pages/404Page';
