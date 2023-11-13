@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Game renders correctly 1`] = `
+<canvas
+  height={601}
+  onClick={[Function]}
+  width={1041}
+/>
+`;

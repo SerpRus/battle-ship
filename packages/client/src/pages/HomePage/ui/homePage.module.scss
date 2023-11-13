@@ -1,0 +1,56 @@
+.wrapper {
+  font-family: 'SF Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: var(--bkg-violet);
+  min-height: 100vh;
+}
+
+.content {
+  max-width: rem(1440);
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: rem(64);
+  margin: rem(64) auto;
+}
+
+.description {
+  @include text-props(18, 24);
+
+  p {
+    margin-bottom: rem(16);
+  }
+
+  &_bold {
+    @include text-props(20, 24, 600);
+  }
+}
+
+.button {
+  font-family: 'SF Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  min-width: rem(128);
+  padding: rem(8);
+  margin-top: rem(32);
+  border-radius: rem(8);
+  background: transparent;
+  border: rem(1) solid var(--bkg-violet);
+  color: var(--bkg-violet);
+
+  &:hover {
+    cursor: pointer;
+    color: var(--bkg-blue);
+    border: rem(1) solid var(--bkg-blue);
+  }
+
+  &_wrapper {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+.img {
+  object-fit: contain;
+  &_wrapper {
+    display: flex;
+    align-items: flex-start;
+  }
+}

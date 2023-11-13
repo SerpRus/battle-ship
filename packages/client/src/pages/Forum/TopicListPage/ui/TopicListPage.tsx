@@ -1,4 +1,4 @@
-import { Card, Layout, Flex, Space, Button } from 'antd';
+import { Card, Layout, Flex, Space } from 'antd';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { CommentOutlined, LikeFilled } from '@ant-design/icons';
@@ -7,6 +7,7 @@ import { v4 as makeUUID } from 'uuid';
 import forumData from '../../data.json';
 import { TopicCard } from '../../../../shared/ui/TopicCard/TopicCard';
 import { dateFormat } from '../../../../widgets/game/utils/date-formatter';
+import PrimaryButton from '../../../../shared/ui/PrimaryButton/PrimaryButton';
 
 import cls from './TopicListPage.module.scss';
 
@@ -37,7 +38,7 @@ export const TopicList: React.FC = () => {
       <Flex justify="center" className={cls.wrapper}>
         <Card className={cls.forumPageCard}>
           <Flex justify="center" vertical>
-            <Button type="primary">Create new topic</Button>
+            <PrimaryButton>Create new topic</PrimaryButton>
           </Flex>
         </Card>
         <Content
