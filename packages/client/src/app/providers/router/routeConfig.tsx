@@ -3,9 +3,9 @@ import Topic from '../../../pages/Forum/TopicConversationPage';
 import CreateTopic from '../../../pages/Forum/CreateTopicPage';
 import Login from '../../../pages/LoginPage';
 import RegistrationPage from '../../../pages/RegistrationPage';
-import Profile from '../../../pages/profile';
+import { ProfilePage } from '../../../pages/ProfilePage';
 import Home from '../../../pages/home';
-import Game from '../../../pages/game';
+import GamePage from '../../../pages/GamePage';
 import Leaderboard from '../../../pages/leaderboard';
 import TopicList from '../../../pages/Forum/TopicListPage';
 import NotFound from '../../../pages/404Page';
@@ -63,12 +63,12 @@ export const routeConfig: Record<AppRoutes, AppRouteProps> = {
   },
   [AppRoutes.PROFILE]: {
     path: RoutePath.profile,
-    element: <Profile />,
+    element: <ProfilePage />,
     authOnly: true,
   },
   [AppRoutes.GAME]: {
     path: RoutePath.game,
-    element: <Game />,
+    element: <GamePage />,
     authOnly: true,
   },
   [AppRoutes.LEADERBOARD]: {

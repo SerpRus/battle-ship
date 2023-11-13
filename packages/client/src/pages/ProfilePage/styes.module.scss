@@ -1,0 +1,52 @@
+@font-face {
+  font-family: 'SF Pro';
+  font-style: normal;
+  font-weight: 350;
+  src: url('./fonts/SF-Pro.ttf') format('truetype');
+}
+
+.container {
+  font-family: 'SF Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: var(--font-color);
+  font-size: 1rem;
+  line-height: 1.1em;
+  min-height: calc(100vh - var(--navbar-heght));
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  align-content: center;
+  flex-wrap: wrap;
+
+  & .wrapper {
+    width: 24rem;
+    height: 100%;
+    margin-bottom: 3rem;
+  }
+}
+
+.header {
+  margin: 0;
+  display: flex;
+  gap: 1.625rem;
+  margin-bottom: 2rem;
+
+  & .fullname {
+    margin: 0.1rem 0 0 0;
+    line-height: 1.56rem;
+    font-size: 1.31rem;
+    font-variation-settings: 'wght' 700;
+  }
+
+  & .nickname {
+    color: var(--font-muted);
+    margin-top: 0.6rem;
+  }
+}
+
+.loader {
+  height: 100%;
+
+  & .spinnerContent {
+    color: green;
+  }
+}
