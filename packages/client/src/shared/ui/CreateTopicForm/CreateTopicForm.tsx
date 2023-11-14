@@ -6,13 +6,11 @@ import PrimaryButton from '../PrimaryButton/PrimaryButton';
 const { TextArea } = Input;
 
 const CreateTopicForm: React.FC = () => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const onFinish = (values: any) => {
+  const onFinish = (values: unknown) => {
     console.log('Success:', values); // eslint-disable-line no-console
   };
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const onFinishFailed = (errorInfo: any) => {
+  const onFinishFailed = (errorInfo: unknown) => {
     console.log('Failed:', errorInfo); // eslint-disable-line no-console
   };
 

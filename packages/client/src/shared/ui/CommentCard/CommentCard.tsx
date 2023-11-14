@@ -7,7 +7,7 @@ import { dateFormat } from '../../../widgets/game/utils/date-formatter';
 import cls from './CommentCard.module.scss';
 
 type CommentsDataType = {
-  /* types */ likesCount: ReactNode;
+  likesCount: ReactNode;
   id: number | string;
   topicId: number | string;
   name: string;
@@ -31,7 +31,6 @@ export const CommentCard: React.FC<ColumnType> = props => {
               <div>{item.name}</div>
               <div>{item.comment}</div>
               {dateFormat(new Date(item.creationDate))}
-              {/* dateutil */}
             </Flex>
             <Flex align="center">
               <LikeFilled />

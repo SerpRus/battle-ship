@@ -3,22 +3,22 @@ export enum Day {
   YESTERDAY = 'Yesterday',
 }
 
-const checkDay = (currentDate: Date, date: Date) => {
+const checkDay = (timeDifferenceMonth: number) => {
   let formatedDate = Day.TODAY as string;
-  if (currentDate.getDate() - date.getDate() === 1) {
+  if (timeDifferenceMonth === 1) {
     formatedDate = Day.YESTERDAY as string;
   }
   return formatedDate;
 };
 
 const checkWeek = (currentDate: Date, date: Date) => {
-  if (
-    currentDate.getDate() - date.getDate() < 2 &&
-    !(currentDate.getMonth() - date.getMonth())
-  ) {
-    return checkDay(currentDate, date);
+  const timeDifferenceMs = currentDate.getTime() - date.getTime();
+  const timeDifferenceDay = currentDate.getDate() - date.getDate();
+  const timeDifferenceMonth = currentDate.getMonth() - date.getMonth();
+  if (timeDifferenceDay < 2 && !timeDifferenceMonth) {
+    return checkDay(timeDifferenceMonth);
   }
-  if (currentDate.getTime() - date.getTime() < 604800000) {
+  if (timeDifferenceMs < 604800000) {
     return date.toString().substring(0, 3);
   }
   return date.toString().substring(4, 10);
@@ -26,7 +26,8 @@ const checkWeek = (currentDate: Date, date: Date) => {
 
 const checkYear = (date: Date) => {
   const currentDate: Date = new Date();
-  if (currentDate.getFullYear() - date.getFullYear()) {
+  const timeDifferenceYear = currentDate.getFullYear() - date.getFullYear();
+  if (timeDifferenceYear) {
     return date.toString().substring(4, 15);
   }
   return checkWeek(currentDate, date);

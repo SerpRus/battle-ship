@@ -27,7 +27,7 @@ export const TopicList: React.FC = () => {
   const [readyMadeItems, setreadyMadeItems] = useState<TopicType[]>([]);
 
   useEffect(() => {
-    const sortedList = [...data].sort((a, b) =>
+    const sortedList = data.sort((a, b) =>
       b.creationDate.localeCompare(a.creationDate)
     );
     setreadyMadeItems(sortedList);

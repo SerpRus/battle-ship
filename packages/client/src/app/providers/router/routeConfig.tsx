@@ -16,7 +16,6 @@ export type AppRouteProps = RouteProps & {
   name: string;
 };
 
-/* eslint-disable no-unused-vars */
 export enum AppRoutes {
   HOME = 'home',
   LOGIN = 'login',
@@ -30,7 +29,6 @@ export enum AppRoutes {
   NOT_FOUND = 'not_found',
   SERVER_ERROR = 'server_error',
 }
-/* eslint-enable no-unused-vars */
 
 export const RoutePath: Record<AppRoutes, string> = {
   [AppRoutes.HOME]: '/',

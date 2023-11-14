@@ -20,16 +20,14 @@ type CommentsDataType = {
   likesCount: number | string;
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const onFinish = (values: any) => {
+const onFinish = (values: unknown) => {
   /* *
    *   @todo Сделать типизацию
    * */
   console.log('Success:', values); // eslint-disable-line no-console
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const onFinishFailed = (errorInfo: any) => {
+const onFinishFailed = (errorInfo: unknown) => {
   /* *
    *   @todo Сделать типизацию
    * */
