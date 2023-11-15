@@ -1,7 +1,7 @@
 import axios from 'axios';
 import type { AxiosRequestConfig } from 'axios';
 import { TUser, TUserData } from './types';
-import { TPasswordData } from './ui/PasswordChangeFieldset/types';
+import { TPasswordData } from '../ui/PasswordChangeFieldset/types';
 
 export class UserStore {
   static baseUrl = 'https://ya-praktikum.tech/api/v2';

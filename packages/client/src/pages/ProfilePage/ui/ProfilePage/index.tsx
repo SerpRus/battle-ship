@@ -1,11 +1,11 @@
 import { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import { Spin } from 'antd';
 import css from './styes.module.scss';
-import { UserStore } from './store';
-import { Avatar } from './ui/Avatar';
-import { SingleChangeFieldset } from './ui/SingleChangeFieldset';
-import { PasswordChangeFieldset } from './ui/PasswordChangeFieldset';
-import type { TUser } from './types';
+import { UserStore } from '../../model/store';
+import { Avatar } from '../Avatar';
+import { SingleChangeFieldset } from '../SingleChangeFieldset';
+import { PasswordChangeFieldset } from '../PasswordChangeFieldset';
+import type { TUser } from '../../model/types';
 
 export const ProfilePage: FC = () => {
   const [user, setUser] = useState<TUser>({} as TUser);
