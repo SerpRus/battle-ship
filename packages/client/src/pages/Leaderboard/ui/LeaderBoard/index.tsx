@@ -1,6 +1,6 @@
 import type { FC } from 'react';
-import { leaderboardMock } from './mocks/leaderboardMock';
-import { LeaderboardItem } from './components/LeaderboardItem';
+import { leaderboardMock } from '../../mocks/leaderboardMock';
+import { LeaderboardItem } from '../LeaderboardItem';
 import css from './styes.module.scss';
 
 export const Leaderboard: FC = () => (

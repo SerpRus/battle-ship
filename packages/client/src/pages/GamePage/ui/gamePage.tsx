@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { Layout } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import BattleShip from '../../../components/BattleShip';
+import BattleShip from '../../../entities/BattleShip';
 import { Button } from '../../../shared/ui/Button';
 
 import cls from './gamePage.module.scss';
