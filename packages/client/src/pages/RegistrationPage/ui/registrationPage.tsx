@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Layout, Button, Form } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { toast } from 'react-toastify';
+import { useDispatch, useSelector } from 'react-redux';
 import cls from './registrationPage.module.scss';
 import {
   EMAIL_REGEXP,
@@ -13,8 +13,9 @@ import {
   SECOND_NAME_REGEXP,
 } from '../../../shared/constants/validationConstants';
 import { ValidatableFormItemInput } from '../../../shared/ui/ValidatableFormItemInput/ValidatableFormItemInput';
-import { useAuth } from '../../../app/providers/AuthProvider/AuthProvider';
 import { RoutePath } from '../../../app/providers/router/routeConfig';
+import { AppDispath, RootState } from '../../../store';
+import { signUp, userActions } from '../../../store/userSlice';
 
 const { Content } = Layout;
 
@@ -31,6 +32,8 @@ export type ISignUpData = {
 
 export const RegistrationPage = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispath>();
+  const id = useSelector((s: RootState) => s.user.id);
 
   const {
     control,
@@ -51,15 +54,18 @@ export const RegistrationPage = () => {
     },
   });
 
-  const { signUp } = useAuth();
-
   const onFinish = async (values: ISignUpData) => {
-    const result = await signUp(values);
-    if (result?.id) {
-      toast.success('Пользователь создан успешно');
+    dispatch(userActions.setOnLoading());
+    dispatch(userActions.clearError());
+
+    await dispatch(signUp(values));
+  };
+
+  useEffect(() => {
+    if (id) {
       navigate(RoutePath.login, { replace: true });
     }
-  };
+  }, [id, navigate]);
 
   return (
     <Layout className={cls.wrapper}>
