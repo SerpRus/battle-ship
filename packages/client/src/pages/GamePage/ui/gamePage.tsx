@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { Layout } from 'antd';
-import BattleShip from '../../../components/BattleShip';
+import BattleShip from '../../../entities/BattleShip';
 import { Button } from '../../../shared/ui/Button';
 
 import cls from './gamePage.module.scss';
