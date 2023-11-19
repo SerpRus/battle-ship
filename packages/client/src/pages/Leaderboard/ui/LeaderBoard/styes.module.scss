@@ -1,0 +1,27 @@
+.container {
+  font-family: 'SF Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: var(--font-color);
+  -webkit-font-smoothing: antialiased;
+  font-size: 1.125rem;
+  line-height: 1.1em;
+  font-weight: bold;
+  min-height: calc(100vh - var(--navbar-heght));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: stretch;
+  align-content: center;
+
+  .wrapper {
+    width: 35rem;
+    height: 100%;
+    margin-bottom: 3rem;
+
+    .header {
+      font-size: 6rem;
+      line-height: 1.2em;
+      margin-bottom: 4rem;
+      text-align: center;
+    }
+  }
+}

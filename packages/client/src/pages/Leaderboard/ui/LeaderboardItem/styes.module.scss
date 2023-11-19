@@ -1,0 +1,73 @@
+.container {
+  display: flex;
+  align-items: center;
+  background-color: var(--bkg-light-blue);
+  border-radius: 3rem;
+  display: grid;
+  grid-template-areas: 'avatar nickName score dynamics place';
+  grid-auto-columns: 6rem 1fr 7.3rem 2rem 6rem;
+  row-gap: 5rem;
+  padding: 1rem 0;
+
+  .avatarWrapper {
+    grid-area: avatar;
+    width: 6rem;
+    position: relative;
+    height: 100%;
+
+    .avatarImg {
+      top: -105%;
+      width: 6rem;
+      height: 6rem;
+      position: absolute;
+      overflow: visible;
+    }
+  }
+
+  .nickName {
+    grid-area: nickName;
+    padding: 0 1rem;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 13.75rem;
+    overflow: hidden;
+  }
+
+  .score {
+    grid-area: score;
+  }
+
+  .dynamics {
+    grid-area: dynamics;
+    width: 2rem;
+    height: 2rem;
+    background-position: center;
+  }
+  .place {
+    grid-area: place;
+    font-size: 5.25rem;
+    font-weight: 900;
+    position: relative;
+    top: -1.1rem;
+    text-align: right;
+    padding-right: 1rem;
+  }
+
+  & + & {
+    margin-top: 4rem;
+  }
+}
+
+:global {
+  .dynamics-up {
+    background-image: url('./dynamicsIcons/up.svg');
+  }
+
+  .dynamics-down {
+    background-image: url('./dynamicsIcons/down.svg');
+  }
+
+  .dynamics-same {
+    background-image: url('./dynamicsIcons/same.svg');
+  }
+}

@@ -1,0 +1,68 @@
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  font-family: $default-font-family;
+
+  position: relative;
+
+  height: 100%;
+
+  color: $color-brand;
+  background: $background-color-default;
+
+  -webkit-text-size-adjust: 100%;
+
+  &.fixed {
+    position: fixed;
+  }
+
+  &.scroll-lock {
+    overflow: hidden;
+  }
+}
+
+* {
+  box-sizing: border-box;
+
+  -webkit-tap-highlight-color: transparent;
+
+  &::before,
+  &::after {
+    box-sizing: border-box;
+  }
+}
+
+ol,
+ul {
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+}
+
+p {
+  margin: 0;
+}
+
+input[type='number'] {
+  -moz-appearance: textfield;
+
+  &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0;
+  }
+}
+
+.ant-layout-content {
+  font-family: $default-font-family;
+}
+
+.hidden {
+  @include rulesDisplay(hidden);
+}

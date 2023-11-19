@@ -1,0 +1,48 @@
+.container {
+  position: relative;
+
+  & .input {
+    display: none;
+  }
+
+  & .button {
+    border-radius: 5rem;
+    background: transparent;
+    border: none;
+  }
+
+  & .img,
+  & .overlay {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+  }
+
+  & .img:hover + .overlay,
+  & .overlay.hover {
+    display: flex;
+  }
+
+  & .img:hover + .overlay .icon,
+  & .overlay.hover .icon {
+    display: block;
+  }
+
+  & .overlay {
+    background-image: url;
+    pointer-events: none;
+    display: none;
+    background-color: #000000;
+    opacity: 0.8;
+    position: absolute;
+    top: 0;
+    justify-content: center;
+    align-items: center;
+
+    & .icon {
+      display: none;
+    }
+  }
+}
