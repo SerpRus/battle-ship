@@ -6,7 +6,8 @@ import 'normalize.css';
 import ErrorBoundary from './app/providers/ErrorBoundary/ErrorBoundary';
 import { ProvideAuth } from './app/providers/AuthProvider/AuthProvider';
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+ReactDOM.hydrateRoot(
+  document.getElementById('root') as HTMLElement,
   <React.StrictMode>
     <ErrorBoundary>
       <ProvideAuth>
