@@ -2,13 +2,14 @@ import React, { useEffect, useRef } from 'react';
 import './app/styles/App.scss';
 import { ToastContainer } from 'react-toastify';
 import { AppRouter } from './app/providers/router/AppRouter';
-import { useAuth } from './app/providers/AuthProvider/AuthProvider';
+// import { useAuth } from './app/providers/AuthProvider/AuthProvider';
 import 'react-toastify/dist/ReactToastify.css';
+import { getUser } from './store/userSlice';
 
 function App() {
   const __INIT__ = useRef(false);
 
-  const { checkIsAuth } = useAuth();
+  // const { checkIsAuth } = useAuth();
 
   useEffect(() => {
     const fetchServerData = async () => {
@@ -23,9 +24,10 @@ function App() {
   useEffect(() => {
     if (!__INIT__.current) {
       __INIT__.current = true;
-      checkIsAuth();
+      // checkIsAuth();
+      getUser();
     }
-  }, [checkIsAuth]);
+  }, []);
 
   return (
     <div className="App">
