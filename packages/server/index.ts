@@ -23,7 +23,7 @@ async function startServer() {
   if (isDev()) {
     vite = await createViteServer({
       server: { middlewareMode: true },
-      root: distPath,
+      root: srcPath,
       appType: 'custom',
     });
 
