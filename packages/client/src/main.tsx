@@ -1,21 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import './app/styles/scss/index.scss';
 import 'normalize.css';
 import ErrorBoundary from './app/providers/ErrorBoundary/ErrorBoundary';
-import { ProvideAuth } from './app/providers/AuthProvider/AuthProvider';
+import store from './store';
 
 const rootElement = document.getElementById('root') as HTMLElement;
 const app = (
   <React.StrictMode>
     <ErrorBoundary>
-      <ProvideAuth>
+      <Provider store={store}>
         <BrowserRouter>
           <App />
         </BrowserRouter>
-      </ProvideAuth>
+      </Provider>
     </ErrorBoundary>
   </React.StrictMode>
 );

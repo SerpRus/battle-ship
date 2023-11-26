@@ -3,7 +3,7 @@ import 'jest-canvas-mock';
 import React from 'react';
 import { shallow, configure, ShallowWrapper } from 'enzyme';
 import Adapter from '@cfaester/enzyme-adapter-react-18';
-import BattleShip from '.';
+import BattleShip from './index';
 
 type TObjeect = Record<string, unknown>;
 

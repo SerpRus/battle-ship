@@ -1,26 +1,36 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import { Button } from 'antd';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout, userActions } from '../../../store/userSlice';
+
 import {
   AppRoutes,
   routeConfig,
   RoutePath,
 } from '../../../app/providers/router/routeConfig';
 import cls from './Header.module.scss';
-import { useAuth } from '../../../app/providers/AuthProvider/AuthProvider';
+
+import { AppDispath, RootState } from '../../../store';
 
 const Header: FC = () => {
-  const { isAuth, logout, isFullScreen } = useAuth();
+  const dispatch = useDispatch<AppDispath>();
+  const isAuth = useSelector((s: RootState) => s.user.isAuth);
+  const isFullScreen = useSelector((s: RootState) => s.helpers.isFullScreen);
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
   const onLogout = () => {
-    logout().then(res => {
-      if (res) {
-        navigate(RoutePath.login, { replace: true });
-      }
-    });
+    dispatch(userActions.setOnLoading());
+    dispatch(userActions.clearError());
+    dispatch(logout());
   };
+
+  useEffect(() => {
+    if (!isAuth && pathname !== `/${AppRoutes.REGISTRATION}`) {
+      navigate(RoutePath.login, { replace: true });
+    }
+  }, [isAuth, navigate, pathname]);
 
   return (
     <nav className={isFullScreen ? `${cls.navbar} hidden` : `${cls.navbar}`}>

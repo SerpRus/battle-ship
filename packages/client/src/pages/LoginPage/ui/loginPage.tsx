@@ -1,16 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Layout, Button, Checkbox, Form } from 'antd';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { useForm, Controller } from 'react-hook-form';
-import { toast } from 'react-toastify';
 import cls from './loginPage.module.scss';
+import { login, userActions } from '../../../store/userSlice';
+
 import {
   LOGIN_REGEXP,
   PASSWORD_REGEXP,
 } from '../../../shared/constants/validationConstants';
 import { ValidatableFormItemInput } from '../../../shared/ui/ValidatableFormItemInput/ValidatableFormItemInput';
-import { useAuth } from '../../../app/providers/AuthProvider/AuthProvider';
+
 import { RoutePath } from '../../../app/providers/router/routeConfig';
+
+import { AppDispath, RootState } from '../../../store';
 
 const { Content } = Layout;
 
@@ -22,7 +26,8 @@ export type ILoginDataFieldType = {
 
 export const LoginPage = () => {
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const dispatch = useDispatch<AppDispath>();
+  const { isAuth } = useSelector((s: RootState) => s.user);
 
   const {
     control,
@@ -37,20 +42,24 @@ export const LoginPage = () => {
       remember: true,
     },
   });
-  const onFinish = (values: ILoginDataFieldType) => {
-    login({
-      login: values.login,
-      password: values.password,
-    })
-      .then(res => {
-        if (res) {
-          navigate(RoutePath.home, { replace: true });
-        }
+
+  const onFinish = async (values: ILoginDataFieldType) => {
+    dispatch(userActions.setOnLoading());
+    dispatch(userActions.clearError());
+
+    await dispatch(
+      login({
+        login: values.login,
+        password: values.password,
       })
-      .catch(() => {
-        toast.error('Непредвиденная ошибка входа');
-      });
+    );
   };
+
+  useEffect(() => {
+    if (isAuth) {
+      navigate(RoutePath.home, { replace: true });
+    }
+  }, [isAuth, navigate]);
 
   return (
     <Layout className={cls.wrapper}>

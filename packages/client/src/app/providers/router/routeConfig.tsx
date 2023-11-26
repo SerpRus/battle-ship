@@ -3,12 +3,12 @@ import Login from '../../../pages/LoginPage';
 import RegistrationPage from '../../../pages/RegistrationPage';
 import HomePage from '../../../pages/HomePage';
 import GamePage from '../../../pages/GamePage';
-import { Leaderboard } from '../../../pages/Leaderboard';
+import Leaderboard from '../../../pages/Leaderboard';
 import Forum from '../../../pages/Forum';
 import Topic from '../../../pages/Forum/[id]';
 import NotFound from '../../../pages/404Page';
 import ServerErrorPage from '../../../pages/500Page';
-import { ProfilePage } from '../../../pages/ProfilePage';
+import ProfilePage from '../../../pages/ProfilePage';
 
 export type AppRouteProps = RouteProps & {
   authOnly?: boolean;
