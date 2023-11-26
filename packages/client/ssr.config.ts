@@ -21,12 +21,12 @@ export default defineConfig({
     preprocessorOptions: {
       scss: {
         additionalData: `
-            @import "./src/app/styles/scss/_vars.scss";
-            @import "./src/app/styles/scss/base/_fonts.scss";
-            @import "./src/app/styles/scss/base/_generic.scss";
-            @import "./src/app/styles/scss/base/_include.scss";
-            @import "./src/app/styles/scss/utils/_functions.scss";
-            @import "./src/app/styles/scss/utils/_mixins.scss";
+            @import "../client/src/app/styles/scss/_vars.scss";
+            @import "../client/src/app/styles/scss/base/_fonts.scss";
+            @import "../client/src/app/styles/scss/base/_generic.scss";
+            @import "../client/src/app/styles/scss/base/_include.scss";
+            @import "../client/src/app/styles/scss/utils/_functions.scss";
+            @import "../client/src/app/styles/scss/utils/_mixins.scss";
         `,
       },
     },
@@ -42,6 +42,7 @@ export default defineConfig({
         dir: 'ssr-dist',
       },
     },
+    ssr: true,
   },
   resolve: {
     alias: [

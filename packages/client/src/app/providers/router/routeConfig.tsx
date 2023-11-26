@@ -45,7 +45,7 @@ export const routeConfig: Record<AppRoutes, AppRouteProps> = {
   [AppRoutes.HOME]: {
     path: RoutePath.home,
     element: <HomePage />,
-    authOnly: true,
+    authOnly: false,
     name: 'Главная',
   },
   [AppRoutes.LOGIN]: {
