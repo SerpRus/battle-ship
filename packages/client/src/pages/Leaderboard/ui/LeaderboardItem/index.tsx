@@ -9,7 +9,7 @@ export const LeaderboardItem: FC<TLeaderboardItemProps> = props => {
       <div className={css.avatarWrapper}>
         <img
           className={css.avatarImg}
-          src={`/leaderAvatars/${avatarUrl}`}
+          src={avatarUrl}
           alt={`${nickName}_avatar`}
         />
       </div>
