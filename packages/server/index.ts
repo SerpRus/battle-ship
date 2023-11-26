@@ -67,7 +67,7 @@ async function startServer() {
           .render;
       }
 
-      const appHtml = await render(req.url);
+      const appHtml = await render(url);
 
       const html = template.replace(`<!--ssr-outlet-->`, appHtml);
 
