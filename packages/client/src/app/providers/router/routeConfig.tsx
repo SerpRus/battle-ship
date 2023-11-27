@@ -3,13 +3,13 @@ import Topic from '../../../pages/Forum/TopicConversationPage';
 import CreateTopic from '../../../pages/Forum/CreateTopicPage';
 import Login from '../../../pages/LoginPage';
 import RegistrationPage from '../../../pages/RegistrationPage';
-import { ProfilePage } from '../../../pages/ProfilePage';
 import TopicList from '../../../pages/Forum/TopicListPage';
 import HomePage from '../../../pages/HomePage';
 import GamePage from '../../../pages/GamePage';
-import { Leaderboard } from '../../../pages/Leaderboard';
 import NotFound from '../../../pages/404Page';
 import ServerErrorPage from '../../../pages/500Page';
+import Leaderboard from '../../../pages/Leaderboard';
+import ProfilePage from '../../../pages/ProfilePage';
 
 export type AppRouteProps = RouteProps & {
   authOnly?: boolean;

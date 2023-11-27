@@ -1,5 +1,5 @@
-import { ILoginDataFieldType } from '../../../pages/LoginPage/ui/loginPage';
-import { ISignUpData } from '../../../pages/RegistrationPage/ui/registrationPage';
+// import { ILoginDataFieldType } from '../../../pages/LoginPage/ui/loginPage';
+// import { ISignUpData } from '../../../pages/RegistrationPage/ui/registrationPage';
 
 export interface IUser {
   id: number;
@@ -12,22 +12,22 @@ export interface IUser {
   phone: string;
 }
 
-export interface IAuthContext {
-  user: IUser;
-  login: (
-    data: Omit<ILoginDataFieldType, 'remember'>
-  ) => Promise<boolean | null>;
-  logout: () => Promise<boolean>;
-  signUp: (
-    data: ISignUpData
-  ) => Promise<{ [index: string]: string | number } | null>;
-  errors: any[];
-  isLoading: boolean;
-  isAuth: boolean;
-  isFullScreen: boolean;
-  fullScreen: () => Promise<void>;
-  checkIsAuth: () => Promise<IUser | null>;
-}
+// export interface IAuthContext {
+// user: IUser;
+// login: (
+//   data: Omit<ILoginDataFieldType, 'remember'>
+// ) => Promise<boolean | null>;
+// logout: () => Promise<boolean>;
+// signUp: (
+//   data: ISignUpData
+// ) => Promise<{ [index: string]: string | number } | null>;
+// errors: any[];
+// isLoading: boolean;
+// isAuth: boolean;
+// isFullScreen: boolean;
+// fullScreen: () => Promise<void>;
+// checkIsAuth: () => Promise<IUser | null>;
+// }
 
 declare global {
   interface Document {

@@ -1,6 +1,6 @@
 import { Card, Layout, Flex, Space } from 'antd';
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { CommentOutlined, LikeFilled } from '@ant-design/icons';
 import { v4 as makeUUID } from 'uuid';
 
@@ -23,6 +23,8 @@ type TopicType = {
 };
 
 export const TopicList: React.FC = () => {
+  const navigate = useNavigate();
+
   const [data] = useState(forumData.data.topics);
   const [readyMadeItems, setreadyMadeItems] = useState<TopicType[]>([]);
 
@@ -38,7 +40,12 @@ export const TopicList: React.FC = () => {
       <Flex justify="center" className={cls.wrapper}>
         <Card className={cls.forumPageCard}>
           <Flex justify="center" vertical>
-            <PrimaryButton>Create new topic</PrimaryButton>
+            <PrimaryButton
+              onClick={() => {
+                navigate('/forum/create');
+              }}>
+              Create new topic
+            </PrimaryButton>
           </Flex>
         </Card>
         <Content
