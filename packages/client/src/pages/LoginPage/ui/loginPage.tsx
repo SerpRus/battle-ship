@@ -13,6 +13,7 @@ import {
 import { ValidatableFormItemInput } from '../../../shared/ui/ValidatableFormItemInput/ValidatableFormItemInput';
 
 import { RoutePath } from '../../../app/providers/router/routeConfig';
+import PrimaryButton from '../../../shared/ui/PrimaryButton/PrimaryButton';
 
 import { AppDispath, RootState } from '../../../store';
 
@@ -137,9 +138,7 @@ export const LoginPage = () => {
           />
 
           <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-            <Button type="primary" htmlType="submit">
-              Войти
-            </Button>
+            <PrimaryButton>Войти</PrimaryButton>
             <Button
               type="link"
               onClick={() => {

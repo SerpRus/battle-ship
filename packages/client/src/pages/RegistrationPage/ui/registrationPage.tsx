@@ -14,6 +14,7 @@ import {
 } from '../../../shared/constants/validationConstants';
 import { ValidatableFormItemInput } from '../../../shared/ui/ValidatableFormItemInput/ValidatableFormItemInput';
 import { RoutePath } from '../../../app/providers/router/routeConfig';
+import PrimaryButton from '../../../shared/ui/PrimaryButton/PrimaryButton';
 import { AppDispath, RootState } from '../../../store';
 import { signUp, userActions } from '../../../store/userSlice';
 
@@ -203,9 +204,7 @@ export const RegistrationPage = () => {
           />
 
           <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-            <Button type="primary" htmlType="submit">
-              Зарегистрироваться
-            </Button>
+            <PrimaryButton>Зарегистрироваться</PrimaryButton>
             <Button
               type="link"
               onClick={() => {

@@ -1,13 +1,14 @@
 import { RouteProps } from 'react-router-dom';
+import Topic from '../../../pages/Forum/TopicConversationPage';
+import CreateTopic from '../../../pages/Forum/CreateTopicPage';
 import Login from '../../../pages/LoginPage';
 import RegistrationPage from '../../../pages/RegistrationPage';
+import TopicList from '../../../pages/Forum/TopicListPage';
 import HomePage from '../../../pages/HomePage';
 import GamePage from '../../../pages/GamePage';
-import Leaderboard from '../../../pages/Leaderboard';
-import Forum from '../../../pages/Forum';
-import Topic from '../../../pages/Forum/[id]';
 import NotFound from '../../../pages/404Page';
 import ServerErrorPage from '../../../pages/500Page';
+import Leaderboard from '../../../pages/Leaderboard';
 import ProfilePage from '../../../pages/ProfilePage';
 
 export type AppRouteProps = RouteProps & {
@@ -23,6 +24,7 @@ export enum AppRoutes {
   GAME = 'game',
   LEADERBOARD = 'leaderboard',
   FORUM = 'forum',
+  CREATE_TOPIC = 'create',
   TOPIC = 'topic',
   NOT_FOUND = 'not_found',
   SERVER_ERROR = 'server_error',
@@ -36,6 +38,7 @@ export const RoutePath: Record<AppRoutes, string> = {
   [AppRoutes.GAME]: '/game',
   [AppRoutes.LEADERBOARD]: '/leaderboard',
   [AppRoutes.FORUM]: '/forum',
+  [AppRoutes.CREATE_TOPIC]: '/forum/create',
   [AppRoutes.TOPIC]: '/forum/:id',
   [AppRoutes.SERVER_ERROR]: '/500',
   [AppRoutes.NOT_FOUND]: '*',
@@ -80,15 +83,21 @@ export const routeConfig: Record<AppRoutes, AppRouteProps> = {
   },
   [AppRoutes.FORUM]: {
     path: RoutePath.forum,
-    element: <Forum />,
+    element: <TopicList />,
     authOnly: true,
     name: 'Форум',
+  },
+  [AppRoutes.CREATE_TOPIC]: {
+    path: RoutePath.create,
+    element: <CreateTopic />,
+    authOnly: true,
+    name: 'Cоздать новый топик',
   },
   [AppRoutes.TOPIC]: {
     path: RoutePath.topic,
     element: <Topic />,
     authOnly: true,
-    name: 'TOPIC',
+    name: 'Топик',
   },
   [AppRoutes.NOT_FOUND]: {
     path: RoutePath.not_found,

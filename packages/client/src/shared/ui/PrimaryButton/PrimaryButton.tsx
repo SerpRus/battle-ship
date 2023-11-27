@@ -1,9 +1,12 @@
 import React from 'react';
 import { Button } from 'antd';
 
-const PrimaryButton: React.FC<{ buttonTitle: string }> = ({ buttonTitle }) => (
-  <Button type="primary" htmlType="submit">
-    {buttonTitle}
+const PrimaryButton: React.FC<{ children: string; onClick?: () => void }> = ({
+  children,
+  ...props
+}) => (
+  <Button type="primary" htmlType="submit" {...props}>
+    {children}
   </Button>
 );
 
