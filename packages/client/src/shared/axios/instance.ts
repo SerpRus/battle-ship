@@ -13,7 +13,9 @@ export const AxiosInstance = axios.create({
     data => {
       let resp;
       try {
-        resp = JSON.parse(data);
+        if (data && data !== 'OK') {
+          resp = JSON.parse(data);
+        }
       } catch (error) {
         // eslint-disable-next-line no-console
         console.log(error);
@@ -21,6 +23,7 @@ export const AxiosInstance = axios.create({
       if (resp) {
         return resp;
       }
+
       return data;
     },
   ],
