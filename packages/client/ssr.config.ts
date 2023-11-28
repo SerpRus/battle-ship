@@ -42,7 +42,6 @@ export default defineConfig({
         dir: 'ssr-dist',
       },
     },
-    ssr: true,
   },
   resolve: {
     alias: [
