@@ -6,9 +6,9 @@ import { createStore } from './src/store';
 
 export { createStore };
 
-const store = createStore(undefined);
+// const store = createStore(undefined);
 
-export function render(url: string) {
+export function render(url: string, store: any) {
   return renderToString(
     <Provider store={store}>
       <StaticRouter location={url}>

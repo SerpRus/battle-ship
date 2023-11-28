@@ -58,18 +58,31 @@ async function startServer() {
         template = await vite!.transformIndexHtml(url, template);
       }
 
-      let render: (url: string) => Promise<string>;
+      let render: (url: string, state: any) => Promise<string>;
+      let createStore: (
+        preloadedState: Record<string, unknown> | undefined
+      ) => any;
 
       if (!isDev()) {
         render = (await import(ssrClientPath)).render;
+        createStore = (await import(ssrClientPath)).createStore;
       } else {
         render = (await vite!.ssrLoadModule(path.resolve(srcPath, 'ssr.tsx')))
           .render;
+        createStore = (
+          await vite!.ssrLoadModule(path.resolve(srcPath, 'ssr.tsx'))
+        ).createStore;
       }
 
-      const appHtml = await render(url);
+      const store = createStore(undefined);
+      const state = store.getState();
 
-      const html = template.replace(`<!--ssr-outlet-->`, appHtml);
+      const appHtml = await render(url, state);
+      const stateHtml = `<script>window.__PRELOADED_STATE__=${JSON.stringify(
+        state
+      ).replace(/</g, '\\u003c')}</script>`;
+
+      const html = template.replace(`<!--ssr-outlet-->`, appHtml + stateHtml);
 
       res.status(200).set({ 'Content-Type': 'text/html' }).end(html);
     } catch (e) {
