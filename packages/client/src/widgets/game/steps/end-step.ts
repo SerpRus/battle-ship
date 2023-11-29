@@ -10,15 +10,12 @@ import {
   SUCCESS_COLOR,
 } from '../utils/constants';
 import { BoardType, GameStepI } from '../types';
-import getCurrectUsersFromUserRating from '../../../shared/utils/getCurrectUsersFromUserRating';
-import { UserStore } from '../../../pages/ProfilePage/model/store';
+import leaderBoardController from '../../../shared/controllers/leaderBoardController';
 import ships from '../elements/ships';
 import renderBoardShots from '../elements/render-board-shots';
 import button from '../elements/button';
 import checkClickElement from '../utils/check-click-element';
 import getClickPosition from '../utils/get-click-position';
-import leaderboardApi from '../../../shared/axios/LeaderboardApi';
-import { RATING_FIELD_NAME } from '../../../shared/constants/rating';
 
 export default class EndStep implements GameStepI {
   ctx;
@@ -75,58 +72,8 @@ export default class EndStep implements GameStepI {
   render = async () => {
     createGrid(this.ctx);
 
-    const store = new UserStore();
-    const currentUserData = await store.getUser();
-
     if (this.isPlayerWin) {
-      const usersRating = await leaderboardApi.getAll({
-        ratingFieldName: RATING_FIELD_NAME,
-        cursor: 0,
-        limit: 10,
-      });
-
-      const currentUserRating = usersRating.data.find(
-        (item: any) =>
-          (item.data.login || item.data.display_name) === currentUserData.login
-      );
-
-      const userRating = currentUserRating
-        ? currentUserRating.data[RATING_FIELD_NAME]
-        : 0;
-
-      const time = new Date().getTime();
-      const data = {
-        data: {
-          login: currentUserData.login,
-          userName: currentUserData.display_name || currentUserData.login,
-          battleShipRating: userRating + 10,
-          time,
-          position: 0,
-        },
-        ratingFieldName: RATING_FIELD_NAME,
-      };
-
-      const currectUsers = getCurrectUsersFromUserRating(usersRating.data);
-
-      const currentUserRatingData = currectUsers.find(
-        user => user.login === data.data.login
-      );
-
-      if (currentUserRatingData) {
-        currentUserRatingData.battleShipRating = userRating + 10;
-      } else {
-        currectUsers.push(data.data);
-      }
-
-      const sorted = currectUsers.sort(
-        (a, b) => b.battleShipRating - a.battleShipRating
-      );
-
-      data.data.position = sorted.findIndex(
-        item => item.login === currentUserData.login
-      );
-
-      await leaderboardApi.addUser(data);
+      await leaderBoardController.setPlayerRating();
     }
 
     const textMessage = `Игра окончена, победил ${
