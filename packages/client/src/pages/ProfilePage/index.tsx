@@ -1,4 +1,5 @@
-import { FC, useCallback, useEffect, useMemo, useState } from 'react';
+import type { FC } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Spin } from 'antd';
 import css from './styes.module.scss';
 import { UserStore } from './store';

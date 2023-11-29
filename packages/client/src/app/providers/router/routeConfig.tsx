@@ -1,6 +1,7 @@
 import { RouteProps } from 'react-router-dom';
 import Login from '../../../pages/LoginPage';
 import RegistrationPage from '../../../pages/RegistrationPage';
+import RegistrationPageTmp from '../../../pages/RegistrationPageTmp';
 import HomePage from '../../../pages/HomePage';
 import GamePage from '../../../pages/GamePage';
 import { Leaderboard } from '../../../pages/Leaderboard';
@@ -19,6 +20,7 @@ export enum AppRoutes {
   HOME = 'home',
   LOGIN = 'login',
   REGISTRATION = 'registration',
+  REGISTRATION_TMP = 'registrationTmp',
   PROFILE = 'profile',
   GAME = 'game',
   LEADERBOARD = 'leaderboard',
@@ -32,6 +34,7 @@ export const RoutePath: Record<AppRoutes, string> = {
   [AppRoutes.HOME]: '/',
   [AppRoutes.LOGIN]: '/login',
   [AppRoutes.REGISTRATION]: '/registration',
+  [AppRoutes.REGISTRATION_TMP]: '/registration-tmp',
   [AppRoutes.PROFILE]: '/profile',
   [AppRoutes.GAME]: '/game',
   [AppRoutes.LEADERBOARD]: '/leaderboard',
@@ -59,6 +62,12 @@ export const routeConfig: Record<AppRoutes, AppRouteProps> = {
     element: <RegistrationPage />,
     authOnly: false,
     name: 'Регистрация',
+  },
+  [AppRoutes.REGISTRATION_TMP]: {
+    path: RoutePath.registrationTmp,
+    element: <RegistrationPageTmp />,
+    authOnly: false,
+    name: 'Регистрация Тест',
   },
   [AppRoutes.PROFILE]: {
     path: RoutePath.profile,

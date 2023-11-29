@@ -1,4 +1,3 @@
-import React from 'react';
 import { Layout, Button, Form } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
