@@ -7,7 +7,7 @@
     "dev:client": "lerna run dev  --scope=client",
     "dev:server": "lerna run dev --scope=server",
     "dev": "lerna run dev",
-    "test": "lerna run test -- -u",
+    "test": "lerna run test",
     "lint": "lerna run lint",
     "test:update:snapshot": "lerna run test -- -u",
     "format": "lerna run format",
