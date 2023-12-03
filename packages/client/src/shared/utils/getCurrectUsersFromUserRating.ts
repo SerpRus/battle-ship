@@ -1,11 +1,15 @@
-export default function getCurrectUsersFromUserRating(users: any[]) {
+import type { usersRatingData } from '../types/leaderBoardTypes';
+
+export default function getCurrectUsersFromUserRating(
+  users: usersRatingData[]
+) {
   const uniqUsers: string[] = [];
 
   return (
     users
       // При добавлении пользователя в рейтинг на сервере данные записались некорректно,
       // есть 2 пользователя с одинаковым логином, а так же 2 пользователя с логином 'null'.
-      .filter((user: any) => {
+      .filter((user: usersRatingData) => {
         const { login } = user.data;
 
         if (login && !uniqUsers.includes(login)) {
@@ -16,6 +20,6 @@ export default function getCurrectUsersFromUserRating(users: any[]) {
 
         return false;
       })
-      .map((user: any) => user.data)
+      .map((user: usersRatingData) => user.data)
   );
 }

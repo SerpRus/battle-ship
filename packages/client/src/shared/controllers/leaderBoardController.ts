@@ -1,28 +1,18 @@
 import leaderboardApi from '../axios/LeaderboardApi';
-import { RATING_FIELD_NAME } from '../constants/rating';
+import { RATING_FIELD_NAME, POINTS_FOR_VICTORY } from '../constants/rating';
 import getCurrectUsersFromUserRating from '../utils/getCurrectUsersFromUserRating';
 import { UserStore } from '../../pages/ProfilePage/model/store';
 import usersApi from '../axios/UsersApi';
+import type {
+  UserRatingDataType,
+  UserRatingFullDataType,
+} from '../types/leaderBoardTypes';
 import { BASE_URL } from '../../pages/ProfilePage/ui/Avatar/constants';
 import stub from '../../../public/stubs/stub.svg';
-
-type UserRatingDataType = {
-  avatar?: string;
-  battleShipRating: number;
-  login: string;
-  display_name?: string;
-  position: number;
-  time: number;
-  userName: string;
-};
-
-type UserRatingFullDataType = {
-  data: UserRatingDataType;
-  ratingFieldName: string;
-};
+import { usersRatingData } from '../types/leaderBoardTypes';
 
 class LeaderBoardController {
-  async setPlayerRating() {
+  async setPlayerRating(pointsForVictory = POINTS_FOR_VICTORY) {
     const store = new UserStore();
     const currentUserData = await store.getUser();
 
@@ -32,8 +22,8 @@ class LeaderBoardController {
       limit: 10,
     });
 
-    const currentUserRating = usersRating.data.find(
-      (item: UserRatingFullDataType) =>
+    const currentUserRating = usersRating.find(
+      (item: usersRatingData) =>
         (item.data.login || item.data.display_name) === currentUserData.login
     );
 
@@ -46,21 +36,21 @@ class LeaderBoardController {
       data: {
         login: currentUserData.login,
         userName: currentUserData.display_name || currentUserData.login,
-        battleShipRating: userRating + 10,
+        battleShipRating: userRating + pointsForVictory,
         time,
         position: 0,
       },
       ratingFieldName: RATING_FIELD_NAME,
     };
 
-    const currectUsers = getCurrectUsersFromUserRating(usersRating.data);
+    const currectUsers = getCurrectUsersFromUserRating(usersRating);
 
     const currentUserRatingData = currectUsers.find(
       user => user.login === data.data.login
     );
 
     if (currentUserRatingData) {
-      currentUserRatingData.battleShipRating = userRating + 10;
+      currentUserRatingData.battleShipRating = userRating + pointsForVictory;
     } else {
       currectUsers.push(data.data);
     }
@@ -92,7 +82,7 @@ class LeaderBoardController {
       limit: 10,
     });
 
-    const currectUsers = getCurrectUsersFromUserRating(usersRating.data);
+    const currectUsers = getCurrectUsersFromUserRating(usersRating);
 
     // Из поиска нельзя получить данные текущего пользователя,
     // поэтому картинку текущего пользователя получаю из данных авторизованного пользователя
@@ -100,7 +90,10 @@ class LeaderBoardController {
       const currentUser = currectUsers.find(
         user => user.login === currentUserData.login
       );
-      currentUser.avatar = currentUserData.avatar;
+
+      if (currentUser) {
+        currentUser.avatar = currentUserData.avatar;
+      }
     }
 
     const promises: Promise<any>[] = [];
