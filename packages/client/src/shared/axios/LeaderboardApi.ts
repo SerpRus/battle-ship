@@ -1,8 +1,8 @@
 import { AxiosInstance } from './instance';
 import type {
   UserRatingFullDataType,
-  getAllUsersRatingData,
-  usersRatingData,
+  GetAllUsersRatingDataType,
+  UsersRatingDataType,
 } from '../types/leaderBoardTypes';
 
 class LeaderboardApi {
@@ -12,7 +12,9 @@ class LeaderboardApi {
     });
   }
 
-  public async getAll(data: getAllUsersRatingData): Promise<usersRatingData[]> {
+  public async getAll(
+    data: GetAllUsersRatingDataType
+  ): Promise<UsersRatingDataType[]> {
     const response = await AxiosInstance.post('leaderboard/all', {
       ...data,
     });

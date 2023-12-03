@@ -9,7 +9,7 @@ import type {
 } from '../types/leaderBoardTypes';
 import { BASE_URL } from '../../pages/ProfilePage/ui/Avatar/constants';
 import stub from '../../../public/stubs/stub.svg';
-import { usersRatingData } from '../types/leaderBoardTypes';
+import { UsersRatingDataType } from '../types/leaderBoardTypes';
 
 class LeaderBoardController {
   async setPlayerRating(pointsForVictory = POINTS_FOR_VICTORY) {
@@ -23,7 +23,7 @@ class LeaderBoardController {
     });
 
     const currentUserRating = usersRating.find(
-      (item: usersRatingData) =>
+      (item: UsersRatingDataType) =>
         (item.data.login || item.data.display_name) === currentUserData.login
     );
 

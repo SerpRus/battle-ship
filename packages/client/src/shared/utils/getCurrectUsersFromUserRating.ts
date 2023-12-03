@@ -1,7 +1,7 @@
-import type { usersRatingData } from '../types/leaderBoardTypes';
+import type { UsersRatingDataType } from '../types/leaderBoardTypes';
 
 export default function getCurrectUsersFromUserRating(
-  users: usersRatingData[]
+  users: UsersRatingDataType[]
 ) {
   const uniqUsers: string[] = [];
 
@@ -9,7 +9,7 @@ export default function getCurrectUsersFromUserRating(
     users
       // При добавлении пользователя в рейтинг на сервере данные записались некорректно,
       // есть 2 пользователя с одинаковым логином, а так же 2 пользователя с логином 'null'.
-      .filter((user: usersRatingData) => {
+      .filter((user: UsersRatingDataType) => {
         const { login } = user.data;
 
         if (login && !uniqUsers.includes(login)) {
@@ -20,6 +20,6 @@ export default function getCurrectUsersFromUserRating(
 
         return false;
       })
-      .map((user: usersRatingData) => user.data)
+      .map((user: UsersRatingDataType) => user.data)
   );
 }

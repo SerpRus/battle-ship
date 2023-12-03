@@ -13,12 +13,12 @@ export type UserRatingFullDataType = {
   ratingFieldName: string;
 };
 
-export type getAllUsersRatingData = {
+export type GetAllUsersRatingDataType = {
   ratingFieldName: string;
   cursor: number;
   limit: number;
 };
 
-export type usersRatingData = {
+export type UsersRatingDataType = {
   data: UserRatingDataType;
 };
