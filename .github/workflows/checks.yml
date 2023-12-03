@@ -21,5 +21,7 @@ jobs:
         run: yarn lerna bootstrap
       - name: Lint
         run: yarn lint
+      - name: Upd Snapshot
+        run: yarn test -u
       - name: Test
         run: yarn test
