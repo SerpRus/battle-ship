@@ -22,6 +22,6 @@ jobs:
       - name: Lint
         run: yarn lint
       - name: Upd Snapshot
-        run: yarn test -u
+        run: yarn test -- -u
       - name: Test
         run: yarn test
