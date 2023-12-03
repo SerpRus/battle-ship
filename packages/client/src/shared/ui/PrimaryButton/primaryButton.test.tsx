@@ -1,7 +1,6 @@
 import * as renderer from 'react-test-renderer';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import jssSerializer from 'jss-snapshot-serializer';
 import PrimaryButton from './PrimaryButton';
 
 describe('PrimaryButton', () => {
@@ -18,7 +17,6 @@ describe('PrimaryButton', () => {
     const tree = renderer
       .create(<PrimaryButton>{buttonTitle}</PrimaryButton>)
       .toJSON();
-    expect.addSnapshotSerializer(jssSerializer);
     expect(tree).toMatchSnapshot();
   });
 
