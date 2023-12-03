@@ -1,5 +1,4 @@
 import dotenv from 'dotenv';
-import * as path from 'path';
 
 dotenv.config();
 
@@ -15,7 +14,5 @@ export default {
     '.+\\.(jpg|ico|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga|css|scss)$':
       '<rootDir>/__mocks__/mockFunction.js',
   },
-  snapshotSerializers: [
-    path.resolve(__dirname, 'jest-serializer-merge-styles'),
-  ],
+  snapshotSerializers: ['jss-snapshot-serializer'],
 };
