@@ -1,56 +1,66 @@
-.container {
-  display: flex;
-  align-items: center;
-  background-color: var(--bkg-light-blue);
-  border-radius: 3rem;
+.leader-card {
   display: grid;
   grid-template-areas: 'avatar nickName score dynamics place';
-  grid-auto-columns: 6rem 1fr 7.3rem 2rem 6rem;
-  row-gap: 5rem;
-  padding: 1rem 0;
+  grid-auto-columns: rem(96) rem(220) rem(116) rem(32) rem(96);
+  align-items: center;
+  row-gap: rem(80);
 
-  .avatarWrapper {
-    grid-area: avatar;
-    width: 6rem;
-    position: relative;
-    height: 100%;
+  padding: rem(16) 0;
 
-    .avatarImg {
-      top: -105%;
-      width: 6rem;
-      height: 6rem;
-      position: absolute;
-      overflow: visible;
+  border-radius: rem(48);
+  background-color: var(--bkg-light-blue);
+
+  &__img {
+    @include position-stretching;
+
+    object-fit: cover;
+
+    border-radius: 50%;
+
+    &-wrapper {
+      $size: 96px;
+
+      position: relative;
+
+      grid-area: avatar;
+
+      width: rem($size);
+      height: rem($size);
+      margin: rem(-30);
     }
   }
 
-  .nickName {
+  &__name {
+    overflow: hidden;
     grid-area: nickName;
-    padding: 0 1rem;
+
+    padding: 0 rem(16);
+
     white-space: nowrap;
     text-overflow: ellipsis;
-    max-width: 13.75rem;
-    overflow: hidden;
   }
 
-  .score {
+  &__score {
     grid-area: score;
   }
 
-  .dynamics {
+  &__dynamics {
     grid-area: dynamics;
-    width: 2rem;
-    height: 2rem;
-    background-position: center;
+
+    height: rem(32);
   }
-  .place {
-    grid-area: place;
-    font-size: 5.25rem;
-    font-weight: 900;
+
+  &__place {
+    @include text-props(84, 20, 900);
+
     position: relative;
-    top: -1.1rem;
+    top: rem(-16);
+
+    grid-area: place;
+
+    padding-right: rem(16);
+
     text-align: right;
-    padding-right: 1rem;
   }
 
   & + & {
