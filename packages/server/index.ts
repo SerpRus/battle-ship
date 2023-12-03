@@ -21,13 +21,17 @@ async function startServer() {
   });
   const port = Number(process.env.SERVER_PORT) || 3001;
   let vite: ViteDevServer | undefined;
-  let distPath = path.dirname(require.resolve('client/dist/index.html'));
-  const srcPath = path.dirname(require.resolve('client'));
-  let ssrClientPath = require.resolve('client/ssr-dist/client.cjs');
+  let distPath = '';
+  let srcPath = '';
+  let ssrClientPath = '';
 
   createClientAndConnect();
 
   if (isDev()) {
+    distPath = path.dirname(require.resolve('client/dist/index.html'));
+    srcPath = path.dirname(require.resolve('client'));
+    ssrClientPath = require.resolve('client/ssr-dist/client.cjs');
+
     vite = await createViteServer({
       server: { middlewareMode: true },
       root: srcPath,
