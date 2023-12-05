@@ -1,12 +1,12 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 
-interface StateProps {
+interface HelpersStateProps {
   isFullScreen: boolean;
   error?: string;
 }
 
-const initialState: StateProps = {
+const initialState: HelpersStateProps = {
   isFullScreen: false,
 };
 

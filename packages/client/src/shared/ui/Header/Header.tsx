@@ -59,7 +59,7 @@ const Header: FC = () => {
           return null;
         })}
       </ul>
-      {isAuth && (
+      {!isAuth && (
         <div className={cls.btn}>
           <Button onClick={onLogout}>Выйти</Button>
         </div>

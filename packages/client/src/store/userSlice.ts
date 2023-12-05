@@ -13,7 +13,7 @@ export interface isAuthState {
   isAuth: boolean;
 }
 
-interface StateProps {
+interface UserStateProps {
   isAuth: boolean;
   isLoading?: boolean;
   error?: string;
@@ -21,7 +21,7 @@ interface StateProps {
   user?: IUser;
 }
 
-const initialState: StateProps = {
+const initialState: UserStateProps = {
   isAuth: loadState<isAuthState>(IS_AUTH)?.isAuth ?? false,
 };
 
@@ -87,7 +87,7 @@ export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    clearError: (state: StateProps) => {
+    clearError: (state: UserStateProps) => {
       state.error = undefined;
     },
     setOnLoading: state => {
