@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import './app/styles/App.scss';
 import { ToastContainer } from 'react-toastify';
 import { AppRouter } from './app/providers/router/AppRouter';

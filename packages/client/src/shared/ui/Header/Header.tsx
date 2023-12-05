@@ -1,23 +1,19 @@
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import React, { FC, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import type { FC } from 'react';
 import { Button } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout, userActions } from '../../../store/userSlice';
-
 import {
   AppRoutes,
   routeConfig,
-  RoutePath,
 } from '../../../app/providers/router/routeConfig';
 import cls from './Header.module.scss';
-
 import { AppDispath, RootState } from '../../../store';
 
 const Header: FC = () => {
   const dispatch = useDispatch<AppDispath>();
   const isAuth = useSelector((s: RootState) => s.user.isAuth);
   const isFullScreen = useSelector((s: RootState) => s.helpers.isFullScreen);
-  const navigate = useNavigate();
   const { pathname } = useLocation();
 
   const onLogout = () => {
@@ -25,12 +21,6 @@ const Header: FC = () => {
     dispatch(userActions.clearError());
     dispatch(logout());
   };
-
-  useEffect(() => {
-    if (!isAuth && pathname !== `/${AppRoutes.REGISTRATION}`) {
-      navigate(RoutePath.login, { replace: true });
-    }
-  }, [isAuth, navigate, pathname]);
 
   return (
     <nav className={isFullScreen ? `${cls.navbar} hidden` : `${cls.navbar}`}>
