@@ -1,8 +1,6 @@
 import type { UsersRatingDataType } from '../types/leaderBoardTypes';
 
-export default function getCurrectUsersFromUserRating(
-  users: UsersRatingDataType[]
-) {
+export default function getCurrectUsers(users: UsersRatingDataType[]) {
   const uniqUsers: string[] = [];
 
   return (

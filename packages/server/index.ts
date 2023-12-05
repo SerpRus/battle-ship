@@ -6,7 +6,8 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { createServer as createViteServer } from 'vite';
 import helmet from 'helmet';
-import { createClientAndConnect } from './db';
+import { startApp } from './app';
+import routes from './app/routes';
 
 dotenv.config();
 const isDev = () => process.env.NODE_ENV === 'development';
@@ -25,7 +26,8 @@ async function startServer() {
   let srcPath = '';
   let ssrClientPath = '';
 
-  createClientAndConnect();
+  startApp();
+  routes(app);
 
   if (isDev()) {
     distPath = path.dirname(require.resolve('client/dist/index.html'));
