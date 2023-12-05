@@ -8,6 +8,8 @@ import 'normalize.css';
 import ErrorBoundary from './app/providers/ErrorBoundary/ErrorBoundary';
 import store from './store';
 
+delete window.__PRELOADED_STATE__;
+
 const rootElement = document.getElementById('root') as HTMLElement;
 const app = (
   <React.StrictMode>
