@@ -59,6 +59,7 @@ const Header: FC = () => {
           return null;
         })}
       </ul>
+      {/* TODO: вернуть */}
       {!isAuth && (
         <div className={cls.btn}>
           <Button onClick={onLogout}>Выйти</Button>

@@ -6,13 +6,8 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { createServer as createViteServer } from 'vite';
 import helmet from 'helmet';
-// import {  PRELOADED_STATE } from 'client/src/store'
+import { PRELOADED_STATE } from 'client/src/store';
 import { createClientAndConnect } from './db';
-// import { configureStore } from '@reduxjs/toolkit'
-// import userSlice from 'client/src/store/userSlice'
-// import helpersSlice from 'client/src/store/helpersSlice'
-
-// import {render}  from '../client/ssr'
 
 dotenv.config();
 const isDev = () => process.env.NODE_ENV === 'development';
@@ -61,9 +56,6 @@ async function startServer() {
   app.use('*', async (req, res, next) => {
     const url = req.originalUrl;
     let template: string;
-    // let render: (url: string, state: any) => Promise<string>;
-
-    let render: any;
 
     try {
       if (!isDev()) {
@@ -71,8 +63,6 @@ async function startServer() {
           path.resolve(distPath, 'index.html'),
           'utf-8'
         );
-
-        render = (await import(ssrClientPath)).render;
       } else {
         template = fs.readFileSync(
           path.resolve(srcPath, 'index.html'),
@@ -80,61 +70,35 @@ async function startServer() {
         );
 
         template = await vite!.transformIndexHtml(url, template);
+      }
 
+      let render: (url: string, state: any) => Promise<string>;
+      let createStore: (
+        preloadedState: Record<string, unknown> | undefined
+      ) => any;
+
+      if (!isDev()) {
+        render = (await import(ssrClientPath)).render;
+        createStore = (await import(ssrClientPath)).createStore;
+      } else {
         render = (await vite!.ssrLoadModule(path.resolve(srcPath, 'ssr.tsx')))
           .render;
+        createStore = (
+          await vite!.ssrLoadModule(path.resolve(srcPath, 'ssr.tsx'))
+        ).createStore;
       }
 
-      // let createStore: (
-      //   preloadedState: Record<string, unknown> | undefined
-      // ) => any;
+      const store = createStore(PRELOADED_STATE);
+      const state = store.getState();
 
-      // if (!isDev()) {
-      //   render = (await import(ssrClientPath)).render;
-      //   // createStore = (await import(ssrClientPath)).createStore;
-      // } else {
-      //   render = (await vite!.ssrLoadModule(path.resolve(srcPath, 'ssr.tsx')))
-      //     .render;
-      //   // createStore = (
-      //   //   await vite!.ssrLoadModule(path.resolve(srcPath, 'ssr.tsx'))
-      //   // ).createStore;
-      // }
+      const appHtml = await render(url, store);
+      const stateHtml = `<script>window.__PRELOADED_STATE__=${JSON.stringify(
+        state
+      ).replace(/</g, '\\u003c')}</script>`;
 
-      const { appHTML, preloadedState } = await render(url);
-      // const store = createStore(PRELOADED_STATE);
-      // const store = createStore(undefined);
-      // const store = configureStore({
-      //   reducer: {
-      //     user: userSlice,
-      //     helpers: helpersSlice,
-      //   },
-      // });
+      const html = template.replace(`<!--ssr-outlet-->`, appHtml + stateHtml);
 
-      // const state = store.getState();
-
-      // const appHTML = await render(url, store)
-      // const state = store.getState();
-
-      // const stateHtml = `<script>window.__PRELOADED_STATE__=${JSON.stringify(
-      //   state
-      // ).replace(/</g, '\\u003c')}</script>`;
-      //
-      // const html = template.replace(`<!--ssr-outlet-->`, appHTML + stateHtml);
-      //
-      // res.status(200).set({ 'Content-Type': 'text/html' }).end(html);
-
-      if (template) {
-        const html = template
-          .replace('<!--ssr-outlet-->', appHTML)
-          .replace(
-            '<!--preloaded-state-->',
-            `<script>window.__PRELOADED_STATE__ = ${JSON.stringify(
-              preloadedState
-            ).replace(/</g, '\\u003c')}</script>`
-          );
-
-        res.status(200).set({ 'Content-Type': 'text/html' }).end(html);
-      }
+      res.status(200).set({ 'Content-Type': 'text/html' }).end(html);
     } catch (e) {
       if (isDev()) {
         vite!.ssrFixStacktrace(e as Error);
