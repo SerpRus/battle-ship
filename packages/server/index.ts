@@ -6,6 +6,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { createServer as createViteServer } from 'vite';
 import helmet from 'helmet';
+import { PRELOADED_STATE } from 'client/src/store';
 import { createClientAndConnect } from './db';
 
 dotenv.config();
@@ -88,7 +89,7 @@ async function startServer() {
         ).createStore;
       }
 
-      const store = createStore(undefined);
+      const store = createStore(PRELOADED_STATE);
       const state = store.getState();
 
       const appHtml = await render(url, store);
