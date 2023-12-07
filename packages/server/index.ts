@@ -75,6 +75,7 @@ async function startServer() {
 
       const store = createStore({
         user: {
+          // TODO: реализовать запрос на сервер
           isAuth: false,
         },
         helpers: {
