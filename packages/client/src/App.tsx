@@ -33,8 +33,8 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <ThemeProvider>
+    <ThemeProvider>
+      <div className="App">
         <ToastContainer
           position="top-right"
           autoClose={5000}
@@ -46,10 +46,9 @@ function App() {
           pauseOnHover
           theme="colored"
         />
-
         <AppRouter />
-      </ThemeProvider>
-    </div>
+      </div>
+    </ThemeProvider>
   );
 }
 
