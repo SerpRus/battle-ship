@@ -1,6 +1,6 @@
 import React, { ReactNode, useState, createContext } from 'react';
 import { Button } from '../Button';
-
+import css from './styles.module.scss';
 import seabattleImgLight from '../../../images/seabattle.png';
 import seabattleImgDark from '../../../images/seabattleInvert.png';
 
@@ -53,7 +53,7 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
         } as React.CSSProperties
       }>
       <ThemeContext.Provider value={currentTheme}>
-        <Button onClick={toggleTheme} type="button">
+        <Button onClick={toggleTheme} type="button" className={css.button}>
           {currentTheme.type === 'light' ? 'Темная тема' : 'Светлая тема'}
         </Button>
         {children}
