@@ -1,12 +1,15 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useContext } from 'react';
 import { Layout } from 'antd';
 import cls from './homePage.module.scss';
 import { RoutePath } from '../../../app/providers/router/routeConfig';
-import seabattleImg from '../seabattle.png';
+import { Button } from '../../../shared/ui/Button';
+import { ThemeContext } from '../../../shared/ui/Theme';
 
 const { Content } = Layout;
 
 export const HomePage = () => {
+  const currentTheme = useContext(ThemeContext);
+
   const onClick = useCallback(() => {
     window.location.replace(RoutePath.game);
   }, []);
@@ -45,13 +48,13 @@ export const HomePage = () => {
             <li>4 корабля — 1 клетка («однопалубные»; торпедные катера)</li>
           </ul>
           <div className={cls.button_wrapper}>
-            <button className={cls.button} type="button" onClick={onClick}>
+            <Button onClick={onClick} type="button">
               Играть
-            </button>
+            </Button>
           </div>
         </div>
         <div className={cls.img_wrapper}>
-          <img className={cls.img} src={seabattleImg} alt="морской бой" />
+          <img className={cls.img} src={currentTheme?.img} alt="морской бой" />
         </div>
       </Content>
     </Layout>

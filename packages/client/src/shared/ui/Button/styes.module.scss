@@ -31,3 +31,11 @@
     margin-left: 1rem;
   }
 }
+
+.dark {
+  color: #000000;
+  background-color: #bacf50;
+  &:hover {
+    background-color: #7d8e29;
+  }
+}
