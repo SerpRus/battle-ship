@@ -15,14 +15,7 @@
 
 ### Как запускать ssr?
 
-1. В папке client выполните команду `yarn build`
-2. В папке client выполните команду `yarn build:ssr`
-3. В папке client выполните команду `yarn link`
-4. В папке server выполните команду `yarn link client`
-5. В папке server выполните команду `yarn build`
-   PS: если необходимо, установите ts-node `npm i -G ts-node` и выполните команду `yarn bootstrap`
-6. В папке server выполните команду `yarn dev` для разработки или yarn preview для старта прод сборки
-
+Выполните команду `yarn build:ssr`
 
 ### Как добавить зависимости?
 

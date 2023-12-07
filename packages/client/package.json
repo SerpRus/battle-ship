@@ -21,7 +21,6 @@
     "dotenv": "^16.0.2",
     "enzyme": "^3.11.0",
     "eslint-config-prettier": "^8.5.0",
-    "helmet": "^7.1.0",
     "normalize.css": "^8.0.1",
     "prettier": "^2.7.1",
     "react": "18.2.0",
