@@ -13,7 +13,7 @@ export interface isAuthState {
   isAuth: boolean;
 }
 
-interface StateProps {
+export interface StateProps {
   isAuth: boolean;
   isLoading?: boolean;
   error?: string;
