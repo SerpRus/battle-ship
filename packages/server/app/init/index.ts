@@ -1,5 +1,7 @@
 import { Sequelize, SequelizeOptions } from 'sequelize-typescript';
-import { userModel } from '../models/user';
+import { commentModel } from '../models/comment';
+import { topicModel } from '../models/topic';
+import { replyModel } from '../models/reply';
 
 // TODO: переделать на переменные окружения
 const sequelizeOptions: SequelizeOptions = {
@@ -15,7 +17,15 @@ const sequelizeOptions: SequelizeOptions = {
 export const sequelize = new Sequelize(sequelizeOptions);
 
 // Инициализируем модели
-export const User = sequelize.define('User', userModel, {
+export const Topic = sequelize.define('Topic', topicModel, {
+  timestamps: false,
+});
+
+export const Comment = sequelize.define('Comment', commentModel, {
+  timestamps: false,
+});
+
+export const Reply = sequelize.define('Reply', replyModel, {
   timestamps: false,
 });
 

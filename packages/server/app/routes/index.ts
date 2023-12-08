@@ -1,10 +1,13 @@
-import { getUsersByFirstName } from '../index';
+import { getTopics, createTopic } from '../controllers/topic-controller';
 
-// TODO: тип
 export default function routes(app: any) {
-  // TODO: тест
-  app.get('/api/test', async (_: any, res: any) => {
-    const users = await getUsersByFirstName('Alex3');
-    res.json(users);
+  app.get('/api/topic', async (_: any, res: any) => {
+    const topics = await getTopics();
+    res.json(topics);
+  });
+
+  app.post('/api/topic', async (req: any, res: any) => {
+    await createTopic(req.body);
+    res.json('OK');
   });
 }
