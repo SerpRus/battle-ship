@@ -99,8 +99,6 @@ export const Topic: React.FC = () => {
     setInputText(element.value);
   }, []);
 
-  // const [notification, setNotification] = useState(false);
-
   useEffect(() => {
     getUserCallback();
   }, [getUserCallback]);
