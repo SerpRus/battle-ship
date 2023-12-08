@@ -8,7 +8,8 @@
         "description": "Description of 1st topic",
         "creationDate": "2023-10-21T19:01:00",
         "commentsCount": 1,
-        "likesCount": 0
+        "likesCount": 0,
+        "subscribers": []
       },
       {
         "id": 2,
@@ -17,7 +18,8 @@
         "description": "Description of 2nd topic",
         "creationDate": "2023-10-18T19:01:00",
         "commentsCount": 1,
-        "likesCount": 0
+        "likesCount": 0,
+        "subscribers": []
       },
       {
         "id": 3,
@@ -26,12 +28,13 @@
         "description": "Description of 3rd topic",
         "creationDate": "2023-10-15T19:01:00",
         "commentsCount": 1,
-        "likesCount": 0
+        "likesCount": 0,
+        "subscribers": []
       }
     ],
     "comments": [
       {
-        "id": "1",
+        "id": 1,
         "topicId": 2,
         "name": "Ivan",
         "comment": "Everything I think about it I wrote here",
@@ -39,7 +42,7 @@
         "likesCount": 0
       },
       {
-        "id": "2",
+        "id": 2,
         "topicId": 3,
         "name": "Andrew",
         "comment": "Trying to create my first topic",
@@ -47,7 +50,7 @@
         "likesCount": 0
       },
       {
-        "id": "3",
+        "id": 3,
         "topicId": 1,
         "name": "Zoya",
         "comment": "Hi, konnichiwa, pronto, privit, nihao",
@@ -55,7 +58,7 @@
         "likesCount": 0
       },
       {
-        "id": "4",
+        "id": 4,
         "topicId": 1,
         "name": "Asha",
         "comment": "Hao",
@@ -63,7 +66,7 @@
         "likesCount": 0
       },
       {
-        "id": "5",
+        "id": 5,
         "topicId": 1,
         "name": "Zaya",
         "comment": "Hi, konnichiwa, pronto, privit, nihao",
@@ -71,7 +74,7 @@
         "likesCount": 0
       },
       {
-        "id": "6",
+        "id": 6,
         "topicId": 1,
         "name": "Zoya",
         "comment": "Hi, konnichiwa, pronto, privit, nihao",
