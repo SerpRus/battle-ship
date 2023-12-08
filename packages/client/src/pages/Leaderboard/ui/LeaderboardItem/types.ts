@@ -1,7 +1,7 @@
 export type TLeaderboardItemProps = {
   avatarUrl: string;
   nickName: string;
-  score: string;
+  score: number;
   dynamics: string;
   place: number;
 };

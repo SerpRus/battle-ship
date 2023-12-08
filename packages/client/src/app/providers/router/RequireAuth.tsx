@@ -8,7 +8,7 @@ export function RequireAuth({ children }: { children: JSX.Element }) {
   const { isAuth: auth } = useSelector((s: RootState) => s.user);
   const location = useLocation();
 
-  if (!auth) {
+  if (!auth && typeof window !== 'undefined') {
     toast.error('Доступ запрещен');
     return <Navigate to={RoutePath.login} state={{ from: location }} replace />;
   }

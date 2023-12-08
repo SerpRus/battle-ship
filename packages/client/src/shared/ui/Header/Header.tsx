@@ -42,7 +42,10 @@ const Header: FC = () => {
             name,
           } = routeConfig[key as AppRoutes];
 
-          if (isAuth === routeAuthOnly) {
+          if (
+            (isAuth === routeAuthOnly && routeAuthOnly !== undefined) ||
+            (typeof window === 'undefined' && routeAuthOnly === false)
+          ) {
             return (
               <li key={key}>
                 <Link

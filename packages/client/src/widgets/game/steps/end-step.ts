@@ -1,4 +1,3 @@
-import React from 'react';
 import createGrid from '../elements/grid';
 import text from '../elements/text';
 import board from '../elements/board';
@@ -11,6 +10,7 @@ import {
   SUCCESS_COLOR,
 } from '../utils/constants';
 import { BoardType, GameStepI } from '../types';
+import leaderBoardController from '../../../shared/controllers/leaderBoardController';
 import ships from '../elements/ships';
 import renderBoardShots from '../elements/render-board-shots';
 import button from '../elements/button';
@@ -71,6 +71,10 @@ export default class EndStep implements GameStepI {
 
   render = async () => {
     createGrid(this.ctx);
+
+    if (this.isPlayerWin) {
+      await leaderBoardController.setPlayerRating();
+    }
 
     const textMessage = `Игра окончена, победил ${
       this.isPlayerWin ? 'Игрок' : 'Компьютер'
@@ -153,6 +157,17 @@ export default class EndStep implements GameStepI {
     if (!this.isPlayAgainButtonClick(x, y)) {
       return;
     }
+
+    this.setComputerBoard({
+      ships: [],
+      shots: [...Array(BOARD_SIZE)].map(() => Array(BOARD_SIZE)),
+      hits: 0,
+    });
+    this.setPlayerBoard({
+      ships: [],
+      shots: [...Array(BOARD_SIZE)].map(() => Array(BOARD_SIZE)),
+      hits: 0,
+    });
 
     this.setGameStep('start');
   };

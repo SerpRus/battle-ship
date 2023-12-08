@@ -1,5 +1,5 @@
 import React, { Suspense, useCallback } from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { AppRouteProps, routeConfig } from './routeConfig';
 import { RequireAuth } from './RequireAuth';
 import Header from '../../../shared/ui/Header/Header';
@@ -23,9 +23,9 @@ export const AppRouter = () => {
   }, []);
 
   return (
-    <Router>
+    <>
       <Header />
       <Routes>{Object.values(routeConfig).map(renderWithWrapper)}</Routes>
-    </Router>
+    </>
   );
 };

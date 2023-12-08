@@ -1,20 +1,12 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import * as path from 'path';
 import { resolve } from 'path';
-import dotenv from 'dotenv';
 import svgr from 'vite-plugin-svgr';
 import { VitePWA } from 'vite-plugin-pwa';
 
-dotenv.config();
-
 // https://vitejs.dev/config/
 export default defineConfig({
-  server: {
-    port: Number(process.env.CLIENT_PORT) || 3000,
-  },
-  define: {
-    __SERVER_PORT__: process.env.SERVER_PORT || 3001,
-  },
   plugins: [
     svgr(),
     react(),
@@ -36,6 +28,18 @@ export default defineConfig({
             @import "../client/src/app/styles/scss/utils/_functions.scss";
             @import "../client/src/app/styles/scss/utils/_mixins.scss";
         `,
+      },
+    },
+  },
+  build: {
+    lib: {
+      entry: path.resolve(__dirname, 'ssr.tsx'),
+      name: 'Client',
+      formats: ['cjs'],
+    },
+    rollupOptions: {
+      output: {
+        dir: 'ssr-dist',
       },
     },
   },
