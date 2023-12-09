@@ -13,7 +13,7 @@ export interface isAuthState {
   isAuth: boolean;
 }
 
-interface StateProps {
+export interface StateProps {
   isAuth: boolean;
   isLoading?: boolean;
   error?: string;
@@ -136,6 +136,7 @@ export const userSlice = createSlice({
     builder.addCase(getUser.fulfilled, (state, action) => {
       state.isLoading = false;
       state.user = action.payload;
+      state.isAuth = true;
     });
   },
 });

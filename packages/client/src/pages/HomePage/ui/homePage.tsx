@@ -1,12 +1,15 @@
-import React, { useCallback } from 'react';
+import { useCallback } from 'react';
 import { Layout } from 'antd';
 import cls from './homePage.module.scss';
 import { RoutePath } from '../../../app/providers/router/routeConfig';
 import seabattleImg from '../seabattle.png';
+import { useOAuth } from '../../../app/providers/OAuth/helpers/useOAuth';
 
 const { Content } = Layout;
 
 export const HomePage = () => {
+  useOAuth();
+
   const onClick = useCallback(() => {
     window.location.replace(RoutePath.game);
   }, []);
