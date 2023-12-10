@@ -10,7 +10,7 @@ import { Card, Layout, Flex, Button, Form, Input } from 'antd';
 import {
   LikeFilled,
   SendOutlined,
-  NotificationOutlined,
+  NotificationTwoTone,
 } from '@ant-design/icons';
 
 import { TUser } from '../../../ProfilePage/model/types';
@@ -33,38 +33,30 @@ type CommentsDataType = {
   likesCount: number | string;
 };
 
-const onFinish = (values: unknown) => {
-  /* *
-   *   @todo Сделать типизацию
-   * */
-  console.log('Success:', values); // eslint-disable-line no-console
-};
-
-const onFinishFailed = (errorInfo: unknown) => {
-  /* *
-   *   @todo Сделать типизацию
-   * */
-  console.log('Failed:', errorInfo); // eslint-disable-line no-console
-};
-
-function notifyUser() {
+function notifyUser(
+  setNotification: React.Dispatch<React.SetStateAction<boolean>>
+) {
   if (!('Notification' in window)) {
     // eslint-disable-next-line no-alert
     alert("don't support notifications");
   } else if (Notification.permission === 'granted') {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const notify = new Notification('Thanks for enabling notifications!');
+    // eslint-disable-next-line no-new
+    new Notification('Thanks for enabling notifications!');
   } else if (Notification.permission !== 'denied') {
     Notification.requestPermission().then(permission => {
       if (permission === 'granted') {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const notify = new Notification('Thanks for enabling notifications!');
+        setNotification(true);
+        // eslint-disable-next-line no-new
+        new Notification('Thanks for enabling notifications!');
       }
     });
   }
 }
 
 export const Topic: React.FC = () => {
+  const [notification, setNotification] = useState(
+    Notification.permission === 'granted'
+  );
   const { id } = useParams();
 
   const topicsData = forumData.data.topics;
@@ -77,12 +69,6 @@ export const Topic: React.FC = () => {
 
   const [user, setUser] = useState<TUser>({} as TUser);
   const store = useMemo(() => new UserStore(), []);
-
-  const getUserCallback = useCallback(() => {
-    store.getUser().then(userData => {
-      setUser(userData);
-    });
-  }, [store]);
 
   useEffect(() => {
     const currentTopicComments = commentsData.filter(
@@ -100,8 +86,11 @@ export const Topic: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    getUserCallback();
-  }, [getUserCallback]);
+    store.getUser().then(userData => {
+      setUser(userData);
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [store]);
 
   const sendData = useCallback(() => {
     if (inputText) {
@@ -114,9 +103,9 @@ export const Topic: React.FC = () => {
         likesCount: 0,
         comment: inputText,
       };
-      if ('Notification' in window && Notification.permission === 'granted') {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars, max-len
-        const notify = new Notification(
+      if ('Notification' in window && notification) {
+        // eslint-disable-next-line no-new
+        new Notification(
           `${currentTopicData?.name} - ${newCommentData.name}: ${newCommentData.comment}`
         );
       }
@@ -125,7 +114,8 @@ export const Topic: React.FC = () => {
       setData(dataCopy);
       setInputText('');
     }
-  }, [commentsData, inputText, id, user, currentTopicData]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [commentsData, currentTopicData?.name, id, inputText]);
 
   return (
     <Layout className={cls.layout}>
@@ -140,19 +130,18 @@ export const Topic: React.FC = () => {
               <h4>{currentTopicData?.description}</h4>
               <div>
                 <LikeFilled />
-                <Button onClick={() => notifyUser()}>
-                  <NotificationOutlined />
-                </Button>
+                {!notification && (
+                  <Button onClick={() => notifyUser(setNotification)}>
+                    <NotificationTwoTone />
+                  </Button>
+                )}
               </div>
             </Card>
             <CommentCard itemList={readyMadeComments}>
-              <Form
-                onFinish={onFinish}
-                onFinishFailed={onFinishFailed}
-                autoComplete="off">
+              <Form autoComplete="off">
                 <Flex>
                   <Input value={inputText} onChange={onChange} />
-                  <Button onClick={sendData}>
+                  <Button onClick={() => sendData()}>
                     <SendOutlined />
                   </Button>
                 </Flex>
