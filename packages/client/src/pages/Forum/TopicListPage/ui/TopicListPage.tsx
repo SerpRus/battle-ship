@@ -1,7 +1,7 @@
 import { Card, Layout, Flex, Space } from 'antd';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { CommentOutlined, LikeFilled } from '@ant-design/icons';
+import { CommentOutlined } from '@ant-design/icons';
 import { v4 as makeUUID } from 'uuid';
 
 import forumData from '../../data.json';
@@ -71,10 +71,6 @@ export const TopicList: React.FC = () => {
                     <div>
                       <CommentOutlined />
                       {item.commentsCount}
-                    </div>
-                    <div>
-                      <LikeFilled />
-                      {item.likesCount}
                     </div>
                   </Flex>,
                   <div>info</div>,

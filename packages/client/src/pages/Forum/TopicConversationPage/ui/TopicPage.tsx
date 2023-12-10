@@ -1,7 +1,7 @@
 import React, { useState, useEffect, ChangeEvent, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import { Card, Layout, Flex, Button, Form, Input } from 'antd';
-import { LikeFilled, SendOutlined } from '@ant-design/icons';
+import { SendOutlined } from '@ant-design/icons';
 import { v4 as makeUUID } from 'uuid';
 
 import forumData from '../../data.json';
@@ -87,9 +87,6 @@ export const Topic: React.FC = () => {
           <Card className={cls.themeCard}>
             <h2>{currentTopicData?.name}</h2>
             <h4>{currentTopicData?.description}</h4>
-            <div>
-              <LikeFilled />
-            </div>
           </Card>
           <CommentCard itemList={readyMadeComments}>
             <Form

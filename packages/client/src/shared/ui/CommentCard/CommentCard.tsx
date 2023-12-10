@@ -1,4 +1,4 @@
-import { LikeFilled } from '@ant-design/icons';
+import { EnterOutlined } from '@ant-design/icons';
 import { Flex, Card, Divider } from 'antd';
 import React, { ReactNode } from 'react';
 import { v4 as makeUUID } from 'uuid';
@@ -33,8 +33,7 @@ export const CommentCard: React.FC<ColumnType> = props => {
               {dateFormat(new Date(item.creationDate))}
             </Flex>
             <Flex align="center">
-              <LikeFilled />
-              <span>{item.likesCount}</span>
+              <EnterOutlined />
             </Flex>
           </Flex>
           <Divider />
