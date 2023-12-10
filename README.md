@@ -9,9 +9,12 @@
 
 1. Убедитесь что у вас установлен `node` и `docker`
 2. Выполните команду `yarn bootstrap` - это обязательный шаг, без него ничего работать не будет :)
-3. Выполните команду `yarn dev`
-4. Выполните команду `yarn dev --scope=client` чтобы запустить только клиент
-5. Выполните команду `yarn dev --scope=server` чтобы запустить только server
+3. client/package.json - 'yarn build'
+4. 'cd ./packages/client && yarn link'
+5. 'cd ../server && yarn link client'
+6. Выполните команду `yarn dev` /n
+6a. Выполните команду `yarn dev --scope=client` чтобы запустить только клиент
+6b. Выполните команду `yarn dev --scope=server` чтобы запустить только server
 
 ### Как добавить зависимости?
 
@@ -73,7 +76,7 @@
 
 Перед первым запуском выполните `node init.js`
 
-`docker compose up` - запустит три сервиса
+`docker-compose up --build` - запустит три сервиса
 
 1. nginx, раздающий клиентскую статику (client)
 2. node, ваш сервер (server)

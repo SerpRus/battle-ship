@@ -1,6 +1,6 @@
 import leaderboardApi from '../axios/LeaderboardApi';
 import { RATING_FIELD_NAME, POINTS_FOR_VICTORY } from '../constants/rating';
-import getCurrectUsersFromUserRating from '../utils/getCurrectUsersFromUserRating';
+import getCurrectUsers from '../utils/getCurrectUsers';
 import { UserStore } from '../../pages/ProfilePage/model/store';
 import usersApi from '../axios/UsersApi';
 import type {
@@ -43,7 +43,7 @@ class LeaderBoardController {
       ratingFieldName: RATING_FIELD_NAME,
     };
 
-    const currectUsers = getCurrectUsersFromUserRating(usersRating);
+    const currectUsers = getCurrectUsers(usersRating);
 
     const currentUserRatingData = currectUsers.find(
       user => user.login === data.data.login
@@ -82,7 +82,7 @@ class LeaderBoardController {
       limit: 10,
     });
 
-    const currectUsers = getCurrectUsersFromUserRating(usersRating);
+    const currectUsers = getCurrectUsers(usersRating);
 
     // Из поиска нельзя получить данные текущего пользователя,
     // поэтому картинку текущего пользователя получаю из данных авторизованного пользователя
