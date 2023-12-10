@@ -4,26 +4,27 @@ import React, { ReactNode } from 'react';
 import { v4 as makeUUID } from 'uuid';
 import { dateFormat } from '../../../widgets/forum/utils/date-formatter';
 
-import cls from './CommentCard.module.scss';
+import cls from './ReplyCard.module.scss';
 
-type CommentsDataType = {
+type ReplyDataType = {
   likesCount: ReactNode;
   id: number | string;
-  topicId: number | string;
+  topicId?: number | string;
+  commentId: number | string;
   name: string;
   comment: string;
   creationDate: Date | string;
 };
 
 type ColumnType = {
-  itemList: Array<CommentsDataType>;
+  itemList: Array<ReplyDataType>;
   children: ReactNode;
 };
 
-export const CommentCard: React.FC<ColumnType> = props => {
+export const ReplyCard: React.FC<ColumnType> = props => {
   const { itemList, children } = props;
   return (
-    <Card className={cls.commentCard}>
+    <Card className={cls.replyCard}>
       {itemList.map(item => (
         <Flex vertical style={{ width: 700 }} key={makeUUID()}>
           <Flex justify="space-between">

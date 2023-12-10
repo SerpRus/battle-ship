@@ -7,11 +7,7 @@ import React, {
 } from 'react';
 import { useParams } from 'react-router-dom';
 import { Card, Layout, Flex, Button, Form, Input } from 'antd';
-import {
-  LikeFilled,
-  SendOutlined,
-  NotificationTwoTone,
-} from '@ant-design/icons';
+import { SendOutlined, NotificationTwoTone } from '@ant-design/icons';
 
 import { TUser } from '../../../ProfilePage/model/types';
 
@@ -129,7 +125,6 @@ export const Topic: React.FC = () => {
               <h2>{currentTopicData?.name}</h2>
               <h4>{currentTopicData?.description}</h4>
               <div>
-                <LikeFilled />
                 {!notification && (
                   <Button onClick={() => notifyUser(setNotification)}>
                     <NotificationTwoTone />
