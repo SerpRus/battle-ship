@@ -4,6 +4,7 @@ import type { ModelAttributes } from 'sequelize/types';
 export interface IMessage {
   title: string;
   description: string;
+  user_id: number;
   user_name: string;
   time_stamp: number;
 }
@@ -15,6 +16,10 @@ export const topicModel: ModelAttributes<Model, IMessage> = {
   },
   description: {
     type: DataType.STRING,
+  },
+  user_id: {
+    type: DataType.INTEGER,
+    allowNull: false,
   },
   user_name: {
     type: DataType.STRING,

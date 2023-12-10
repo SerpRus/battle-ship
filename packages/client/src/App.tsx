@@ -35,11 +35,21 @@ function App() {
       // // eslint-disable-next-line no-console
       // console.log(result.data);
 
+      // Получение топика по id
+      // const config: AxiosRequestConfig = {
+      //   url: `${baseUrl}/api/topic/3`,
+      //   method: 'GET',
+      // };
+      // const result = await axios(config);
+      //
+      // // eslint-disable-next-line no-console
+      // console.log(result.data);
+
       // Создание топика
       // const config: AxiosRequestConfig = {
       //   url: `${baseUrl}/api/topic`,
       //   method: 'POST',
-      //   data: {title: 'Название1', description: 'Описание1', userName: 'userName1' },
+      //   data: {title: 'Название2', description: 'Описание2', userId: 2, userName: 'userName2' },
       // };
       // const result = await axios(config);
       //

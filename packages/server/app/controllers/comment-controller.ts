@@ -6,6 +6,7 @@ export async function getCommentsFromTopic(id: number) {
 
 export async function addComment(data: {
   text: string;
+  userId: number;
   userName: string;
   topicId: number;
 }) {
@@ -13,6 +14,7 @@ export async function addComment(data: {
 
   return Comment.create({
     text: data.text,
+    user_id: data.userId,
     user_name: data.userName,
     time_stamp: timestamp,
     topic_id: data.topicId,

@@ -1,4 +1,8 @@
-import { getTopics, createTopic } from '../controllers/topic-controller';
+import {
+  getTopics,
+  createTopic,
+  getTopicById,
+} from '../controllers/topic-controller';
 import {
   getCommentsFromTopic,
   addComment,
@@ -17,6 +21,12 @@ export default function routes(app: any) {
   app.get('/api/topic', async (_: any, res: any) => {
     const topics = await getTopics();
     res.json(topics);
+  });
+
+  app.get('/api/topic/:id', async (req: any, res: any) => {
+    const { id } = req.params;
+    const topic = await getTopicById(id);
+    res.json(topic);
   });
 
   app.post('/api/topic', async (req: any, res: any) => {
