@@ -5,8 +5,7 @@ export interface IReply {
   text: string;
   user_name: string;
   time_stamp: number;
-  topic_id: number;
-  parent_comment_id: number;
+  parent_reply_id: number;
 }
 
 export const replyModel: ModelAttributes<Model, IReply> = {
@@ -22,12 +21,7 @@ export const replyModel: ModelAttributes<Model, IReply> = {
     type: DataType.INTEGER,
     allowNull: false,
   },
-  topic_id: {
+  parent_reply_id: {
     type: DataType.INTEGER,
-    allowNull: false,
-  },
-  parent_comment_id: {
-    type: DataType.INTEGER,
-    allowNull: false,
   },
 };

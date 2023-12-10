@@ -56,4 +56,4 @@ volumes:
 
 networks:
   awesome:
-    external: true
+    driver: bridge

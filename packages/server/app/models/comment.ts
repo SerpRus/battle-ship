@@ -5,7 +5,6 @@ export interface IComment {
   text: string;
   time_stamp: number;
   user_name: string;
-  topic_id: number;
 }
 
 export const commentModel: ModelAttributes<Model, IComment> = {
@@ -19,8 +18,5 @@ export const commentModel: ModelAttributes<Model, IComment> = {
   user_name: {
     type: DataType.STRING,
     allowNull: false,
-  },
-  topic_id: {
-    type: DataType.INTEGER,
   },
 };
