@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 // eslint-disable-next-line
 import axios, { AxiosRequestConfig } from 'axios';
 import './app/styles/App.scss';

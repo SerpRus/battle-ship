@@ -11,7 +11,8 @@
     "lint": "lerna run lint",
     "test:update:snapshot": "lerna run test -- -u",
     "format": "lerna run format",
-    "preview": "lerna run preview"
+    "preview": "lerna run preview",
+    "build:ssr": "sh build-ssr.sh"
   },
   "license": "MIT",
   "workspaces": [
