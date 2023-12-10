@@ -1,16 +1,19 @@
+import path from 'path';
+import dotenv from 'dotenv';
 import { Sequelize, SequelizeOptions } from 'sequelize-typescript';
 import { commentModel } from '../models/comment';
 import { topicModel } from '../models/topic';
 import { subscriptionModel } from '../models/subscription';
 import { replyModel } from '../models/reply';
 
-// TODO: переделать на переменные окружения
+dotenv.config({ path: path.join(__dirname, '..', '..', '..', '..', '.env') });
+
 const sequelizeOptions: SequelizeOptions = {
   host: 'localhost',
-  port: 5432,
-  username: 'postgres',
-  password: 'postgres',
-  database: 'postgres',
+  port: Number(process.env.POSTGRES_PORT),
+  username: process.env.POSTGRES_USER,
+  password: process.env.POSTGRES_PASSWORD,
+  database: process.env.POSTGRES_DB,
   dialect: 'postgres', // 'mysql', 'sqlite', 'mariadb', 'mssql'
 };
 
