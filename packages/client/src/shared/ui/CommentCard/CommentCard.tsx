@@ -2,7 +2,7 @@ import { LikeFilled } from '@ant-design/icons';
 import { Flex, Card, Divider } from 'antd';
 import React, { ReactNode } from 'react';
 import { v4 as makeUUID } from 'uuid';
-import { dateFormat } from '../../../widgets/game/utils/date-formatter';
+import { dateFormat } from '../../../widgets/forum/utils/date-formatter';
 
 import cls from './CommentCard.module.scss';
 
