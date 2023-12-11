@@ -27,8 +27,7 @@
     "rimraf": "^5.0.5",
     "sequelize": "^6.35.1",
     "sequelize-typescript": "^2.1.6",
-    "vite": "^3.0.7",
-    "helmet": "^6.0.1"
+    "vite": "^3.0.7"
   },
   "devDependencies": {
     "@types/cors": "^2.8.12",

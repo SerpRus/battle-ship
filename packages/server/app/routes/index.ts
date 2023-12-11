@@ -19,66 +19,115 @@ import {
 export default function routes(app: any) {
   // topic
   app.get('/api/topic', async (_: any, res: any) => {
-    const topics = await getTopics();
-    res.json(topics);
+    try {
+      const topics = await getTopics();
+      res.json(topics);
+    } catch (e) {
+      // eslint-disable-next-line
+      console.error(e);
+    }
   });
 
   app.get('/api/topic/:id', async (req: any, res: any) => {
-    const { id } = req.params;
-    const topic = await getTopicById(id);
-    res.json(topic);
+    try {
+      const { id } = req.params;
+      const topic = await getTopicById(id);
+      res.json(topic);
+    } catch (e) {
+      // eslint-disable-next-line
+      console.error(e);
+    }
   });
 
   app.post('/api/topic', async (req: any, res: any) => {
-    await createTopic(req.body);
-    res.json('OK');
+    try {
+      await createTopic(req.body);
+
+      res.status(201).end();
+    } catch (e) {
+      // eslint-disable-next-line
+      console.error(e);
+    }
   });
 
   // comment
   app.get('/api/comment/:id', async (req: any, res: any) => {
-    const { id } = req.params;
-    const comments = await getCommentsFromTopic(id);
-    res.json(comments);
+    try {
+      const { id } = req.params;
+      const comments = await getCommentsFromTopic(id);
+      res.json(comments);
+    } catch (e) {
+      // eslint-disable-next-line
+      console.error(e);
+    }
   });
 
   app.post('/api/comment', async (req: any, res: any) => {
-    await addComment(req.body);
-    res.json('OK');
+    try {
+      await addComment(req.body);
+
+      res.status(201).end();
+    } catch (e) {
+      // eslint-disable-next-line
+      console.error(e);
+    }
   });
 
   // subscription
   app.get('/api/subscription/:id', async (req: any, res: any) => {
-    const { id } = req.params;
-    const subscribers = await getSubscribers(id);
-    res.json(subscribers);
+    try {
+      const { id } = req.params;
+      const subscribers = await getSubscribers(id);
+      res.json(subscribers);
+    } catch (e) {
+      // eslint-disable-next-line
+      console.error(e);
+    }
   });
 
   app.post('/api/subscription/:id', async (req: any, res: any) => {
-    const { id } = req.params;
-    await subscribe({
-      ...req.body,
-      topicId: id,
-    });
-    res.json('OK');
+    try {
+      const { id } = req.params;
+      await subscribe({
+        ...req.body,
+        topicId: id,
+      });
+
+      res.status(201).end();
+    } catch (e) {
+      // eslint-disable-next-line
+      console.error(e);
+    }
   });
 
   // reply
   app.get('/api/reply/:id', async (req: any, res: any) => {
-    const { query } = req;
-    const { id } = req.params;
-    const replies = await getRepliesFromComment({
-      commentId: query.commentId,
-      topicId: id,
-    });
-    res.json(replies);
+    try {
+      const { query } = req;
+      const { id } = req.params;
+      const replies = await getRepliesFromComment({
+        commentId: query.commentId,
+        topicId: id,
+      });
+      res.json(replies);
+    } catch (e) {
+      // eslint-disable-next-line
+      console.error(e);
+    }
   });
 
   app.post('/api/reply/:id', async (req: any, res: any) => {
-    const { id } = req.params;
-    await addReply({
-      ...req.body,
-      topicId: id,
-    });
-    res.json('OK');
+    try {
+      const { id } = req.params;
+      await addReply({
+        ...req.body,
+        topicId: id,
+      });
+
+      res.status(201).end();
+    } catch (e) {
+      // eslint-disable-next-line
+      console.error(e);
+    }
   });
 }
