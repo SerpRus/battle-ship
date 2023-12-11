@@ -23,8 +23,9 @@ export default function routes(app: any) {
       const topics = await getTopics();
       res.json(topics);
     } catch (e) {
-      // eslint-disable-next-line
-      console.error(e);
+      res
+        .status(500)
+        .json({ message: 'Не удалось получить информацию о топиках' });
     }
   });
 
@@ -34,8 +35,9 @@ export default function routes(app: any) {
       const topic = await getTopicById(id);
       res.json(topic);
     } catch (e) {
-      // eslint-disable-next-line
-      console.error(e);
+      res
+        .status(500)
+        .json({ message: 'Не удалось получить информацию о топике' });
     }
   });
 
@@ -45,8 +47,7 @@ export default function routes(app: any) {
 
       res.status(201).end();
     } catch (e) {
-      // eslint-disable-next-line
-      console.error(e);
+      res.status(500).json({ message: 'Не удалось создать топик' });
     }
   });
 
@@ -57,8 +58,9 @@ export default function routes(app: any) {
       const comments = await getCommentsFromTopic(id);
       res.json(comments);
     } catch (e) {
-      // eslint-disable-next-line
-      console.error(e);
+      res
+        .status(500)
+        .json({ message: 'Не удалось получить информацию о комментарии' });
     }
   });
 
@@ -68,8 +70,7 @@ export default function routes(app: any) {
 
       res.status(201).end();
     } catch (e) {
-      // eslint-disable-next-line
-      console.error(e);
+      res.status(500).json({ message: 'Не удалось добавить комментарий' });
     }
   });
 
@@ -80,8 +81,12 @@ export default function routes(app: any) {
       const subscribers = await getSubscribers(id);
       res.json(subscribers);
     } catch (e) {
-      // eslint-disable-next-line
-      console.error(e);
+      res
+        .status(500)
+        .json({
+          message:
+            'Не удалось получить информацию о подписавшихся на уведомление пользователей',
+        });
     }
   });
 
@@ -95,8 +100,9 @@ export default function routes(app: any) {
 
       res.status(201).end();
     } catch (e) {
-      // eslint-disable-next-line
-      console.error(e);
+      res
+        .status(500)
+        .json({ message: 'Не удалось подписаться на получение уведомлений' });
     }
   });
 
@@ -111,8 +117,11 @@ export default function routes(app: any) {
       });
       res.json(replies);
     } catch (e) {
-      // eslint-disable-next-line
-      console.error(e);
+      res
+        .status(500)
+        .json({
+          message: 'Не удалось получить данные об ответах на комментарий',
+        });
     }
   });
 
@@ -126,8 +135,9 @@ export default function routes(app: any) {
 
       res.status(201).end();
     } catch (e) {
-      // eslint-disable-next-line
-      console.error(e);
+      res
+        .status(500)
+        .json({ message: 'Не удалось отправить ответ на комментарий' });
     }
   });
 }
