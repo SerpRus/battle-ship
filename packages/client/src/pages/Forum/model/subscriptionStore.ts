@@ -19,8 +19,7 @@ export class SubscriptionStore {
     };
     try {
       const result = await axios(config);
-      // eslint-disable-next-line no-console
-      console.log(result.data);
+
       return result.data;
     } catch (error: unknown) {
       throw new Error((error as AxiosError).message);
@@ -35,8 +34,7 @@ export class SubscriptionStore {
     };
     try {
       const result = await axios(config);
-      // eslint-disable-next-line no-console
-      console.log(result.data);
+
       return result.data;
     } catch (error: unknown) {
       throw new Error((error as AxiosError).message);

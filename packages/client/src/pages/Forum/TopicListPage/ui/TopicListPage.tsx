@@ -31,13 +31,11 @@ export const TopicList: React.FC = () => {
 
   useEffect(() => {
     const fetchServerData = async () => {
-      store.getAllTopics().then(data => {
-        setTopics(data as unknown as TTopic[]);
-      });
+      const allTopicsData = await store.getAllTopics();
+      setTopics(allTopicsData as unknown as TTopic[]);
     };
     fetchServerData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [store]);
 
   return (
     <Layout className={cls.forumPageLayout}>
@@ -75,7 +73,6 @@ export const TopicList: React.FC = () => {
                   <Flex className={cls.LikesComments}>
                     <div>
                       <CommentOutlined />
-                      {/* item.commentsCount */}
                     </div>
                   </Flex>,
                   <div>info</div>,

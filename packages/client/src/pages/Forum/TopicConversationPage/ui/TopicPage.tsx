@@ -55,18 +55,15 @@ export const Topic: React.FC = () => {
 
   useEffect(() => {
     const fetchServerData = async () => {
-      topicStoreEx.getTopicById(Number(id)).then(data => {
-        setCurrentTopic(data as TTopic);
-        commentStoreEx
-          .getAllCommentsFromTopic((data as TTopic).id)
-          .then(comments => {
-            setCommentData(comments as TComment[]);
-          });
-      });
+      const currentTopic = await topicStoreEx.getTopicById(Number(id));
+      setCurrentTopic(currentTopic as TTopic);
+      const topicComments = await commentStoreEx.getAllCommentsFromTopic(
+        (currentTopic as TTopic).id
+      );
+      setCommentData(topicComments as TComment[]);
     };
     fetchServerData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [commentStoreEx, id, topicStoreEx]);
 
   const onChange = useCallback((e: ChangeEvent) => {
     const element = e.target as HTMLInputElement;
@@ -82,19 +79,17 @@ export const Topic: React.FC = () => {
           userName: currentTopicData.user_name,
           topicId: currentTopicData.id,
         };
-        commentStoreEx.createComment(reqObj).then(() => {
-          setInputText('');
-          commentStoreEx
-            .getAllCommentsFromTopic((currentTopicData as TTopic).id)
-            .then(comments => {
-              setCommentData(comments as TComment[]);
-            });
-        });
+
+        await commentStoreEx.createComment(reqObj);
+        setInputText('');
+        const currentComments = await commentStoreEx.getAllCommentsFromTopic(
+          (currentTopicData as TTopic).id
+        );
+        setCommentData(currentComments as TComment[]);
       };
       fetchServerData();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [commentsData, currentTopicData, inputText]);
+  }, [commentStoreEx, currentTopicData, inputText]);
 
   return (
     <Layout className={cls.layout}>

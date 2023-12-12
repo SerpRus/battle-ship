@@ -20,17 +20,15 @@ const CreateTopicForm: React.FC = () => {
     theme: string;
   }) => {
     const fetchServerData = async () => {
-      userStoreEx.getUser().then(userData => {
-        const reqData = {
-          title: formData.theme,
-          description: formData.description,
-          userId: userData.id,
-          userName: userData.first_name,
-        };
-        topicStoreEx.createTopic(reqData).then(() => {
-          navigate('/forum');
-        });
-      });
+      const userData = await userStoreEx.getUser();
+      const reqData = {
+        title: formData.theme,
+        description: formData.description,
+        userId: userData.id,
+        userName: userData.first_name,
+      };
+      await topicStoreEx.createTopic(reqData);
+      navigate('/forum');
     };
 
     fetchServerData();
