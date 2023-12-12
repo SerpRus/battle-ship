@@ -82,7 +82,14 @@ export const Topic: React.FC = () => {
           userName: currentTopicData.user_name,
           topicId: currentTopicData.id,
         };
-        commentStoreEx.createComment(reqObj).then(() => setInputText(''));
+        commentStoreEx.createComment(reqObj).then(() => {
+          setInputText('');
+          commentStoreEx
+            .getAllCommentsFromTopic((currentTopicData as TTopic).id)
+            .then(comments => {
+              setCommentData(comments as TComment[]);
+            });
+        });
       };
       fetchServerData();
     }

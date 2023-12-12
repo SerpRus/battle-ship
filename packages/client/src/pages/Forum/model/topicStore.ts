@@ -24,7 +24,7 @@ export class TopicStore extends ForumStore {
 
   // Создание топика
   public createTopic = async (reqData: {
-    title: number;
+    title: string;
     description: string;
     userId: number;
     userName: string;
@@ -43,9 +43,8 @@ export class TopicStore extends ForumStore {
   // Получение топика по id
   public getTopicById = async (id: number) => {
     const config: AxiosRequestConfig = {
-      url: `${ForumStore.baseUrl}/api/topic`,
-      method: 'POST',
-      data: { id },
+      url: `${TopicStore.baseUrl}/api/topic/${id}`,
+      method: 'GET',
     };
     const result = await axios(config);
     // eslint-disable-next-line no-console

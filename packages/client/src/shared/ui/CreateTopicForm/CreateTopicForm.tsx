@@ -1,13 +1,34 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Form, Input } from 'antd';
 import cls from './CreateTopicForm.module.scss';
 import PrimaryButton from '../PrimaryButton/PrimaryButton';
+import { TopicStore } from '../../../pages/Forum/model/topicStore';
+import { UserStore } from '../../../pages/ProfilePage/model/store';
 
 const { TextArea } = Input;
 
 const CreateTopicForm: React.FC = () => {
-  const onFinish = (values: unknown) => {
-    console.log('Success:', values); // eslint-disable-line no-console
+  const topicStoreEx = useMemo(() => new TopicStore(), []);
+  const userStoreEx = useMemo(() => new UserStore(), []);
+
+  const onFinish = (formData: {
+    description: string;
+    tags: string;
+    theme: string;
+  }) => {
+    const fetchServerData = async () => {
+      userStoreEx.getUser().then(userData => {
+        const reqData = {
+          title: formData.theme,
+          description: formData.description,
+          userId: userData.id,
+          userName: userData.first_name,
+        };
+        topicStoreEx.createTopic(reqData).then();
+      });
+    };
+
+    fetchServerData();
   };
 
   const onFinishFailed = (errorInfo: unknown) => {
