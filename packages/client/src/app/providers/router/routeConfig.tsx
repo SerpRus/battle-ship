@@ -1,5 +1,5 @@
 import { RouteProps } from 'react-router-dom';
-import Topic from '../../../pages/Forum/TopicConversationPage';
+import Topic from '../../../pages/Forum/TopicPage';
 import CreateTopic from '../../../pages/Forum/CreateTopicPage';
 import Login from '../../../pages/LoginPage';
 import RegistrationPage from '../../../pages/RegistrationPage';
@@ -39,7 +39,7 @@ export const RoutePath: Record<AppRoutes, string> = {
   [AppRoutes.LEADERBOARD]: '/leaderboard',
   [AppRoutes.FORUM]: '/forum',
   [AppRoutes.CREATE_TOPIC]: '/forum/create',
-  [AppRoutes.TOPIC]: '/forum/:id',
+  [AppRoutes.TOPIC]: '/forum/:topicId',
   [AppRoutes.SERVER_ERROR]: '/500',
   [AppRoutes.NOT_FOUND]: '*',
 };

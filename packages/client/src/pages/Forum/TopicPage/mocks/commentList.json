@@ -1,0 +1,142 @@
+[
+  {
+    "commentId": "1",
+    "topicId": "2",
+    "authorId": "532",
+    "authorAvatarUrl": "/leaderAvatars/avatar_4.png",
+    "authorFullName": "Ivan",
+    "comment": "Everything I think about it I wrote here",
+    "created": "2023-10-21T19:04:00",
+    "reactionData": []
+  },
+  {
+    "commentId": "2",
+    "topicId": "3",
+    "authorId": "533",
+    "authorAvatarUrl": "/leaderAvatars/avatar_5.png",
+    "authorFullName": "Andrew",
+    "comment": "Trying to create my first topic",
+    "created": "2023-10-21T19:03:00",
+    "reactionData": []
+  },
+  {
+    "commentId": "3",
+    "topicId": "1",
+    "authorId": "534",
+    "authorAvatarUrl": "/leaderAvatars/avatar_6.png",
+    "authorFullName": "Crazy_Mihalich",
+    "comment": "Поддерживаю. После долгого трудового дня хочется расслабиться. А тут приходится каждый раз вспоминать правила. Lazy_team fix this please!",
+    "created": "2023-12-08T111:11:00",
+    "reactionData": [
+      {
+        "commentId": "3",
+        "reactionName": "shrug",
+        "reactionAuthorId": "1345562",
+        "reactionAuthorFullName": "Максим Панкратов",
+        "reactionAuthorAratarUrl": "https://ya-praktikum.tech/api/v2/resources/c3baee82-2110-4799-81cc-3f5822fd74ef/55d7e3c9-f6ec-4ac5-852b-1692a489ac29_ава2.jpg"
+      },
+      {
+        "commentId": "3",
+        "reactionName": "shrug",
+        "reactionAuthorId": "534",
+        "reactionAuthorFullName": "Crazy_Mihalich",
+        "reactionAuthorAratarUrl": "/leaderAvatars/avatar_6.png"
+      },
+      {
+        "commentId": "3",
+        "reactionName": "eyes",
+        "reactionAuthorId": "123",
+        "reactionAuthorFullName": "mega_pixxxel_2009",
+        "reactionAuthorAratarUrl": "/leaderAvatars/avatar_1.png"
+      },
+      {
+        "commentId": "3",
+        "reactionName": "eyes",
+        "reactionAuthorId": "534",
+        "reactionAuthorFullName": "Crazy_Mihalich",
+        "reactionAuthorAratarUrl": "/leaderAvatars/avatar_6.png"
+      },
+      {
+        "commentId": "3",
+        "reactionName": "eyes",
+        "reactionAuthorId": "1345562",
+        "reactionAuthorFullName": "Максим Панкратов",
+        "reactionAuthorAratarUrl": "https://ya-praktikum.tech/api/v2/resources/c3baee82-2110-4799-81cc-3f5822fd74ef/55d7e3c9-f6ec-4ac5-852b-1692a489ac29_ава2.jpg"
+      },
+      {
+        "commentId": "3",
+        "reactionName": "flexedBiceps",
+        "reactionAuthorId": "123",
+        "reactionAuthorFullName": "mega_pixxxel_2009",
+        "reactionAuthorAratarUrl": "/leaderAvatars/avatar_1.png"
+      }
+    ]
+  },
+  {
+    "commentId": "4",
+    "topicId": "1",
+    "authorId": "535",
+    "authorAvatarUrl": "/leaderAvatars/avatar_7.png",
+    "authorFullName": "John the Destroyer",
+    "comment": "МегаПихель красавчик! Смотрю каждый твой стрим! Мне вообще пофиг на правила, чел. Ты сам устанавливаешь правила! Никого не слушай!",
+    "created": "2023-12-09T113:17:00",
+    "reactionData": [
+      {
+        "commentId": "4",
+        "reactionName": "flexedBiceps",
+        "reactionAuthorId": "123",
+        "reactionAuthorFullName": "mega_pixxxel_2009",
+        "reactionAuthorAratarUrl": "/leaderAvatars/avatar_1.png"
+      },
+      {
+        "commentId": "4",
+        "reactionName": "foldedHands",
+        "reactionAuthorId": "123",
+        "reactionAuthorFullName": "mega_pixxxel_2009",
+        "reactionAuthorAratarUrl": "/leaderAvatars/avatar_1.png"
+      }
+    ]
+  },
+  {
+    "commentId": "5",
+    "topicId": "1",
+    "authorId": "536",
+    "authorAvatarUrl": "/leaderAvatars/avatar_8.png",
+    "authorFullName": "ЯрослаVKа",
+    "comment": "Да уж, удачи с авторизацией на Твиче... Вообще, если хочешь увеличить количество фоловверов, лучше переходи на VK Видео.",
+    "created": "2023-12-10T19:02:00",
+    "reactionData": []
+  },
+  {
+    "commentId": "6",
+    "topicId": "1",
+    "authorId": "537",
+    "authorAvatarUrl": "/leaderAvatars/avatar_9.png",
+    "authorFullName": "AgroShkolnik1985",
+    "comment": "Как вы задолбали со своими стримами! В чем прикол вообще? И главное, кто-то смотрит, донатит... Займитесь делом, алло. ",
+    "created": "2023-12-11T22:02:00",
+    "reactionData": [
+      {
+        "commentId": "6",
+        "reactionName": "anger",
+        "reactionAuthorId": "123",
+        "reactionAuthorFullName": "mega_pixxxel_2009",
+        "reactionAuthorAratarUrl": "/leaderAvatars/avatar_1.png"
+      },
+      {
+        "commentId": "6",
+        "reactionName": "poop",
+        "reactionAuthorId": "536",
+        "reactionAuthorFullName": "ЯрослаVKа",
+        "reactionAuthorAratarUrl": "/leaderAvatars/avatar_8.png"
+      },
+      {
+        "commentId": "6",
+        "reactionName": "snake",
+        "reactionAuthorId": "537",
+        "reactionAuthorFullName": "AgroShkolnik1985",
+        "reactionAuthorAratarUrl": "/leaderAvatars/avatar_9.png"
+      }
+    ]
+  }
+]

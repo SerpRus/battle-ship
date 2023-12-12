@@ -1,0 +1,29 @@
+[
+  {
+    "topicId": "1",
+    "authorId": "123",
+    "authorFullName": "mega_pixxxel_2009",
+    "authorAvatarUrl": "/leaderAvatars/avatar_1.png",
+    "title": "Добавить интеграцию с Twitch",
+    "description": "Предлагаю добавить UI оверлей для трансляций на Twitch. Зрители вынуждены самостоятельно гуглить правила, отвлекаясь от стрима. Кроме того, хотелось бы добавить авторизацию через Twitch.",
+    "created": "2023-12-07T110:00:00"
+  },
+  {
+    "topicId": "2",
+    "authorId": "124",
+    "authorFullName": "Andrew",
+    "authorAvatarUrl": "/leaderAvatars/avatar_2.png",
+    "title": "Example theme",
+    "description": "Description of 2nd topic",
+    "created": "2023-10-18T19:01:00"
+  },
+  {
+    "topicId": "3",
+    "authorId": "127",
+    "authorFullName": "Zoya",
+    "authorAvatarUrl": "/leaderAvatars/avatar_3.png",
+    "title": "Hello!",
+    "description": "Description of 3rd topic",
+    "created": "2023-10-15T19:01:00"
+  }
+]

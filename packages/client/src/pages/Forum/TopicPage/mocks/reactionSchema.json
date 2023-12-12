@@ -1,0 +1,47 @@
+[
+  {
+    "reactionName": "flexedBiceps",
+    "reactionContent": "💪",
+    "isActive": true
+  },
+  {
+    "reactionName": "foldedHands",
+    "reactionContent": "🙏",
+    "isActive": true
+  },
+  {
+    "reactionName": "shrug",
+    "reactionContent": "🤷",
+    "isActive": true
+  },
+  {
+    "reactionName": "poop",
+    "reactionContent": "💩",
+    "isActive": false
+  },
+  {
+    "reactionName": "anger",
+    "reactionContent": "🤬",
+    "isActive": false
+  },
+  {
+    "reactionName": "eyes",
+    "reactionContent": "👀",
+    "isActive": true
+  },
+  {
+    "reactionName": "thumbsDown",
+    "reactionContent": "👎",
+    "isActive": true
+  },
+  {
+    "reactionName": "snake",
+    "reactionContent": "🐍",
+    "isActive": true
+  },
+  {
+    "reactionName": "surprise",
+    "reactionContent": "😮",
+    "isActive": true
+  }
+]

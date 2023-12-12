@@ -1,0 +1,39 @@
+.container {
+  border: 1px solid #d5dde8;
+  border-radius: 1rem;
+  display: flex;
+  padding: 0.2rem 0.5rem;
+  cursor: pointer;
+  user-select: none;
+  background: transparent;
+
+  &:hover {
+    border: 1px solid var(--border-color);
+  }
+}
+
+.hasUser {
+  border-color: var(--accent);
+
+  &:hover {
+    border-color: var(--accent-hover);
+  }
+}
+
+.wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.emoji {
+  font-size: 0.8rem;
+  display: inline-flex;
+  margin-right: 0.5rem;
+  line-height: 1.4em;
+}
+
+.count {
+  font-size: 0.8rem;
+  display: inline-flex;
+  line-height: 1.4em;
+}

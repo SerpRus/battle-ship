@@ -1,0 +1,30 @@
+.container {
+  background-color: var(--bkg-input);
+  border-radius: 1rem;
+  padding: 1.7rem 1.5rem 1rem;
+  margin-bottom: 1rem;
+}
+
+.title {
+  line-height: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.description {
+  margin-bottom: 1rem;
+}
+
+.info {
+  display: flex;
+  gap: 0.7rem;
+  align-items: center;
+
+  .avatar {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .author {
+    font-weight: bold;
+  }
+}

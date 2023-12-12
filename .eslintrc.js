@@ -51,7 +51,7 @@ module.exports = {
     'react-hooks/exhaustive-deps': 'error',
     'class-methods-use-this': 0,
     'no-console': 'error',
-    "no-param-reassign": 0
+    'no-param-reassign': 0,
   },
   ignorePatterns: ['**/client/dist/*'],
 };
