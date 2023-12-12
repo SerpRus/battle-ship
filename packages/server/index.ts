@@ -6,7 +6,11 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { createServer as createViteServer } from 'vite';
 import helmet from 'helmet';
-import { createClientAndConnect } from './db';
+import bodyParser from 'body-parser';
+// @ts-ignore
+import { xss } from 'express-xss-sanitizer';
+import routes from './app/routes';
+import { startApp } from './app';
 
 dotenv.config();
 const isDev = () => process.env.NODE_ENV === 'development';
@@ -19,13 +23,18 @@ async function startServer() {
     res.setHeader('X-XSS-Protection', '1; mode=block');
     next();
   });
+  app.use(bodyParser.json({ limit: '1kb' }));
+  app.use(bodyParser.urlencoded({ extended: true, limit: '1kb' }));
+  app.use(xss());
+  app.use(express.json());
+  routes(app);
+  startApp();
+
   const port = Number(process.env.SERVER_PORT) || 3001;
   let vite: ViteDevServer | undefined;
   let distPath = '';
   let srcPath = '';
   let ssrClientPath = '';
-
-  createClientAndConnect();
 
   if (isDev()) {
     distPath = path.dirname(require.resolve('client/dist/index.html'));
