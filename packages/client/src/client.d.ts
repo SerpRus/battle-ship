@@ -8,3 +8,4 @@ declare global {
 }
 
 export {};
+export const serverport = __SERVER_PORT__;
