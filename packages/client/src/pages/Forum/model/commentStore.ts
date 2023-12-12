@@ -1,7 +1,12 @@
 import axios, { AxiosError, AxiosRequestConfig } from 'axios';
-import { ForumStore } from './baseStore';
 
-export class CommentStore extends ForumStore {
+export class CommentStore {
+  baseUrl = `http://localhost:3001`;
+
+  constructor() {
+    this.baseUrl = `http://localhost:${__SERVER_PORT__}`;
+  }
+
   // Создание комментария
   public createComment = async (reqData: {
     userId: number;
@@ -10,7 +15,7 @@ export class CommentStore extends ForumStore {
     topicId: number;
   }) => {
     const config: AxiosRequestConfig = {
-      url: `${ForumStore.baseUrl}/api/comment`,
+      url: `${this.baseUrl}/api/comment`,
       method: 'POST',
       data: reqData,
     };
@@ -27,7 +32,7 @@ export class CommentStore extends ForumStore {
   // Получение всех комментариев топика
   public getAllCommentsFromTopic = async (topicId: number) => {
     const config: AxiosRequestConfig = {
-      url: `${ForumStore.baseUrl}/api/comment/${topicId}`,
+      url: `${this.baseUrl}/api/comment/${topicId}`,
       method: 'GET',
     };
     try {

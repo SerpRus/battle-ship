@@ -2,7 +2,7 @@
 
 exports[`PrimaryButton should match snapshot 1`] = `
 <button
-  className="ant-btn css-dev-only-do-not-override-2i2tap ant-btn-primary"
+  className="ant-btn css-dev-only-do-not-override-2q8sxy ant-btn-primary"
   disabled={false}
   onClick={[Function]}
   style={Object {}}

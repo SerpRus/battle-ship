@@ -1,7 +1,12 @@
 import axios, { AxiosError, AxiosRequestConfig } from 'axios';
-import { ForumStore } from './baseStore';
 
-export class ReplyStore extends ForumStore {
+export class ReplyStore {
+  baseUrl = `http://localhost:3001`;
+
+  constructor() {
+    this.baseUrl = `http://localhost:${__SERVER_PORT__}`;
+  }
+
   // Добавить ответ на комментарий
   public addReplyToComment = async (reqData: {
     text: string;
@@ -11,7 +16,7 @@ export class ReplyStore extends ForumStore {
     parentReplyId: number;
   }) => {
     const config: AxiosRequestConfig = {
-      url: `${ForumStore.baseUrl}/api/reply/${reqData.commentId}`,
+      url: `${this.baseUrl}/api/reply/${reqData.commentId}`,
       method: 'POST',
       data: reqData,
     };
@@ -31,7 +36,7 @@ export class ReplyStore extends ForumStore {
     commentId: number;
   }) => {
     const config: AxiosRequestConfig = {
-      url: `${ForumStore.baseUrl}/api/reply/${reqData.topicId}?commentId=1`,
+      url: `${this.baseUrl}/api/reply/${reqData.topicId}?commentId=1`,
       method: 'GET',
     };
     try {

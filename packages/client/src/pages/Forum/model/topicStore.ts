@@ -1,5 +1,4 @@
 import axios, { AxiosError, AxiosRequestConfig } from 'axios';
-import { ForumStore } from './baseStore';
 
 type TTopic = {
   id: number;
@@ -9,11 +8,17 @@ type TTopic = {
   time_stamp: number;
 };
 
-export class TopicStore extends ForumStore {
+export class TopicStore {
+  baseUrl = `http://localhost:3001`;
+
+  constructor() {
+    this.baseUrl = `http://localhost:${__SERVER_PORT__}`;
+  }
+
   // Получение всех топиков
   public getAllTopics = async () => {
     const config: AxiosRequestConfig = {
-      url: `${ForumStore.baseUrl}/api/topic`,
+      url: `${this.baseUrl}/api/topic`,
       method: 'GET',
     };
     try {
@@ -34,7 +39,7 @@ export class TopicStore extends ForumStore {
     userName: string;
   }) => {
     const config: AxiosRequestConfig = {
-      url: `${ForumStore.baseUrl}/api/topic`,
+      url: `${this.baseUrl}/api/topic`,
       method: 'POST',
       data: reqData,
     };
@@ -51,7 +56,7 @@ export class TopicStore extends ForumStore {
   // Получение топика по id
   public getTopicById = async (id: number) => {
     const config: AxiosRequestConfig = {
-      url: `${TopicStore.baseUrl}/api/topic/${id}`,
+      url: `${this.baseUrl}/api/topic/${id}`,
       method: 'GET',
     };
     try {
