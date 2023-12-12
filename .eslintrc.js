@@ -53,5 +53,5 @@ module.exports = {
     'no-console': 'error',
     "no-param-reassign": 0
   },
-  ignorePatterns: ['**/client/dist/*'],
+  ignorePatterns: ['**/client/dist/*', '**/server/dist/*'],
 };

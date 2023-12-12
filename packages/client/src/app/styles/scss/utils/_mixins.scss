@@ -104,7 +104,7 @@
   @if $fontStyle {
     font-style: $fontStyle;
   }
-  line-height: ($lineHeight / $fontSize);
+  line-height: calc($lineHeight / $fontSize);
 }
 
 @mixin flex-item-width($num, $gap) {
