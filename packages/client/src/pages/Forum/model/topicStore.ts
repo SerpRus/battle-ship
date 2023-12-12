@@ -6,7 +6,7 @@ type TTopic = {
   title: string;
   description: string;
   user_name: string;
-  timestamp: number;
+  time_stamp: number;
 };
 
 export class TopicStore extends ForumStore {
