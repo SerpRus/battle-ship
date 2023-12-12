@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig } from 'axios';
+import axios, { AxiosError, AxiosRequestConfig } from 'axios';
 import { ForumStore } from './baseStore';
 
 type TTopic = {
@@ -16,10 +16,14 @@ export class TopicStore extends ForumStore {
       url: `${ForumStore.baseUrl}/api/topic`,
       method: 'GET',
     };
-    const result = await axios<Array<TTopic>>(config);
-    // eslint-disable-next-line no-console
-    console.log(result.data);
-    return result.data;
+    try {
+      const result = await axios<Array<TTopic>>(config);
+      // eslint-disable-next-line no-console
+      console.log(result.data);
+      return result.data;
+    } catch (error: unknown) {
+      throw new Error((error as AxiosError).message);
+    }
   };
 
   // Создание топика
@@ -34,10 +38,14 @@ export class TopicStore extends ForumStore {
       method: 'POST',
       data: reqData,
     };
-    const result = await axios(config);
-    // eslint-disable-next-line no-console
-    console.log(result.data);
-    return result.data;
+    try {
+      const result = await axios(config);
+      // eslint-disable-next-line no-console
+      console.log(result.data);
+      return result.data;
+    } catch (error: unknown) {
+      throw new Error((error as AxiosError).message);
+    }
   };
 
   // Получение топика по id
@@ -46,9 +54,13 @@ export class TopicStore extends ForumStore {
       url: `${TopicStore.baseUrl}/api/topic/${id}`,
       method: 'GET',
     };
-    const result = await axios(config);
-    // eslint-disable-next-line no-console
-    console.log(result.data);
-    return result.data;
+    try {
+      const result = await axios(config);
+      // eslint-disable-next-line no-console
+      console.log(result.data);
+      return result.data;
+    } catch (error: unknown) {
+      throw new Error((error as AxiosError).message);
+    }
   };
 }

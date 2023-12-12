@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import { Form, Input } from 'antd';
+import { useNavigate } from 'react-router-dom';
 import cls from './CreateTopicForm.module.scss';
 import PrimaryButton from '../PrimaryButton/PrimaryButton';
 import { TopicStore } from '../../../pages/Forum/model/topicStore';
@@ -10,6 +11,8 @@ const { TextArea } = Input;
 const CreateTopicForm: React.FC = () => {
   const topicStoreEx = useMemo(() => new TopicStore(), []);
   const userStoreEx = useMemo(() => new UserStore(), []);
+
+  const navigate = useNavigate();
 
   const onFinish = (formData: {
     description: string;
@@ -24,7 +27,9 @@ const CreateTopicForm: React.FC = () => {
           userId: userData.id,
           userName: userData.first_name,
         };
-        topicStoreEx.createTopic(reqData).then();
+        topicStoreEx.createTopic(reqData).then(() => {
+          navigate('/forum');
+        });
       });
     };
 

@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig } from 'axios';
+import axios, { AxiosError, AxiosRequestConfig } from 'axios';
 import { ForumStore } from './baseStore';
 
 export class ReplyStore extends ForumStore {
@@ -15,10 +15,14 @@ export class ReplyStore extends ForumStore {
       method: 'POST',
       data: reqData,
     };
-    const result = await axios(config);
-    // eslint-disable-next-line no-console
-    console.log(result.data);
-    return result.data;
+    try {
+      const result = await axios(config);
+      // eslint-disable-next-line no-console
+      console.log(result.data);
+      return result.data;
+    } catch (error: unknown) {
+      throw new Error((error as AxiosError).message);
+    }
   };
 
   // Получить все ответы внутри комментария
@@ -30,9 +34,13 @@ export class ReplyStore extends ForumStore {
       url: `${ForumStore.baseUrl}/api/reply/${reqData.topicId}?commentId=1`,
       method: 'GET',
     };
-    const result = await axios(config);
-    // eslint-disable-next-line no-console
-    console.log(result.data);
-    return result.data;
+    try {
+      const result = await axios(config);
+      // eslint-disable-next-line no-console
+      console.log(result.data);
+      return result.data;
+    } catch (error: unknown) {
+      throw new Error((error as AxiosError).message);
+    }
   };
 }

@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig } from 'axios';
+import axios, { AxiosError, AxiosRequestConfig } from 'axios';
 import { ForumStore } from './baseStore';
 
 export class SubscriptionStore extends ForumStore {
@@ -12,10 +12,14 @@ export class SubscriptionStore extends ForumStore {
       method: 'POST',
       data: reqData,
     };
-    const result = await axios(config);
-    // eslint-disable-next-line no-console
-    console.log(result.data);
-    return result.data;
+    try {
+      const result = await axios(config);
+      // eslint-disable-next-line no-console
+      console.log(result.data);
+      return result.data;
+    } catch (error: unknown) {
+      throw new Error((error as AxiosError).message);
+    }
   };
 
   // Получение id пользователей, подписавшихся на топик
@@ -24,9 +28,13 @@ export class SubscriptionStore extends ForumStore {
       url: `${ForumStore.baseUrl}/api/subscription/${topicId}`,
       method: 'GET',
     };
-    const result = await axios(config);
-    // eslint-disable-next-line no-console
-    console.log(result.data);
-    return result.data;
+    try {
+      const result = await axios(config);
+      // eslint-disable-next-line no-console
+      console.log(result.data);
+      return result.data;
+    } catch (error: unknown) {
+      throw new Error((error as AxiosError).message);
+    }
   };
 }

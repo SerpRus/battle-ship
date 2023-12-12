@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig } from 'axios';
+import axios, { AxiosError, AxiosRequestConfig } from 'axios';
 import { ForumStore } from './baseStore';
 
 export class CommentStore extends ForumStore {
@@ -14,10 +14,14 @@ export class CommentStore extends ForumStore {
       method: 'POST',
       data: reqData,
     };
-    const result = await axios(config);
-    // eslint-disable-next-line no-console
-    console.log(result.data);
-    return result.data;
+    try {
+      const result = await axios(config);
+      // eslint-disable-next-line no-console
+      console.log(result.data);
+      return result.data;
+    } catch (error: unknown) {
+      throw new Error((error as AxiosError).message);
+    }
   };
 
   // Получение всех комментариев топика
@@ -26,9 +30,13 @@ export class CommentStore extends ForumStore {
       url: `${ForumStore.baseUrl}/api/comment/${topicId}`,
       method: 'GET',
     };
-    const result = await axios(config);
-    // eslint-disable-next-line no-console
-    console.log(result.data);
-    return result.data;
+    try {
+      const result = await axios(config);
+      // eslint-disable-next-line no-console
+      console.log(result.data);
+      return result.data;
+    } catch (error: unknown) {
+      throw new Error((error as AxiosError).message);
+    }
   };
 }
