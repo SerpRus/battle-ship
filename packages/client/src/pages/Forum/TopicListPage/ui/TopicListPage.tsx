@@ -1,39 +1,43 @@
 import { Card, Layout, Flex, Space } from 'antd';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { CommentOutlined } from '@ant-design/icons';
 import { v4 as makeUUID } from 'uuid';
 
-import forumData from '../../data.json';
 import { TopicCard } from '../../../../shared/ui/TopicCard/TopicCard';
 import { dateFormat } from '../../../../widgets/forum/utils/date-formatter';
 import PrimaryButton from '../../../../shared/ui/PrimaryButton/PrimaryButton';
 
 import cls from './TopicListPage.module.scss';
+import { TTopic } from '../../ForumItems/types';
+import { TopicStore } from '../../model/topicStore';
 
 const { Content } = Layout;
-
-type TopicType = {
-  id: number | string;
-  name: string;
-  author: string;
-  creationDate: Date | string;
-  commentsCount: number;
-  likesCount: number;
-};
 
 export const TopicList: React.FC = () => {
   const navigate = useNavigate();
 
-  const [data] = useState(forumData.data.topics);
-  const [readyMadeItems, setreadyMadeItems] = useState<TopicType[]>([]);
+  const [readyMadeItems, setreadyMadeItems] = useState<TTopic[]>([]);
+
+  const [topicsData, setTopics] = useState<TTopic[]>([] as TTopic[]);
+  const store = useMemo(() => new TopicStore(), []);
 
   useEffect(() => {
-    const sortedList = data.sort((a, b) =>
-      b.creationDate.localeCompare(a.creationDate)
+    const sortedList = topicsData.sort(
+      (a: TTopic, b: TTopic) => a.time_stamp - b.time_stamp
     );
     setreadyMadeItems(sortedList);
-  }, [data]);
+  }, [topicsData]);
+
+  useEffect(() => {
+    const fetchServerData = async () => {
+      store.getAllTopics().then(data => {
+        setTopics(data as unknown as TTopic[]);
+      });
+    };
+    fetchServerData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Layout className={cls.forumPageLayout}>
@@ -62,15 +66,16 @@ export const TopicList: React.FC = () => {
                     justify="space-between"
                     vertical
                     style={{ height: '100%' }}>
-                    <Link to={`/forum/${item.id}`}>{item.name}</Link>
+                    <Link to={`/forum/${item.id}`}>{item.title}</Link>
                     <Space>
-                      {item.author}·{dateFormat(new Date(item.creationDate))}
+                      {item.user_name}·
+                      {dateFormat(new Date(item.time_stamp * 1000))}
                     </Space>
                   </Flex>,
                   <Flex className={cls.LikesComments}>
                     <div>
                       <CommentOutlined />
-                      {item.commentsCount}
+                      {/* item.commentsCount */}
                     </div>
                   </Flex>,
                   <div>info</div>,
