@@ -17,6 +17,8 @@ import cls from './TopicPage.module.scss';
 import { TComment, TTopic } from '../../ForumItems/types';
 import { TopicStore } from '../../model/topicStore';
 import { CommentStore } from '../../model/commentStore';
+import { UserStore } from '../../../ProfilePage/model/store';
+import { TUser } from '../../../ProfilePage/model/types';
 
 const { Content } = Layout;
 
@@ -28,14 +30,25 @@ export const Topic: React.FC = () => {
 
   const [currentTopicData, setCurrentTopic] = useState<TTopic>();
   const [commentsData, setCommentData] = useState<TComment[]>([] as TComment[]);
+  const [userData, setUserData] = useState<TUser>();
 
   const [inputText, setInputText] = useState('');
 
   const topicStoreEx = useMemo(() => new TopicStore(), []);
   const commentStoreEx = useMemo(() => new CommentStore(), []);
+  const userStoreEx = useMemo(() => new UserStore(), []);
 
   useEffect(() => {
     const fetchServerData = async () => {
+      try {
+        const currentUser = await userStoreEx.getUser();
+        setUserData(currentUser);
+      } catch (error) {
+        toast.error('Ошибка получения данных пользователя');
+        if (error instanceof Error) {
+          toast.error(error.message);
+        }
+      }
       try {
         const currentTopic = await topicStoreEx.getTopicById(Number(id));
         setCurrentTopic(currentTopic as TTopic);
@@ -51,7 +64,7 @@ export const Topic: React.FC = () => {
       }
     };
     fetchServerData();
-  }, [commentStoreEx, id, topicStoreEx]);
+  }, [commentStoreEx, id, topicStoreEx, userStoreEx]);
 
   const onChange = useCallback((e: ChangeEvent) => {
     const element = e.target as HTMLInputElement;
@@ -79,29 +92,36 @@ export const Topic: React.FC = () => {
   const addComment = useCallback(() => {
     if (inputText && currentTopicData) {
       const fetchServerData = async () => {
-        const reqObj = {
-          userId: currentTopicData.user_id,
-          text: inputText,
-          userName: currentTopicData.user_name,
-          topicId: currentTopicData.id,
-        };
-        try {
-          await commentStoreEx.createComment(reqObj);
-          setInputText('');
-          const currentComments = await commentStoreEx.getAllCommentsFromTopic(
-            (currentTopicData as TTopic).id
-          );
-          setCommentData(currentComments as TComment[]);
-        } catch (error) {
-          toast.error('Ошибка отправки/получения данных комментариев');
-          if (error instanceof Error) {
-            toast.error(error.message);
+        if (userData) {
+          const reqObj = {
+            userId: userData.id,
+            text: inputText,
+            userName:
+              userData.display_name ||
+              `${userData.first_name} ${userData.second_name}`,
+            topicId: currentTopicData.id,
+          };
+          try {
+            await commentStoreEx.createComment(reqObj);
+            setInputText('');
+            const currentComments =
+              await commentStoreEx.getAllCommentsFromTopic(
+                (currentTopicData as TTopic).id
+              );
+            setCommentData(currentComments as TComment[]);
+          } catch (error) {
+            toast.error('Ошибка отправки/получения данных комментариев');
+            if (error instanceof Error) {
+              toast.error(error.message);
+            }
           }
+        } else {
+          toast.error('Пользователь не найден');
         }
       };
       fetchServerData();
     }
-  }, [commentStoreEx, currentTopicData, inputText]);
+  }, [commentStoreEx, currentTopicData, inputText, userData]);
 
   return (
     <Layout className={cls.layout}>
