@@ -1,0 +1,10 @@
+.addReactionIcon {
+  cursor: pointer;
+  opacity: 0.5;
+  width: 1.5rem;
+  height: 1.5rem;
+
+  &:hover {
+    opacity: 1;
+  }
+}

@@ -17,12 +17,12 @@
     "types": ["node", "jest", "@testing-library/jest-dom"],
     "jsx": "react-jsx",
     "paths": {
-      "react": ["./node_modules/@types/react"]
+      "react": ["./node_modules/@types/react"],
+      "@pages/*": ["./src/pages/*"],
+      "@shared/*": ["./src/shared/*"],
+      "@root/*": ["./src/*"]
     }
   },
   "include": ["src", "work/sw.js"],
-  "references": [{ "path": "./tsconfig.node.json" }],
-  "paths": {
-    "@shared/*": ["./src/shared/*"]
-  }
+  "references": [{ "path": "./tsconfig.node.json" }]
 }

@@ -41,8 +41,9 @@ export default defineConfig({
   },
   resolve: {
     alias: [
+      { find: '@root', replacement: resolve(__dirname, 'src') },
+      { find: '@pages', replacement: resolve(__dirname, 'src/pages') },
       { find: '@shared', replacement: resolve(__dirname, 'src/shared') },
-      { find: '@root', replacement: resolve(__dirname) },
     ],
   },
 });
