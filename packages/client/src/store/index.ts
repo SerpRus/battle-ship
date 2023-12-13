@@ -1,19 +1,26 @@
 import { configureStore } from '@reduxjs/toolkit';
-import userSlice, { IS_AUTH } from './userSlice';
-import helpersSlice from './helpersSlice';
+import userSlice, { IS_AUTH, StateProps } from './userSlice';
+import helpersSlice, { HelpersStateProps } from './helpersSlice';
 import { saveState } from './storage';
 
 export const PRELOADED_STATE =
   typeof window !== 'undefined'
     ? window.__PRELOADED_STATE__
     : {
-        user: null,
-        helpers: null,
+        user: {
+          isAuth: false,
+        },
+        helpers: {
+          isFullScreen: false,
+        },
       };
 
-export const createStore = (
-  preloadedState: Record<string, unknown> | undefined
-) =>
+export interface StoreProps {
+  user: StateProps;
+  helpers: HelpersStateProps;
+}
+
+export const createStore = (preloadedState: StoreProps | undefined) =>
   configureStore({
     reducer: {
       user: userSlice,
