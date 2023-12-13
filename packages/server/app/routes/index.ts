@@ -81,12 +81,10 @@ export default function routes(app: any) {
       const subscribers = await getSubscribers(id);
       res.json(subscribers);
     } catch (e) {
-      res
-        .status(500)
-        .json({
-          message:
-            'Не удалось получить информацию о подписавшихся на уведомление пользователей',
-        });
+      res.status(500).json({
+        message:
+          'Не удалось получить информацию о подписавшихся на уведомление пользователей',
+      });
     }
   });
 
@@ -117,11 +115,9 @@ export default function routes(app: any) {
       });
       res.json(replies);
     } catch (e) {
-      res
-        .status(500)
-        .json({
-          message: 'Не удалось получить данные об ответах на комментарий',
-        });
+      res.status(500).json({
+        message: 'Не удалось получить данные об ответах на комментарий',
+      });
     }
   });
 

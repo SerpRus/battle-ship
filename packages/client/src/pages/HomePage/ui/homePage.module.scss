@@ -1,7 +1,8 @@
 .wrapper {
   font-family: 'SF Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  color: var(--bkg-violet);
+  color: var(--default-color);
   min-height: 100vh;
+  background-color: var(--default-color);
 }
 
 .content {
@@ -25,25 +26,11 @@
 }
 
 .button {
-  font-family: 'SF Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  min-width: rem(128);
-  padding: rem(8);
-  margin-top: rem(32);
-  border-radius: rem(8);
-  background: transparent;
-  border: rem(1) solid var(--bkg-violet);
-  color: var(--bkg-violet);
-
-  &:hover {
-    cursor: pointer;
-    color: var(--bkg-blue);
-    border: rem(1) solid var(--bkg-blue);
-  }
-
   &_wrapper {
     display: flex;
     width: 100%;
     justify-content: center;
+    margin-top: 2rem;
   }
 }
 

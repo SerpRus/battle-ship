@@ -7,6 +7,7 @@ import { AppRouter } from './app/providers/router/AppRouter';
 // import { useAuth } from './app/providers/AuthProvider/AuthProvider';
 import 'react-toastify/dist/ReactToastify.css';
 import { getUser } from './store/userSlice';
+import { ThemeProvider } from './shared/ui/Theme';
 
 function App() {
   const __INIT__ = useRef(false);
@@ -136,20 +137,22 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        closeOnClick
-        hideProgressBar={false}
-        pauseOnFocusLoss={false}
-        rtl={false}
-        draggable
-        pauseOnHover
-        theme="colored"
-      />
-      <AppRouter />
-    </div>
+    <ThemeProvider>
+      <div className="App">
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          closeOnClick
+          hideProgressBar={false}
+          pauseOnFocusLoss={false}
+          rtl={false}
+          draggable
+          pauseOnHover
+          theme="colored"
+        />
+        <AppRouter />
+      </div>
+    </ThemeProvider>
   );
 }
 
