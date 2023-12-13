@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const AxiosInstance = axios.create({
-  baseURL: `http://localhost:${__SERVER_PORT__}`,
+  baseURL: `http://localhost:3001`,
   timeout: 30000,
   withCredentials: false,
   responseType: 'json',

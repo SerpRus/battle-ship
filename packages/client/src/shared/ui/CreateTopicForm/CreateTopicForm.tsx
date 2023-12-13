@@ -88,19 +88,6 @@ const CreateTopicForm: React.FC = () => {
         <TextArea rows={7} placeholder="лимит 1000 символов" maxLength={1000} />
       </Form.Item>
 
-      <h2>Теги:</h2>
-      <Form.Item
-        label="Несколько тегов могут быть разделены запятыми"
-        name="tags"
-        rules={[
-          {
-            required: true,
-            message: 'Ввод некорректен',
-          },
-        ]}>
-        <Input className={cls.ctInput} />
-      </Form.Item>
-
       <Form.Item>
         <PrimaryButton>Создать топик</PrimaryButton>
       </Form.Item>
