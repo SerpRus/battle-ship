@@ -1,12 +1,7 @@
-import axios, { AxiosError, AxiosRequestConfig } from 'axios';
+import { AxiosError } from 'axios';
+import { AxiosInstance } from './axiosInstance';
 
 export class ReplyStore {
-  baseUrl = `http://localhost:3001`;
-
-  constructor() {
-    this.baseUrl = `http://localhost:${__SERVER_PORT__}`;
-  }
-
   // Добавить ответ на комментарий
   public addReplyToComment = async (reqData: {
     text: string;
@@ -15,13 +10,11 @@ export class ReplyStore {
     commentId: number;
     parentReplyId: number;
   }) => {
-    const config: AxiosRequestConfig = {
-      url: `${this.baseUrl}/api/reply/${reqData.commentId}`,
-      method: 'POST',
-      data: reqData,
-    };
     try {
-      const result = await axios(config);
+      const result = await AxiosInstance.post(
+        `/api/reply/${reqData.commentId}`,
+        reqData
+      );
 
       return result.data;
     } catch (error: unknown) {
@@ -34,12 +27,10 @@ export class ReplyStore {
     topicId: number;
     commentId: number;
   }) => {
-    const config: AxiosRequestConfig = {
-      url: `${this.baseUrl}/api/reply/${reqData.topicId}?commentId=1`,
-      method: 'GET',
-    };
     try {
-      const result = await axios(config);
+      const result = await AxiosInstance.get(
+        `/api/reply/${reqData.topicId}?commentId=${reqData.commentId}`
+      );
 
       return result.data;
     } catch (error: unknown) {

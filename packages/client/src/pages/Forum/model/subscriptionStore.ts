@@ -1,24 +1,17 @@
-import axios, { AxiosError, AxiosRequestConfig } from 'axios';
+import { AxiosError } from 'axios';
+import { AxiosInstance } from './axiosInstance';
 
 export class SubscriptionStore {
-  baseUrl = `http://localhost:3001`;
-
-  constructor() {
-    this.baseUrl = `http://localhost:${__SERVER_PORT__}`;
-  }
-
   // Подписка на топик
   public subscribeOnTopic = async (reqData: {
     userId: number;
     topicId: number;
   }) => {
-    const config: AxiosRequestConfig = {
-      url: `${this.baseUrl}/api/subscription/${reqData.topicId}`,
-      method: 'POST',
-      data: reqData,
-    };
     try {
-      const result = await axios(config);
+      const result = await AxiosInstance.post(
+        `/api/subscription/${reqData.topicId}`,
+        reqData
+      );
 
       return result.data;
     } catch (error: unknown) {
@@ -28,12 +21,8 @@ export class SubscriptionStore {
 
   // Получение id пользователей, подписавшихся на топик
   public getSubscribersOfTopic = async (topicId: number) => {
-    const config: AxiosRequestConfig = {
-      url: `${this.baseUrl}/api/subscription/${topicId}`,
-      method: 'GET',
-    };
     try {
-      const result = await axios(config);
+      const result = await AxiosInstance.get(`/api/subscription/${topicId}`);
 
       return result.data;
     } catch (error: unknown) {

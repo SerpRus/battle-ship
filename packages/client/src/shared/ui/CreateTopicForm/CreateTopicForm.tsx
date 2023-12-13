@@ -1,10 +1,12 @@
 import React, { useMemo } from 'react';
 import { Form, Input } from 'antd';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import cls from './CreateTopicForm.module.scss';
 import PrimaryButton from '../PrimaryButton/PrimaryButton';
 import { TopicStore } from '../../../pages/Forum/model/topicStore';
 import { UserStore } from '../../../pages/ProfilePage/model/store';
+import { RoutePath } from '../../../app/providers/router/routeConfig';
 
 const { TextArea } = Input;
 
@@ -20,15 +22,22 @@ const CreateTopicForm: React.FC = () => {
     theme: string;
   }) => {
     const fetchServerData = async () => {
-      const userData = await userStoreEx.getUser();
-      const reqData = {
-        title: formData.theme,
-        description: formData.description,
-        userId: userData.id,
-        userName: userData.first_name,
-      };
-      await topicStoreEx.createTopic(reqData);
-      navigate('/forum');
+      try {
+        const userData = await userStoreEx.getUser();
+        const reqData = {
+          title: formData.theme,
+          description: formData.description,
+          userId: userData.id,
+          userName: userData.first_name,
+        };
+        await topicStoreEx.createTopic(reqData);
+      } catch (error) {
+        toast.error('Ошибка при создании топика');
+        if (error instanceof Error) {
+          toast.error(error.message);
+        }
+      }
+      navigate(RoutePath.forum);
     };
 
     fetchServerData();

@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { CommentOutlined } from '@ant-design/icons';
 import { v4 as makeUUID } from 'uuid';
 
+import { toast } from 'react-toastify';
 import { TopicCard } from '../../../../shared/ui/TopicCard/TopicCard';
 import { dateFormat } from '../../../../widgets/forum/utils/date-formatter';
 import PrimaryButton from '../../../../shared/ui/PrimaryButton/PrimaryButton';
@@ -11,6 +12,8 @@ import PrimaryButton from '../../../../shared/ui/PrimaryButton/PrimaryButton';
 import cls from './TopicListPage.module.scss';
 import { TTopic } from '../../ForumItems/types';
 import { TopicStore } from '../../model/topicStore';
+
+import { RoutePath } from '../../../../app/providers/router/routeConfig';
 
 const { Content } = Layout;
 
@@ -31,23 +34,29 @@ export const TopicList: React.FC = () => {
 
   useEffect(() => {
     const fetchServerData = async () => {
-      const allTopicsData = await store.getAllTopics();
-      setTopics(allTopicsData as unknown as TTopic[]);
+      try {
+        const allTopicsData = await store.getAllTopics();
+        setTopics(allTopicsData as unknown as TTopic[]);
+      } catch (error) {
+        toast.error('Ошибка получения данных топика');
+        if (error instanceof Error) {
+          toast.error(error.message);
+        }
+      }
     };
     fetchServerData();
   }, [store]);
+
+  const redirect = () => {
+    navigate(RoutePath.create);
+  };
 
   return (
     <Layout className={cls.forumPageLayout}>
       <Flex justify="center" className={cls.wrapper}>
         <Card className={cls.forumPageCard}>
           <Flex justify="center" vertical>
-            <PrimaryButton
-              onClick={() => {
-                navigate('/forum/create');
-              }}>
-              Create new topic
-            </PrimaryButton>
+            <PrimaryButton onClick={redirect}>Create new topic</PrimaryButton>
           </Flex>
         </Card>
         <Content

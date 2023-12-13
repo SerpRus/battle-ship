@@ -1,12 +1,7 @@
-import axios, { AxiosError, AxiosRequestConfig } from 'axios';
+import { AxiosError } from 'axios';
+import { AxiosInstance } from './axiosInstance';
 
 export class CommentStore {
-  baseUrl = `http://localhost:3001`;
-
-  constructor() {
-    this.baseUrl = `http://localhost:${__SERVER_PORT__}`;
-  }
-
   // Создание комментария
   public createComment = async (reqData: {
     userId: number;
@@ -14,13 +9,8 @@ export class CommentStore {
     userName: string;
     topicId: number;
   }) => {
-    const config: AxiosRequestConfig = {
-      url: `${this.baseUrl}/api/comment`,
-      method: 'POST',
-      data: reqData,
-    };
     try {
-      const result = await axios(config);
+      const result = await AxiosInstance.post('/api/comment', reqData);
 
       return result.data;
     } catch (error: unknown) {
@@ -30,12 +20,8 @@ export class CommentStore {
 
   // Получение всех комментариев топика
   public getAllCommentsFromTopic = async (topicId: number) => {
-    const config: AxiosRequestConfig = {
-      url: `${this.baseUrl}/api/comment/${topicId}`,
-      method: 'GET',
-    };
     try {
-      const result = await axios(config);
+      const result = await AxiosInstance.get(`/api/comment/${topicId}`);
 
       return result.data;
     } catch (error: unknown) {

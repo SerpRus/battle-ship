@@ -5,6 +5,7 @@ import React, {
   useCallback,
   useMemo,
 } from 'react';
+import { toast } from 'react-toastify';
 import { useParams } from 'react-router-dom';
 import { Card, Layout, Flex, Button, Form, Input } from 'antd';
 import { SendOutlined, NotificationTwoTone } from '@ant-design/icons';
@@ -18,26 +19,6 @@ import { TopicStore } from '../../model/topicStore';
 import { CommentStore } from '../../model/commentStore';
 
 const { Content } = Layout;
-
-function notifyUser(
-  setNotification: React.Dispatch<React.SetStateAction<boolean>>
-) {
-  if (!('Notification' in window)) {
-    // eslint-disable-next-line no-alert
-    alert("don't support notifications");
-  } else if (Notification.permission === 'granted') {
-    // eslint-disable-next-line no-new
-    new Notification('Thanks for enabling notifications!');
-  } else if (Notification.permission !== 'denied') {
-    Notification.requestPermission().then(permission => {
-      if (permission === 'granted') {
-        setNotification(true);
-        // eslint-disable-next-line no-new
-        new Notification('Thanks for enabling notifications!');
-      }
-    });
-  }
-}
 
 export const Topic: React.FC = () => {
   const [notification, setNotification] = useState(
@@ -55,12 +36,19 @@ export const Topic: React.FC = () => {
 
   useEffect(() => {
     const fetchServerData = async () => {
-      const currentTopic = await topicStoreEx.getTopicById(Number(id));
-      setCurrentTopic(currentTopic as TTopic);
-      const topicComments = await commentStoreEx.getAllCommentsFromTopic(
-        (currentTopic as TTopic).id
-      );
-      setCommentData(topicComments as TComment[]);
+      try {
+        const currentTopic = await topicStoreEx.getTopicById(Number(id));
+        setCurrentTopic(currentTopic as TTopic);
+        const topicComments = await commentStoreEx.getAllCommentsFromTopic(
+          (currentTopic as TTopic).id
+        );
+        setCommentData(topicComments as TComment[]);
+      } catch (error) {
+        toast.error('Ошибка получения данных топика/комментариев');
+        if (error instanceof Error) {
+          toast.error(error.message);
+        }
+      }
     };
     fetchServerData();
   }, [commentStoreEx, id, topicStoreEx]);
@@ -68,6 +56,24 @@ export const Topic: React.FC = () => {
   const onChange = useCallback((e: ChangeEvent) => {
     const element = e.target as HTMLInputElement;
     setInputText(element.value);
+  }, []);
+
+  const notifyUser = useCallback(() => {
+    if (!('Notification' in window)) {
+      // eslint-disable-next-line no-alert
+      toast.error("don't support notifications");
+    } else if (Notification.permission === 'granted') {
+      // eslint-disable-next-line no-new
+      new Notification('Thanks for enabling notifications!');
+    } else if (Notification.permission !== 'denied') {
+      Notification.requestPermission().then(permission => {
+        if (permission === 'granted') {
+          setNotification(true);
+          // eslint-disable-next-line no-new
+          new Notification('Thanks for enabling notifications!');
+        }
+      });
+    }
   }, []);
 
   const addComment = useCallback(() => {
@@ -79,13 +85,19 @@ export const Topic: React.FC = () => {
           userName: currentTopicData.user_name,
           topicId: currentTopicData.id,
         };
-
-        await commentStoreEx.createComment(reqObj);
-        setInputText('');
-        const currentComments = await commentStoreEx.getAllCommentsFromTopic(
-          (currentTopicData as TTopic).id
-        );
-        setCommentData(currentComments as TComment[]);
+        try {
+          await commentStoreEx.createComment(reqObj);
+          setInputText('');
+          const currentComments = await commentStoreEx.getAllCommentsFromTopic(
+            (currentTopicData as TTopic).id
+          );
+          setCommentData(currentComments as TComment[]);
+        } catch (error) {
+          toast.error('Ошибка отправки/получения данных комментариев');
+          if (error instanceof Error) {
+            toast.error(error.message);
+          }
+        }
       };
       fetchServerData();
     }
@@ -103,7 +115,7 @@ export const Topic: React.FC = () => {
             <h4>{currentTopicData?.description}</h4>
             <div>
               {!notification && (
-                <Button onClick={() => notifyUser(setNotification)}>
+                <Button onClick={notifyUser}>
                   <NotificationTwoTone />
                 </Button>
               )}
@@ -113,7 +125,7 @@ export const Topic: React.FC = () => {
             <Form autoComplete="off">
               <Flex>
                 <Input value={inputText} onChange={onChange} />
-                <Button onClick={() => addComment()}>
+                <Button onClick={addComment}>
                   <SendOutlined />
                 </Button>
               </Flex>

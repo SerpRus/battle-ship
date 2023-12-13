@@ -1,28 +1,11 @@
-import axios, { AxiosError, AxiosRequestConfig } from 'axios';
-
-type TTopic = {
-  id: number;
-  title: string;
-  description: string;
-  user_name: string;
-  time_stamp: number;
-};
+import { AxiosError } from 'axios';
+import { AxiosInstance } from './axiosInstance';
 
 export class TopicStore {
-  baseUrl = `http://localhost:3001`;
-
-  constructor() {
-    this.baseUrl = `http://localhost:${__SERVER_PORT__}`;
-  }
-
   // Получение всех топиков
   public getAllTopics = async () => {
-    const config: AxiosRequestConfig = {
-      url: `${this.baseUrl}/api/topic`,
-      method: 'GET',
-    };
     try {
-      const result = await axios<Array<TTopic>>(config);
+      const result = await AxiosInstance.get(`/api/topic`);
 
       return result.data;
     } catch (error: unknown) {
@@ -37,14 +20,8 @@ export class TopicStore {
     userId: number;
     userName: string;
   }) => {
-    const config: AxiosRequestConfig = {
-      url: `${this.baseUrl}/api/topic`,
-      method: 'POST',
-      data: reqData,
-    };
     try {
-      const result = await axios(config);
-
+      const result = await AxiosInstance.post('/api/topic', reqData);
       return result.data;
     } catch (error: unknown) {
       throw new Error((error as AxiosError).message);
@@ -53,12 +30,8 @@ export class TopicStore {
 
   // Получение топика по id
   public getTopicById = async (id: number) => {
-    const config: AxiosRequestConfig = {
-      url: `${this.baseUrl}/api/topic/${id}`,
-      method: 'GET',
-    };
     try {
-      const result = await axios(config);
+      const result = await AxiosInstance.get(`/api/topic/${id}`);
 
       return result.data;
     } catch (error: unknown) {
