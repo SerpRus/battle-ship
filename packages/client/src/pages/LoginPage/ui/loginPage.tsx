@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react';
 import { Layout, Button, Checkbox, Form } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useForm, Controller } from 'react-hook-form';
 import cls from './loginPage.module.scss';
 import { login, userActions } from '../../../store/userSlice';
@@ -12,10 +11,10 @@ import {
 } from '../../../shared/constants/validationConstants';
 import { ValidatableFormItemInput } from '../../../shared/ui/ValidatableFormItemInput/ValidatableFormItemInput';
 
-import { RoutePath } from '../../../app/providers/router/routeConfig';
 import PrimaryButton from '../../../shared/ui/PrimaryButton/PrimaryButton';
 
-import { AppDispath, RootState } from '../../../store';
+import { AppDispath } from '../../../store';
+import { AuthLink } from '../../../app/providers/OAuth/ui/AuthLink';
 
 const { Content } = Layout;
 
@@ -28,7 +27,6 @@ export type ILoginDataFieldType = {
 export const LoginPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispath>();
-  const { isAuth } = useSelector((s: RootState) => s.user);
 
   const {
     control,
@@ -56,16 +54,11 @@ export const LoginPage = () => {
     );
   };
 
-  useEffect(() => {
-    if (isAuth) {
-      navigate(RoutePath.home, { replace: true });
-    }
-  }, [isAuth, navigate]);
-
   return (
     <Layout className={cls.wrapper}>
       <Content className={cls.content}>
         <div className={cls.ship} />
+
         <Form
           className={cls.form}
           name="basic"
@@ -147,6 +140,7 @@ export const LoginPage = () => {
               Зарегистрироваться
             </Button>
           </Form.Item>
+          <AuthLink />
         </Form>
       </Content>
     </Layout>

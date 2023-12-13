@@ -4,11 +4,14 @@ import cls from './homePage.module.scss';
 import { RoutePath } from '../../../app/providers/router/routeConfig';
 import { Button } from '../../../shared/ui/Button';
 import { ThemeContext } from '../../../shared/ui/Theme';
+import { useOAuth } from '../../../app/providers/OAuth/helpers/useOAuth';
 
 const { Content } = Layout;
 
 export const HomePage = () => {
   const currentTheme = useContext(ThemeContext);
+
+  useOAuth();
 
   const onClick = useCallback(() => {
     window.location.replace(RoutePath.game);
