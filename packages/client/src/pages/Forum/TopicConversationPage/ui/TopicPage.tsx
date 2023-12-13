@@ -5,53 +5,22 @@ import React, {
   useCallback,
   useMemo,
 } from 'react';
+import { toast } from 'react-toastify';
 import { useParams } from 'react-router-dom';
 import { Card, Layout, Flex, Button, Form, Input } from 'antd';
-import {
-  LikeFilled,
-  SendOutlined,
-  NotificationTwoTone,
-} from '@ant-design/icons';
+import { SendOutlined, NotificationTwoTone } from '@ant-design/icons';
 
-import { TUser } from '../../../ProfilePage/model/types';
-
-import { UserStore } from '../../../ProfilePage/model/store';
-
-import forumData from '../../data.json';
 import { CommentCard } from '../../../../shared/ui/CommentCard/CommentCard';
 
 import cls from './TopicPage.module.scss';
 
+import { TComment, TTopic } from '../../ForumItems/types';
+import { TopicStore } from '../../model/topicStore';
+import { CommentStore } from '../../model/commentStore';
+import { UserStore } from '../../../ProfilePage/model/store';
+import { TUser } from '../../../ProfilePage/model/types';
+
 const { Content } = Layout;
-
-type CommentsDataType = {
-  id: number | string;
-  topicId: number | string;
-  name: string;
-  comment: string;
-  creationDate: Date | string;
-  likesCount: number | string;
-};
-
-function notifyUser(
-  setNotification: React.Dispatch<React.SetStateAction<boolean>>
-) {
-  if (!('Notification' in window)) {
-    // eslint-disable-next-line no-alert
-    alert("don't support notifications");
-  } else if (Notification.permission === 'granted') {
-    // eslint-disable-next-line no-new
-    new Notification('Thanks for enabling notifications!');
-  } else if (Notification.permission !== 'denied') {
-    Notification.requestPermission().then(permission => {
-      if (permission === 'granted') {
-        setNotification(true);
-        // eslint-disable-next-line no-new
-        new Notification('Thanks for enabling notifications!');
-      }
-    });
-  }
-}
 
 export const Topic: React.FC = () => {
   const [notification, setNotification] = useState(
@@ -59,103 +28,131 @@ export const Topic: React.FC = () => {
   );
   const { id } = useParams();
 
-  const topicsData = forumData.data.topics;
-  const currentTopicData = topicsData.find(topic => topic.id === Number(id));
-  const [commentsData, setData] = useState(forumData.data.comments);
-  const [readyMadeComments, setReadyMadeItems] = useState<CommentsDataType[]>(
-    []
-  );
+  const [currentTopicData, setCurrentTopic] = useState<TTopic>();
+  const [commentsData, setCommentData] = useState<TComment[]>([] as TComment[]);
+  const [userData, setUserData] = useState<TUser>();
+
   const [inputText, setInputText] = useState('');
 
-  const [user, setUser] = useState<TUser>({} as TUser);
-  const store = useMemo(() => new UserStore(), []);
+  const topicStoreEx = useMemo(() => new TopicStore(), []);
+  const commentStoreEx = useMemo(() => new CommentStore(), []);
+  const userStoreEx = useMemo(() => new UserStore(), []);
 
   useEffect(() => {
-    const currentTopicComments = commentsData.filter(
-      comment => comment.topicId === currentTopicData?.id
-    );
-    const sortedList = [...currentTopicComments].sort((a, b) =>
-      b.creationDate.localeCompare(a.creationDate)
-    );
-    setReadyMadeItems(sortedList);
-  }, [commentsData, currentTopicData?.id]);
+    const fetchServerData = async () => {
+      try {
+        const currentUser = await userStoreEx.getUser();
+        setUserData(currentUser);
+      } catch (error) {
+        toast.error('Ошибка получения данных пользователя');
+        if (error instanceof Error) {
+          toast.error(error.message);
+        }
+      }
+      try {
+        const currentTopic = await topicStoreEx.getTopicById(Number(id));
+        setCurrentTopic(currentTopic as TTopic);
+        const topicComments = await commentStoreEx.getAllCommentsFromTopic(
+          (currentTopic as TTopic).id
+        );
+        setCommentData(topicComments as TComment[]);
+      } catch (error) {
+        toast.error('Ошибка получения данных топика/комментариев');
+        if (error instanceof Error) {
+          toast.error(error.message);
+        }
+      }
+    };
+    fetchServerData();
+  }, [commentStoreEx, id, topicStoreEx, userStoreEx]);
 
   const onChange = useCallback((e: ChangeEvent) => {
     const element = e.target as HTMLInputElement;
     setInputText(element.value);
   }, []);
 
-  useEffect(() => {
-    store.getUser().then(userData => {
-      setUser(userData);
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [store]);
-
-  const sendData = useCallback(() => {
-    if (inputText) {
-      const dataCopy = [...commentsData];
-      const newCommentData = {
-        id: user.id,
-        topicId: Number(id),
-        name: user.display_name ?? `${user.first_name} ${user.second_name}`,
-        creationDate: new Date().toString(),
-        likesCount: 0,
-        comment: inputText,
-      };
-      if ('Notification' in window && notification) {
-        // eslint-disable-next-line no-new
-        new Notification(
-          `${currentTopicData?.name} - ${newCommentData.name}: ${newCommentData.comment}`
-        );
-      }
-
-      dataCopy.push(newCommentData);
-      setData(dataCopy);
-      setInputText('');
+  const notifyUser = useCallback(() => {
+    if (!('Notification' in window)) {
+      // eslint-disable-next-line no-alert
+      toast.error("don't support notifications");
+    } else if (Notification.permission === 'granted') {
+      // eslint-disable-next-line no-new
+      new Notification('Thanks for enabling notifications!');
+    } else if (Notification.permission !== 'denied') {
+      Notification.requestPermission().then(permission => {
+        if (permission === 'granted') {
+          setNotification(true);
+          // eslint-disable-next-line no-new
+          new Notification('Thanks for enabling notifications!');
+        }
+      });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [commentsData, currentTopicData?.name, id, inputText]);
+  }, []);
+
+  const addComment = useCallback(() => {
+    if (inputText && currentTopicData) {
+      const fetchServerData = async () => {
+        if (userData) {
+          const reqObj = {
+            userId: userData.id,
+            text: inputText,
+            userName:
+              userData.display_name ||
+              `${userData.first_name} ${userData.second_name}`,
+            topicId: currentTopicData.id,
+          };
+          try {
+            await commentStoreEx.createComment(reqObj);
+            setInputText('');
+            const currentComments =
+              await commentStoreEx.getAllCommentsFromTopic(
+                (currentTopicData as TTopic).id
+              );
+            setCommentData(currentComments as TComment[]);
+          } catch (error) {
+            toast.error('Ошибка отправки/получения данных комментариев');
+            if (error instanceof Error) {
+              toast.error(error.message);
+            }
+          }
+        } else {
+          toast.error('Пользователь не найден');
+        }
+      };
+      fetchServerData();
+    }
+  }, [commentStoreEx, currentTopicData, inputText, userData]);
 
   return (
     <Layout className={cls.layout}>
-      {currentTopicData && user && (
-        <Flex justify="space-around" className={cls.wrapper}>
-          <Content
-            style={{
-              maxWidth: 800,
-            }}>
-            <Card className={cls.themeCard}>
-              <h2>{currentTopicData?.name}</h2>
-              <h4>{currentTopicData?.description}</h4>
-              <div>
-                <LikeFilled />
-                {!notification && (
-                  <Button onClick={() => notifyUser(setNotification)}>
-                    <NotificationTwoTone />
-                  </Button>
-                )}
-              </div>
-            </Card>
-            <CommentCard itemList={readyMadeComments}>
-              <Form autoComplete="off">
-                <Flex>
-                  <Input value={inputText} onChange={onChange} />
-                  <Button onClick={() => sendData()}>
-                    <SendOutlined />
-                  </Button>
-                </Flex>
-              </Form>
-            </CommentCard>
-          </Content>
-        </Flex>
-      )}
-      {!currentTopicData && (
-        <>
-          <h1>404</h1>
-          <h3>Not found topic/user</h3>
-        </>
-      )}
+      <Flex justify="space-around" className={cls.wrapper}>
+        <Content
+          style={{
+            maxWidth: 800,
+          }}>
+          <Card className={cls.themeCard}>
+            <h2>{currentTopicData?.title}</h2>
+            <h4>{currentTopicData?.description}</h4>
+            <div>
+              {!notification && (
+                <Button onClick={notifyUser}>
+                  <NotificationTwoTone />
+                </Button>
+              )}
+            </div>
+          </Card>
+          <CommentCard itemList={commentsData}>
+            <Form autoComplete="off">
+              <Flex>
+                <Input value={inputText} onChange={onChange} />
+                <Button onClick={addComment}>
+                  <SendOutlined />
+                </Button>
+              </Flex>
+            </Form>
+          </CommentCard>
+        </Content>
+      </Flex>
     </Layout>
   );
 };
