@@ -5,6 +5,7 @@ import type { ViteDevServer } from 'vite';
 import * as fs from 'fs';
 import * as path from 'path';
 import { createServer as createViteServer } from 'vite';
+import type { StoreProps } from 'client/src/store';
 import helmet from 'helmet';
 import bodyParser from 'body-parser';
 // @ts-ignore
@@ -81,10 +82,8 @@ async function startServer() {
         template = await vite!.transformIndexHtml(url, template);
       }
 
-      let render: (url: string, state: any) => Promise<string>;
-      let createStore: (
-        preloadedState: Record<string, unknown> | undefined
-      ) => any;
+      let render: (url: string, store: StoreProps) => Promise<string>;
+      let createStore: (preloadedState: StoreProps | undefined) => any;
 
       if (!isDev()) {
         render = (await import(ssrClientPath)).render;
@@ -97,16 +96,22 @@ async function startServer() {
         ).createStore;
       }
 
-      const store = createStore(undefined);
+      const store = createStore({
+        user: {
+          // TODO: реализовать запрос на сервер
+          isAuth: false,
+        },
+        helpers: {
+          isFullScreen: false,
+        },
+      });
       const state = store.getState();
-
       const appHtml = await render(url, store);
       const stateHtml = `<script>window.__PRELOADED_STATE__=${JSON.stringify(
         state
       ).replace(/</g, '\\u003c')}</script>`;
 
       const html = template.replace(`<!--ssr-outlet-->`, appHtml + stateHtml);
-
       res.status(200).set({ 'Content-Type': 'text/html' }).end(html);
     } catch (e) {
       if (isDev()) {
