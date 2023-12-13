@@ -1,4 +1,5 @@
 Полезные ссылки: 
+- Видео: https://disk.yandex.com.am/i/HL9vUy08UmJqGg
 - Figma: https://www.figma.com/file/5Ebp2VHbBOafGFvBfJ7wsi/battle-ship?node-id=0%3A1&mode=dev
 - Linear: https://linear.app/lazy-team/team/LT/active
 - Discord: https://discord.gg/JsXCJYa9
