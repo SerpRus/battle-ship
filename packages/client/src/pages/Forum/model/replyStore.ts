@@ -13,10 +13,10 @@ export class ReplyStore {
     userName: string;
     topicId: number;
     commentId: number;
-    parentReplyId: number;
+    parentReplyId: number | null;
   }) => {
     const config: AxiosRequestConfig = {
-      url: `${this.baseUrl}/api/reply/${reqData.commentId}`,
+      url: `${this.baseUrl}/api/reply/${reqData.topicId}`,
       method: 'POST',
       data: reqData,
     };
@@ -35,7 +35,7 @@ export class ReplyStore {
     commentId: number;
   }) => {
     const config: AxiosRequestConfig = {
-      url: `${this.baseUrl}/api/reply/${reqData.topicId}?commentId=1`,
+      url: `${this.baseUrl}/api/reply/${reqData.topicId}?commentId=${reqData.commentId}`,
       method: 'GET',
     };
     try {

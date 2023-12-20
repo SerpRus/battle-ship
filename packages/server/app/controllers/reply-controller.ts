@@ -14,7 +14,7 @@ export async function addReply(data: {
   userName: string;
   topicId: number;
   commentId: number;
-  parentReplyId: number;
+  parentReplyId: number | null;
 }) {
   const timestamp = Math.floor(new Date().getTime() / 1000);
 

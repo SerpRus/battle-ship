@@ -14,8 +14,10 @@ import { CommentCard } from '../../../../shared/ui/CommentCard/CommentCard';
 import cls from './TopicPage.module.scss';
 
 import { TComment, TTopic } from '../../ForumItems/types';
+import { TUser } from '../../../ProfilePage/model/types';
 import { TopicStore } from '../../model/topicStore';
 import { CommentStore } from '../../model/commentStore';
+import { UserStore } from '../../../ProfilePage/model/store';
 
 const { Content } = Layout;
 
@@ -47,23 +49,29 @@ export const Topic: React.FC = () => {
 
   const [currentTopicData, setCurrentTopic] = useState<TTopic>();
   const [commentsData, setCommentData] = useState<TComment[]>([] as TComment[]);
+  const [userData, setUserData] = useState<TUser>();
 
   const [inputText, setInputText] = useState('');
 
   const topicStoreEx = useMemo(() => new TopicStore(), []);
   const commentStoreEx = useMemo(() => new CommentStore(), []);
+  const userStoreEx = useMemo(() => new UserStore(), []);
 
   useEffect(() => {
     const fetchServerData = async () => {
       const currentTopic = await topicStoreEx.getTopicById(Number(id));
       setCurrentTopic(currentTopic as TTopic);
+
       const topicComments = await commentStoreEx.getAllCommentsFromTopic(
         (currentTopic as TTopic).id
       );
       setCommentData(topicComments as TComment[]);
+
+      const user = await userStoreEx.getUser();
+      setUserData(user);
     };
     fetchServerData();
-  }, [commentStoreEx, id, topicStoreEx]);
+  }, [commentStoreEx, id, topicStoreEx, userStoreEx]);
 
   const onChange = useCallback((e: ChangeEvent) => {
     const element = e.target as HTMLInputElement;
@@ -71,12 +79,14 @@ export const Topic: React.FC = () => {
   }, []);
 
   const addComment = useCallback(() => {
-    if (inputText && currentTopicData) {
+    if (inputText && currentTopicData && userData) {
       const fetchServerData = async () => {
         const reqObj = {
-          userId: currentTopicData.user_id,
+          userId: userData.id,
           text: inputText,
-          userName: currentTopicData.user_name,
+          userName:
+            userData.display_name ||
+            `${userData.first_name} ${userData.second_name}`,
           topicId: currentTopicData.id,
         };
 
@@ -89,7 +99,7 @@ export const Topic: React.FC = () => {
       };
       fetchServerData();
     }
-  }, [commentStoreEx, currentTopicData, inputText]);
+  }, [commentStoreEx, currentTopicData, inputText, userData]);
 
   return (
     <Layout className={cls.layout}>
@@ -109,7 +119,7 @@ export const Topic: React.FC = () => {
               )}
             </div>
           </Card>
-          <CommentCard itemList={commentsData}>
+          <CommentCard commentList={commentsData}>
             <Form autoComplete="off">
               <Flex>
                 <Input value={inputText} onChange={onChange} />
