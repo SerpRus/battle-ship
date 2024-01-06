@@ -1,8 +1,8 @@
 import type { TReactionItem } from '@pages/Forum/TopicPage/store/types';
 import { TUser } from '@pages/ProfilePage/model/types';
-import { UserStore } from '@pages/ProfilePage/model/store';
 import { makeAutoObservable } from 'mobx';
 import type { TParsedReaction } from '../types';
+import { UserStore } from '../../../../../../../../ProfilePage/model/store';
 import { addParsedData } from './helpers/addParsedData';
 import { filterUniqueReaction } from './helpers/filterUniqueReaction';
 import { filterActiveReaction } from './services/filterActiveReaction';

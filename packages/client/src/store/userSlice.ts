@@ -1,11 +1,13 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
 import { toast } from 'react-toastify';
-import { IUser } from '../app/providers/AuthProvider/types';
-import { ILoginDataFieldType } from '../pages/LoginPage/ui/loginPage';
+import type { IUser } from '../app/providers/AuthProvider/types';
+// @ts-ignore
+import type { ILoginDataFieldType } from '../pages/LoginPage/ui/loginPage';
 import AuthApi from '../shared/axios/AuthApi';
 import { loadState } from './storage';
-import { ISignUpData } from '../pages/RegistrationPage/ui/registrationPage';
+// @ts-ignore
+import type { ISignUpData } from '../pages/RegistrationPage/ui/registrationPage';
 
 export const IS_AUTH = 'userData';
 

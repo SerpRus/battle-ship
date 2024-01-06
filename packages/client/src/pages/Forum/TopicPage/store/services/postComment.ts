@@ -1,4 +1,4 @@
-import { UserStore } from '@pages/ProfilePage/model/store';
+import { UserStore } from '../../../../ProfilePage/model/store';
 
 export const postComment = async (topicId: string, comment: string) => {
   const userStore = new UserStore();

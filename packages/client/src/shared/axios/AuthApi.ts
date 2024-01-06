@@ -1,6 +1,8 @@
 import { AxiosInstance } from './instance';
-import { ISignUpData } from '../../pages/RegistrationPage/ui/registrationPage';
-import { ILoginDataFieldType } from '../../pages/LoginPage/ui/loginPage';
+// @ts-ignore
+import type { ISignUpData } from '../../pages/RegistrationPage/ui/registrationPage';
+// @ts-ignore
+import type { ILoginDataFieldType } from '../../pages/LoginPage/ui/loginPage';
 
 class AuthApi {
   public createUser(data: ISignUpData): Promise<any> {

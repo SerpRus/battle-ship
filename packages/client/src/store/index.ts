@@ -5,7 +5,8 @@ import { saveState } from './storage';
 
 export const PRELOADED_STATE =
   typeof window !== 'undefined'
-    ? window.__PRELOADED_STATE__
+    ? // @ts-ignore
+      window.__PRELOADED_STATE__
     : {
         user: {
           isAuth: false,
