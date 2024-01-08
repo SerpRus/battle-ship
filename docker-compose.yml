@@ -51,6 +51,13 @@ services:
       networks:
         - awesome
 
+    nginx:
+      image: nginx:1.16.0-alpine
+      volumes:
+        - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      ports:
+        - "9090:90"
+
 volumes:
   pgadmin-data:
 
