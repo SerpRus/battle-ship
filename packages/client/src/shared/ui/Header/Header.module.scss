@@ -23,8 +23,10 @@
     color: var(--default-color);
   }
 
-  li:nth-child(5), 
-  li:nth-child(6) {display: none;}
+  li:nth-child(5),
+  li:nth-child(6) {
+    display: none;
+  }
 
   a {
     text-decoration: none;
