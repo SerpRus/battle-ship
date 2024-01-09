@@ -1,62 +1,69 @@
-version: "3.9"
+version: '3.9'
 
 services:
-    server:
-        container_name: prakticum-server
-        image: prackicum-server
-        build:
-            context: .
-            dockerfile: Dockerfile.server
-            args:
-              SERVER_PORT: ${SERVER_PORT}
-        restart: always
-        ports:
-            - "${CLIENT_PORT}:${SERVER_PORT}"
-        depends_on:
-              - postgres
-              - pgadmin
-        networks:
-              - awesome
-        environment:
-          SERVER_PORT: ${SERVER_PORT}
+  client:
+    container_name: prakticum-client
+    image: prakticum-client
+    build:
+      context: .
+      dockerfile: Dockerfile.client
+      args:
+        CLIENT_PORT: ${CLIENT_PORT}
+    restart: always
+    ports:
+      - '80:80'
+    environment:
+      - CLIENT_PORT=${CLIENT_PORT}
 
-    postgres:
-      container_name: postgres_container
-      image: postgres:14
-      ports:
-        - "${POSTGRES_PORT}:${POSTGRES_PORT}"
-      environment:
-        POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-        POSTGRES_USER: ${POSTGRES_USER}
-        POSTGRES_DB: ${POSTGRES_DB}
-      volumes:
-        - ./tmp/pgdata:/var/lib/postgresql/data
-      networks:
-        - awesome
+  server:
+    container_name: prakticum-server
+    image: prackicum-server
+    build:
+      context: .
+      dockerfile: Dockerfile.server
+      args:
+        SERVER_PORT: ${SERVER_PORT}
+    restart: always
+    ports:
+      - '${SERVER_PORT}:${SERVER_PORT}'
+    depends_on:
+      - postgres
+      - pgadmin
+    networks:
+      - awesome
+    environment:
+      SERVER_PORT: ${SERVER_PORT}
 
-    pgadmin:
-      container_name: pgadmin_container
-      image: dpage/pgadmin4:4.18
-      restart: always
-      environment:
-        PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
-        PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
-        PGADMIN_LISTEN_PORT: ${PGADMIN_LISTEN_PORT_CONTAINER}
-      ports:
-        - "${PGADMIN_LISTEN_PORT_HOST}:${PGADMIN_LISTEN_PORT_CONTAINER}"
-      volumes:
-        - pgadmin-data:/var/lib/pgadmin
-      depends_on:
-        - postgres
-      networks:
-        - awesome
+  postgres:
+    container_name: postgres_container
+    image: postgres:latest
+    ports:
+      - '${POSTGRES_PORT}:${POSTGRES_PORT}'
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - ./tmp/pgdata:/var/lib/postgresql/data
+    networks:
+      - awesome
 
-    nginx:
-      image: nginx:1.16.0-alpine
-      volumes:
-        - ./nginx.conf:/etc/nginx/nginx.conf:ro
-      ports:
-        - "9090:90"
+  pgadmin:
+    container_name: pgadmin_container
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD}
+      PGADMIN_LISTEN_PORT: ${PGADMIN_LISTEN_PORT_CONTAINER}
+    ports:
+      - '${PGADMIN_LISTEN_PORT_HOST}:${PGADMIN_LISTEN_PORT_CONTAINER}'
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+    depends_on:
+      - postgres
+    networks:
+      - awesome
 
 volumes:
   pgadmin-data:

@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 import { observer } from 'mobx-react-lite';
-import { TBasicReactionItem } from '@pages/Forum/TopicPage/store/types';
+import { TBasicReactionItem } from '../../../../../../../Forum/TopicPage/store/types';
 import type { TReactionBlock } from './types';
 import css from './styles.module.scss';
 import { ReactionStore } from './store';

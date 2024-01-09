@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react';
 import { resolve } from 'path';
 import dotenv from 'dotenv';
 import svgr from 'vite-plugin-svgr';
-import { VitePWA } from 'vite-plugin-pwa';
+// import { VitePWA } from 'vite-plugin-pwa';
 
 dotenv.config();
 
@@ -18,13 +18,14 @@ export default defineConfig({
   plugins: [
     svgr(),
     react(),
-    VitePWA({
-      strategies: 'injectManifest',
-      srcDir: 'src',
-      filename: 'sw.js',
-      includeAssets: ['/fonts/*.ttf', '*.svg', '/**/*.png', '/**/*.svg'],
-    }),
+    //   VitePWA({
+    //     strategies: 'injectManifest',
+    //     srcDir: 'src',
+    //     filename: 'sw.js',
+    //     includeAssets: ['/fonts/*.ttf', '*.svg', '/**/*.png', '/**/*.svg'],
+    //   }),
   ],
+
   css: {
     preprocessorOptions: {
       scss: {

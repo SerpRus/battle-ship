@@ -1,6 +1,6 @@
 import type { FC } from 'react';
-import { TCommentItem } from '@pages/Forum/TopicPage/store/types';
 import { parseReadableDate } from '@shared/utils/parseReadableDate';
+import { TCommentItem } from '../../../../../../../Forum/TopicPage/store/types';
 import css from './styles.module.scss';
 import { ReactionBlock } from '../ReactionBlock';
 
