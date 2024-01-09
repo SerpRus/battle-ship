@@ -1,10 +1,10 @@
-Полезные ссылки: 
+Полезные ссылки:
+
 - Видео: https://disk.yandex.com.am/i/HL9vUy08UmJqGg
 - Figma: https://www.figma.com/file/5Ebp2VHbBOafGFvBfJ7wsi/battle-ship?node-id=0%3A1&mode=dev
 - Linear: https://linear.app/lazy-team/team/LT/active
 - Discord: https://discord.gg/JsXCJYa9
 - Pachca: https://app.pachca.com/chats/7213485
-
 
 ### Как запускать?
 
@@ -14,8 +14,8 @@
 4. 'cd ./packages/client && yarn link'
 5. 'cd ../server && yarn link client'
 6. Выполните команду `yarn dev` /n
-6a. Выполните команду `yarn dev --scope=client` чтобы запустить только клиент
-6b. Выполните команду `yarn dev --scope=server` чтобы запустить только server
+   6a. Выполните команду `yarn dev --scope=client` чтобы запустить только клиент
+   6b. Выполните команду `yarn dev --scope=server` чтобы запустить только server
 
 ### Как запускать ssr?
 
@@ -89,3 +89,7 @@
 
 Если вам понадобится только один сервис, просто уточните какой в команде
 `docker compose up {sevice_name}`, например `docker compose up server`
+
+## Опубликовать контейнер
+
+`docker tag prakticum-client:latest mkpankratov/practicum:client`
