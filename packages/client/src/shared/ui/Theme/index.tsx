@@ -48,7 +48,7 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
     <div
       style={
         {
-          'background-color': currentTheme.backgroundColor,
+          backgroundColor: currentTheme.backgroundColor,
           color: currentTheme.fontColor,
         } as React.CSSProperties
       }>

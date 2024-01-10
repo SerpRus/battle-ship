@@ -3,19 +3,19 @@ import react from '@vitejs/plugin-react';
 import * as path from 'path';
 import { resolve } from 'path';
 import svgr from 'vite-plugin-svgr';
-import { VitePWA } from 'vite-plugin-pwa';
+// import { VitePWA } from 'vite-plugin-pwa';
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     svgr(),
     react(),
-    VitePWA({
-      strategies: 'injectManifest',
-      srcDir: 'src',
-      filename: 'sw.js',
-      includeAssets: ['/fonts/*.ttf', '*.svg', '/**/*.png', '/**/*.svg'],
-    }),
+    // VitePWA({
+    //   strategies: 'injectManifest',
+    //   srcDir: 'src',
+    //   filename: 'sw.js',
+    //   includeAssets: ['/fonts/*.ttf', '*.svg', '/**/*.png', '/**/*.svg'],
+    // }),
   ],
   css: {
     preprocessorOptions: {

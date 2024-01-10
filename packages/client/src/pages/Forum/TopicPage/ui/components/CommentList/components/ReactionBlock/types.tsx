@@ -1,4 +1,4 @@
-import { TReactionItem } from '@pages/Forum/TopicPage/store/types';
+import { TReactionItem } from '../../../../../../../Forum/TopicPage/store/types';
 import type { ReactionStore } from './store';
 
 export type TReactionStore = ReactionStore;

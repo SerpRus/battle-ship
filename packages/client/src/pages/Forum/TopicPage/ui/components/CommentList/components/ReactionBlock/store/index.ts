@@ -1,6 +1,6 @@
-import type { TReactionItem } from '@pages/Forum/TopicPage/store/types';
-import { TUser } from '@pages/ProfilePage/model/types';
 import { makeAutoObservable } from 'mobx';
+import type { TReactionItem } from '../../../../../../../../Forum/TopicPage/store/types';
+import { TUser } from '../../../../../../../../ProfilePage/model/types';
 import type { TParsedReaction } from '../types';
 import { UserStore } from '../../../../../../../../ProfilePage/model/store';
 import { addParsedData } from './helpers/addParsedData';

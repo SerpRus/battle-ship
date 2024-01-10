@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Tooltip } from 'antd';
-import { TReactionItem } from '@pages/Forum/TopicPage/store/types';
 import { observer } from 'mobx-react-lite';
+import { TReactionItem } from '../../../../../../../../../Forum/TopicPage/store/types';
 import { TReactionButton } from './types';
 import css from './styles.module.scss';
 import { ReactionAvatar } from '../AvatarList';

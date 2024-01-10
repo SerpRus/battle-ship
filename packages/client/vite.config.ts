@@ -25,6 +25,7 @@ export default defineConfig({
       includeAssets: ['/fonts/*.ttf', '*.svg', '/**/*.png', '/**/*.svg'],
     }),
   ],
+
   css: {
     preprocessorOptions: {
       scss: {
